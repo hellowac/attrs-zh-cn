@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 # SPDX-License-Identifier: MIT
 
 """
@@ -28,7 +29,7 @@ def pipe(*setters):
 
 def frozen(_, __, ___):
     """
-    Prevent an attribute to be modified.
+    防止属性被修改。
 
     .. versionadded:: 20.1.0
     """
@@ -37,7 +38,7 @@ def frozen(_, __, ___):
 
 def validate(instance, attrib, new_value):
     """
-    Run *attrib*'s validator on *new_value* if it has one.
+    如果有的话， 在 *new_value* 上运行 *attrib* 的验证器。
 
     .. versionadded:: 20.1.0
     """
@@ -55,8 +56,7 @@ def validate(instance, attrib, new_value):
 
 def convert(instance, attrib, new_value):
     """
-    Run *attrib*'s converter -- if it has one -- on *new_value* and return the
-    result.
+    如果有的话，在 *new_value* 上运行 *attrib* 的转换器并返回结果。
 
     .. versionadded:: 20.1.0
     """

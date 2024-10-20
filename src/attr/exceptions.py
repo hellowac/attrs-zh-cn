@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 # SPDX-License-Identifier: MIT
 
 from __future__ import annotations
@@ -7,11 +8,9 @@ from typing import ClassVar
 
 class FrozenError(AttributeError):
     """
-    A frozen/immutable instance or attribute have been attempted to be
-    modified.
+    尝试修改一个被 冻结/不可变(frozen/immutable) 的实例或属性。
 
-    It mirrors the behavior of ``namedtuples`` by using the same error message
-    and subclassing `AttributeError`.
+    它的行为与 ``namedtuples`` 一致，使用相同的错误消息并继承自 `AttributeError`。
 
     .. versionadded:: 20.1.0
     """
@@ -22,7 +21,7 @@ class FrozenError(AttributeError):
 
 class FrozenInstanceError(FrozenError):
     """
-    A frozen instance has been attempted to be modified.
+    已尝试修改冻结(frozen)的实例。
 
     .. versionadded:: 16.1.0
     """
@@ -30,7 +29,7 @@ class FrozenInstanceError(FrozenError):
 
 class FrozenAttributeError(FrozenError):
     """
-    A frozen attribute has been attempted to be modified.
+    已尝试修改冻结(frozen)的属性。
 
     .. versionadded:: 20.1.0
     """
@@ -38,7 +37,7 @@ class FrozenAttributeError(FrozenError):
 
 class AttrsAttributeNotFoundError(ValueError):
     """
-    An *attrs* function couldn't find an attribute that the user asked for.
+    *attrs* 函数找不到用户要求的属性。
 
     .. versionadded:: 16.2.0
     """
@@ -46,7 +45,7 @@ class AttrsAttributeNotFoundError(ValueError):
 
 class NotAnAttrsClassError(ValueError):
     """
-    A non-*attrs* class has been passed into an *attrs* function.
+    一个没有 *attrs* 的类已被传递到一个需要 *attrs* 的函数。
 
     .. versionadded:: 16.2.0
     """
@@ -54,8 +53,7 @@ class NotAnAttrsClassError(ValueError):
 
 class DefaultAlreadySetError(RuntimeError):
     """
-    A default has been set when defining the field and is attempted to be reset
-    using the decorator.
+    定义字段时已设置默认值，并尝试使用装饰器重置。
 
     .. versionadded:: 17.1.0
     """
@@ -63,7 +61,7 @@ class DefaultAlreadySetError(RuntimeError):
 
 class UnannotatedAttributeError(RuntimeError):
     """
-    A class with ``auto_attribs=True`` has a field without a type annotation.
+    具有 ``auto_attribs=True`` 的类有一个没有类型注解的字段。
 
     .. versionadded:: 17.3.0
     """
@@ -71,8 +69,7 @@ class UnannotatedAttributeError(RuntimeError):
 
 class PythonTooOldError(RuntimeError):
     """
-    It was attempted to use an *attrs* feature that requires a newer Python
-    version.
+    尝试使用一个需要更高 Python 版本的 *attrs* 特性。
 
     .. versionadded:: 18.2.0
     """
@@ -80,8 +77,7 @@ class PythonTooOldError(RuntimeError):
 
 class NotCallableError(TypeError):
     """
-    A field requiring a callable has been set with a value that is not
-    callable.
+    需要可调用(callable)的字段(field)已被设置为不可调用的值。
 
     .. versionadded:: 19.2.0
     """

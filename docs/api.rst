@@ -1,37 +1,37 @@
-API Reference
+API 参考
 =============
 
 .. module:: attrs
 
-*attrs* works by decorating a class using `attrs.define` or `attr.s` and then defining attributes on the class using `attrs.field`, `attr.ib`, or type annotations.
+*attrs* 通过使用 `attrs.define` 或 `attr.s` 装饰类，然后使用 `attrs.field`、`attr.ib` 或类型注释在类上定义属性来工作。
 
-What follows is the dry API explanation for people who understand how *attrs* works.
-If you'd like a hands-on tutorial, have a look at `examples`.
+以下是供理解 *attrs* 工作原理的人员阅读的干燥 API 说明。  
+如果您想要一个实践教程，请查看 `examples`。
 
-If you're confused by the many names, please check out `names` for clarification, but the `TL;DR <https://en.wikipedia.org/wiki/TL;DR>`_ is that as of version 21.3.0, *attrs* consists of **two** top-level package names:
+如果您对许多名称感到困惑，请查看 `names` 以获得澄清，但 `TL;DR <https://en.wikipedia.org/wiki/TL;DR>`_ 是，从版本 21.3.0 开始，*attrs* 由 **两个** 顶级包名称组成：
 
-- The classic ``attr`` that powers the venerable `attr.s` and `attr.ib`.
-- The newer ``attrs`` that only contains most modern APIs and relies on `attrs.define` and `attrs.field` to define your classes.
-  Additionally, some of the APIs that also exist in ``attr`` have nicer defaults (for example, `attrs.asdict`).
+- 经典的 ``attr``，为尊贵的 `attr.s` 和 `attr.ib` 提供支持。
+- 更新的 ``attrs``，仅包含大多数现代 API，并依赖 `attrs.define` 和 `attrs.field` 来定义您的类。  
+  此外，一些在 ``attr`` 中也存在的 API 具有更好的默认值（例如，`attrs.asdict`）。
 
-The ``attrs`` namespace is built *on top of* ``attr`` -- which will *never* go away -- and is just as stable, since it doesn't constitute a rewrite.
-To keep repetition low and this document at a reasonable size, the ``attr`` namespace is `documented on a separate page <api-attr>`.
+``attrs`` 命名空间是 *在* ``attr`` 之上构建的——``attr`` 将 *永远* 存在——并且同样稳定，因为它并不构成重写。  
+为了降低重复性并使文档保持在合理的大小， ``attr`` 命名空间在 `在单独的页面上记录 <api-attr>` 上有单独的文档。
 
 
-Core
-----
+核心(Core)
+------------
 
 .. autofunction:: attrs.define
 
 .. function:: mutable(same_as_define)
 
-   Same as `attrs.define`.
+   与 `attrs.define` 相同。
 
    .. versionadded:: 20.1.0
 
 .. function:: frozen(same_as_define)
 
-   Behaves the same as `attrs.define` but sets *frozen=True* and *on_setattr=None*.
+   行为与 `attrs.define` 相同，但设置 *frozen=True* 和 *on_setattr=None* 。
 
    .. versionadded:: 20.1.0
 
@@ -40,7 +40,7 @@ Core
 .. autoclass:: Attribute
    :members: evolve
 
-   For example:
+   例如：
 
    .. doctest::
 
@@ -56,9 +56,9 @@ Core
 
 .. autofunction:: make_class
 
-   This is handy if you want to programmatically create classes.
+   如果你想以编程方式创建类，这非常方便。
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -75,7 +75,7 @@ Core
 
 .. autoclass:: Factory
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -101,8 +101,7 @@ Exceptions
 
 .. module:: attrs.exceptions
 
-All exceptions are available from both ``attr.exceptions`` and ``attrs.exceptions`` and are the same thing.
-That means that it doesn't matter from from which namespace they've been raised and/or caught:
+所有异常都可以通过 ``attr.exceptions`` 和 ``attrs.exceptions`` 获得，它们是相同的。这意味着它们被引发和/或捕获的命名空间无关紧要：
 
 .. doctest::
 
@@ -123,7 +122,7 @@ That means that it doesn't matter from from which namespace they've been raised 
 .. autoexception:: NotCallableError
 .. autoexception:: UnannotatedAttributeError
 
-   For example::
+   例如::
 
        @attr.s(auto_attribs=True)
        class C:
@@ -136,7 +135,7 @@ That means that it doesn't matter from from which namespace they've been raised 
 Helpers
 -------
 
-*attrs* comes with a bunch of helper methods that make working with it easier:
+*attrs* 提供了一些辅助方法，使得使用它更加容易：
 
 .. currentmodule:: attrs
 
@@ -144,7 +143,7 @@ Helpers
 
 .. autofunction:: attrs.fields
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -161,7 +160,7 @@ Helpers
 
 .. autofunction:: attrs.fields_dict
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -178,7 +177,7 @@ Helpers
 
 .. autofunction:: attrs.has
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -192,7 +191,7 @@ Helpers
 
 .. autofunction:: attrs.resolve_types
 
-    For example:
+    例如:
 
     .. doctest::
 
@@ -219,7 +218,7 @@ Helpers
 
 .. autofunction:: attrs.asdict
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -232,7 +231,7 @@ Helpers
 
 .. autofunction:: attrs.astuple
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -245,15 +244,15 @@ Helpers
 
 .. module:: attrs.filters
 
-*attrs* includes helpers for filtering the attributes in `attrs.asdict` and `attrs.astuple`:
+*attrs* 提供了用于过滤 `attrs.asdict` 和 `attrs.astuple` 中属性的辅助工具：
 
 .. autofunction:: include
 
 .. autofunction:: exclude
 
-See :func:`attrs.asdict` for examples.
+见 :func:`attrs.asdict` 的示例.
 
-All objects from ``attrs.filters`` are also available from ``attr.filters`` (it's the same module in a different namespace).
+来自 ``attrs.filters`` 的所有对象也可以从 ``attr.filters`` 访问（这是同一个模块在不同命名空间中的表现）。
 
 ----
 
@@ -261,7 +260,7 @@ All objects from ``attrs.filters`` are also available from ``attr.filters`` (it'
 
 .. autofunction:: attrs.evolve
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -278,16 +277,16 @@ All objects from ``attrs.filters`` are also available from ``attr.filters`` (it'
       >>> i1 == i2
       False
 
-   ``evolve`` creates a new instance using ``__init__``.
-   This fact has several implications:
+   ``evolve`` 使用 ``__init__`` 创建一个新实例。
+   这一事实有几个影响：
 
-   * private attributes should be specified without the leading underscore, just like in ``__init__``.
-   * attributes with ``init=False`` can't be set with ``evolve``.
-   * the usual ``__init__`` validators will validate the new values.
+   * 私有属性应当不带前导下划线进行指定，和 ``__init__`` 中一样。
+   * 带有 ``init=False`` 的属性不能通过 ``evolve`` 进行设置。
+   * 通常的 ``__init__`` 验证器将验证新值。
 
 .. autofunction:: attrs.validate
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -309,12 +308,12 @@ Validators
 
 .. module:: attrs.validators
 
-*attrs* comes with some common validators in the ``attrs.validators`` module.
-All objects from ``attrs.validators`` are also available from ``attr.validators`` (it's the same module in a different namespace).
+``*attrs*`` 附带了一些常用的验证器，位于 ``attrs.validators`` 模块中。
+所有来自 ``attrs.validators`` 的对象也可以通过 ``attr.validators`` 获得（这两个模块在不同的命名空间中是相同的）。
 
 .. autofunction:: attrs.validators.lt
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -330,7 +329,7 @@ All objects from ``attrs.validators`` are also available from ``attr.validators`
 
 .. autofunction:: attrs.validators.le
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -346,7 +345,7 @@ All objects from ``attrs.validators`` are also available from ``attr.validators`
 
 .. autofunction:: attrs.validators.ge
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -362,7 +361,7 @@ All objects from ``attrs.validators`` are also available from ``attr.validators`
 
 .. autofunction:: attrs.validators.gt
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -378,7 +377,7 @@ All objects from ``attrs.validators`` are also available from ``attr.validators`
 
 .. autofunction:: attrs.validators.max_len
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -394,7 +393,7 @@ All objects from ``attrs.validators`` are also available from ``attr.validators`
 
 .. autofunction:: attrs.validators.min_len
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -410,7 +409,7 @@ All objects from ``attrs.validators`` are also available from ``attr.validators`
 
 .. autofunction:: attrs.validators.instance_of
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -430,7 +429,7 @@ All objects from ``attrs.validators`` are also available from ``attr.validators`
 
 .. autofunction:: attrs.validators.in_
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -455,16 +454,16 @@ All objects from ``attrs.validators`` are also available from ``attr.validators`
 
 .. autofunction:: attrs.validators.and_
 
-   For convenience, it's also possible to pass a list to `attrs.field`'s validator argument.
+   为了方便，也可以将列表传递给 `attrs.field` 的验证器参数。
 
-   Thus the following two statements are equivalent::
+   因此，以下两个语句是等效的::
 
       x = field(validator=attrs.validators.and_(v1, v2, v3))
       x = field(validator=[v1, v2, v3])
 
 .. autofunction:: attrs.validators.or_
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -487,7 +486,7 @@ All objects from ``attrs.validators`` are also available from ``attr.validators`
 
 .. autofunction:: attrs.validators.not_
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -513,7 +512,7 @@ All objects from ``attrs.validators`` are also available from ``attr.validators`
 
 .. autofunction:: attrs.validators.optional
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -535,7 +534,7 @@ All objects from ``attrs.validators`` are also available from ``attr.validators`
 
 .. autofunction:: attrs.validators.is_callable
 
-    For example:
+    例如:
 
     .. doctest::
 
@@ -552,7 +551,7 @@ All objects from ``attrs.validators`` are also available from ``attr.validators`
 
 .. autofunction:: attrs.validators.matches_re
 
-    For example:
+    例如:
 
     .. doctest::
 
@@ -570,7 +569,7 @@ All objects from ``attrs.validators`` are also available from ``attr.validators`
 
 .. autofunction:: attrs.validators.deep_iterable
 
-    For example:
+    例如:
 
     .. doctest::
 
@@ -594,7 +593,7 @@ All objects from ``attrs.validators`` are also available from ``attr.validators`
 
 .. autofunction:: attrs.validators.deep_mapping
 
-    For example:
+    例如:
 
     .. doctest::
 
@@ -620,7 +619,7 @@ All objects from ``attrs.validators`` are also available from ``attr.validators`
             ...
         TypeError: ("'x' must be <class 'str'> (got 7 that is a <class 'int'>).", Attribute(name='x', default=NOTHING, validator=<deep_mapping validator for objects mapping <instance_of validator for type <class 'str'>> to <instance_of validator for type <class 'int'>>>, repr=True, cmp=True, hash=None, init=True, metadata=mappingproxy({}), type=None, converter=None, kw_only=False), <class 'str'>, 7)
 
-Validators can be both globally and locally disabled:
+验证器可以在全局和局部两种情况下禁用：
 
 .. autofunction:: attrs.validators.set_disabled
 
@@ -634,7 +633,7 @@ Converters
 
 .. autoclass:: attrs.Converter
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -655,20 +654,20 @@ Converters
 
 .. module:: attrs.converters
 
-All objects from ``attrs.converters`` are also available from ``attr.converters`` (it's the same module in a different namespace).
+``attrs.converters`` 中的所有对象也可以从 ``attr.converters`` 访问（这两个命名空间中的模块是相同的）。
 
 .. autofunction:: attrs.converters.pipe
 
-   For convenience, it's also possible to pass a list to `attrs.field` / `attr.ib`'s converter arguments.
+   为了方便，也可以将列表传递给 `attrs.field` / `attr.ib` 的转换器参数。
 
-   Thus the following two statements are equivalent::
+   因此，以下两个语句是等效的::
 
       x = attrs.field(converter=attrs.converter.pipe(c1, c2, c3))
       x = attrs.field(converter=[c1, c2, c3])
 
 .. autofunction:: attrs.converters.optional
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -683,7 +682,7 @@ All objects from ``attrs.converters`` are also available from ``attr.converters`
 
 .. autofunction:: attrs.converters.default_if_none
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -698,7 +697,7 @@ All objects from ``attrs.converters`` are also available from ``attr.converters`
 
 .. autofunction:: attrs.converters.to_bool(val)
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -726,8 +725,8 @@ Setters
 
 .. module:: attrs.setters
 
-These are helpers that you can use together with `attrs.define`'s and `attrs.field`'s ``on_setattr`` arguments.
-All setters in ``attrs.setters`` are also available from ``attr.setters`` (it's the same module in a different namespace).
+这些是您可以与 `attrs.define` 和 `attrs.field` 的 ``on_setattr`` 参数一起使用的助手。
+``attrs.setters`` 中的所有设置器也可以从 ``attr.setters`` 访问（它们是在不同命名空间中的相同模块）。
 
 .. autofunction:: frozen
 .. autofunction:: validate
@@ -736,13 +735,13 @@ All setters in ``attrs.setters`` are also available from ``attr.setters`` (it's 
 
 .. data:: NO_OP
 
-   Sentinel for disabling class-wide *on_setattr* hooks for certain attributes.
+   用于禁用某些属性的类级 *on_setattr* 钩子的哨兵。
 
-   Does not work in `attrs.setters.pipe` or within lists.
+   在 `attrs.setters.pipe` 或列表中无效。
 
    .. versionadded:: 20.1.0
 
-   For example, only ``x`` is frozen here:
+   例如，这里只有 ``x`` 是冻结(frozen)的：
 
    .. doctest::
 
@@ -760,4 +759,4 @@ All setters in ``attrs.setters`` are also available from ``attr.setters`` (it's 
      attrs.exceptions.FrozenAttributeError: ()
 
    .. tip::
-      Use `attrs.define`'s *frozen* argument (or `attrs.frozen`) to freeze whole classes; it is more efficient.
+      使用 `attrs.define` 的 *frozen* 参数（或 `attrs.frozen`）来冻结整个类；这样更有效。

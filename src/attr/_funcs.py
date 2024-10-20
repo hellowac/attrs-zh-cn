@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 # SPDX-License-Identifier: MIT
 
 
@@ -17,48 +18,39 @@ def asdict(
     value_serializer=None,
 ):
     """
-    Return the *attrs* attribute values of *inst* as a dict.
+    返回 *inst* 的 *attrs* 属性值作为字典。
 
-    Optionally recurse into other *attrs*-decorated classes.
+    可选择递归进入其他 *attrs* 装饰的类。
 
     Args:
-        inst: Instance of an *attrs*-decorated class.
+        inst: 一个 *attrs* 装饰类的实例。
 
-        recurse (bool): Recurse into classes that are also *attrs*-decorated.
+        recurse (bool): 递归进入也被 *attrs* 装饰的类。
 
         filter (~typing.Callable):
-            A callable whose return code determines whether an attribute or
-            element is included (`True`) or dropped (`False`).  Is called with
-            the `attrs.Attribute` as the first argument and the value as the
-            second argument.
+            一个可调用对象，其返回值决定一个属性或元素是否包含（`True`）或被丢弃（`False`）。作为第一个参数调用 `attrs.Attribute`，第二个参数为值。
 
         dict_factory (~typing.Callable):
-            A callable to produce dictionaries from.  For example, to produce
-            ordered dictionaries instead of normal Python dictionaries, pass in
-            ``collections.OrderedDict``.
+            用于生成字典的可调用对象。例如，为了生成有序字典而不是普通的 Python 字典，可以传入 ``collections.OrderedDict``。
 
         retain_collection_types (bool):
-            Do not convert to `list` when encountering an attribute whose type
-            is `tuple` or `set`.  Only meaningful if *recurse* is `True`.
+            遇到类型为 `tuple` 或 `set` 的属性时，不转换为 `list`。仅在 *recurse* 为 `True` 时有意义。
 
         value_serializer (typing.Callable | None):
-            A hook that is called for every attribute or dict key/value.  It
-            receives the current instance, field and value and must return the
-            (updated) value.  The hook is run *after* the optional *filter* has
-            been applied.
+            针对每个属性或字典键/值调用的钩子。它接收当前实例、字段和值，并必须返回（更新后的）值。该钩子在应用可选的 *filter* 后运行。
 
     Returns:
-        Return type of *dict_factory*.
+        返回类型为 *dict_factory*。
 
     Raises:
         attrs.exceptions.NotAnAttrsClassError:
-            If *cls* is not an *attrs* class.
+            如果 *cls* 不是一个 *attrs* 类。
 
     ..  versionadded:: 16.0.0 *dict_factory*
     ..  versionadded:: 16.1.0 *retain_collection_types*
     ..  versionadded:: 20.3.0 *value_serializer*
     ..  versionadded:: 21.3.0
-        If a dict has a collection for a key, it is serialized as a tuple.
+        如果字典中有一个键的集合，则将其序列化为元组。
     """
     attrs = fields(inst.__class__)
     rv = dict_factory()
@@ -212,39 +204,33 @@ def astuple(
     retain_collection_types=False,
 ):
     """
-    Return the *attrs* attribute values of *inst* as a tuple.
+    返回 *inst* 的 *attrs* 属性值作为元组。
 
-    Optionally recurse into other *attrs*-decorated classes.
+    可选择递归进入其他 *attrs* 装饰的类。
 
     Args:
-        inst: Instance of an *attrs*-decorated class.
+        inst: *attrs* 装饰类的实例。
 
         recurse (bool):
-            Recurse into classes that are also *attrs*-decorated.
+            是否递归进入同样被 *attrs* 装饰的类。
 
         filter (~typing.Callable):
-            A callable whose return code determines whether an attribute or
-            element is included (`True`) or dropped (`False`).  Is called with
-            the `attrs.Attribute` as the first argument and the value as the
-            second argument.
+            一个可调用对象，其返回值决定了属性或元素是被包含（`True`）还是被丢弃（`False`）。该函数的第一个参数为 `attrs.Attribute`，第二个参数为值。
 
         tuple_factory (~typing.Callable):
-            A callable to produce tuples from. For example, to produce lists
-            instead of tuples.
+            用于生成元组的可调用对象。例如，可以生成列表而不是元组。
 
         retain_collection_types (bool):
-            Do not convert to `list` or `dict` when encountering an attribute
-            which type is `tuple`, `dict` or `set`. Only meaningful if
-            *recurse* is `True`.
+            遇到类型为 `tuple`、`dict` 或 `set` 的属性时，不进行转换为 `list` 或 `dict`。只有在 *recurse* 为 `True` 时才有意义。
 
     Returns:
-        Return type of *tuple_factory*
+        返回 *tuple_factory* 的类型。
 
     Raises:
         attrs.exceptions.NotAnAttrsClassError:
-            If *cls* is not an *attrs* class.
+            如果 *cls* 不是一个 *attrs* 类。
 
-    ..  versionadded:: 16.2.0
+    .. versionadded:: 16.2.0
     """
     attrs = fields(inst.__class__)
     rv = []
@@ -325,13 +311,13 @@ def astuple(
 
 def has(cls):
     """
-    Check whether *cls* is a class with *attrs* attributes.
+    检查 *cls* 是否是具有 *attrs* 属性的类。
 
     Args:
-        cls (type): Class to introspect.
+        cls (type): 要检查的Class.
 
     Raises:
-        TypeError: If *cls* is not a class.
+        TypeError: 如果 *cls* 不是一个类(class).
 
     Returns:
         bool:
@@ -353,35 +339,31 @@ def has(cls):
 
 def assoc(inst, **changes):
     """
-    Copy *inst* and apply *changes*.
+    复制 *inst* 并应用 *changes*。
 
-    This is different from `evolve` that applies the changes to the arguments
-    that create the new instance.
+    这与 `evolve` 不同，后者将更改应用于创建新实例的参数。
 
-    `evolve`'s behavior is preferable, but there are `edge cases`_ where it
-    doesn't work. Therefore `assoc` is deprecated, but will not be removed.
+    `evolve` 的行为是更可取的，但存在一些 `边缘情况`_ ，在这些情况下它不起作用。因此 `assoc` 被弃用，但不会被移除。
 
-    .. _`edge cases`: https://github.com/python-attrs/attrs/issues/251
+    .. _`边缘情况`: https://github.com/python-attrs/attrs/issues/251
 
     Args:
-        inst: Instance of a class with *attrs* attributes.
+        inst: 带有 *attrs* 属性的类的实例。
 
-        changes: Keyword changes in the new copy.
+        changes: 新副本中的关键字更改。
 
     Returns:
-        A copy of inst with *changes* incorporated.
+        一个包含 *changes* 的 *inst* 的副本。
 
     Raises:
         attrs.exceptions.AttrsAttributeNotFoundError:
-            If *attr_name* couldn't be found on *cls*.
+            如果在 *cls* 上找不到 *attr_name*。
 
         attrs.exceptions.NotAnAttrsClassError:
-            If *cls* is not an *attrs* class.
+            如果 *cls* 不是一个 *attrs* 类。
 
     ..  deprecated:: 17.1.0
-        Use `attrs.evolve` instead if you can. This function will not be
-        removed du to the slightly different approach compared to
-        `attrs.evolve`, though.
+        如果可以，请改用 `attrs.evolve`。由于与 `attrs.evolve` 的略微不同的方法，这个函数不会被移除。
     """
     new = copy.copy(inst)
     attrs = fields(inst.__class__)
@@ -396,36 +378,31 @@ def assoc(inst, **changes):
 
 def evolve(*args, **changes):
     """
-    Create a new instance, based on the first positional argument with
-    *changes* applied.
+    创建一个新实例，基于第一个位置参数并应用 *更改(changes)*。
 
     Args:
 
         inst:
-            Instance of a class with *attrs* attributes. *inst* must be passed
-            as a positional argument.
+            包含 *attrs* 属性的类的实例。*inst* 必须作为位置参数传递。
 
         changes:
-            Keyword changes in the new copy.
+            新副本中的关键字更改。
 
     Returns:
-        A copy of inst with *changes* incorporated.
+        一个包含 *changes* 的 inst 的副本。
 
     Raises:
         TypeError:
-            If *attr_name* couldn't be found in the class ``__init__``.
+            如果在类的 ``__init__`` 中找不到 *attr_name*。
 
         attrs.exceptions.NotAnAttrsClassError:
-            If *cls* is not an *attrs* class.
+            如果 *cls* 不是一个 *attrs* 类。
 
     .. versionadded:: 17.1.0
     .. deprecated:: 23.1.0
-       It is now deprecated to pass the instance using the keyword argument
-       *inst*. It will raise a warning until at least April 2024, after which
-       it will become an error. Always pass the instance as a positional
-       argument.
+        现在不建议使用关键字参数 *inst* 来传递实例。直到 2024 年 4 月之前将引发警告，之后将变为错误。始终将实例作为位置参数传递。
     .. versionchanged:: 24.1.0
-       *inst* can't be passed as a keyword argument anymore.
+        *inst* 不能再作为关键字参数传递。
     """
     try:
         (inst,) = args
@@ -452,48 +429,35 @@ def resolve_types(
     cls, globalns=None, localns=None, attribs=None, include_extras=True
 ):
     """
-    Resolve any strings and forward annotations in type annotations.
+    解析类型注解中的任何字符串和前向注解(forward annotations)。
 
-    This is only required if you need concrete types in :class:`Attribute`'s
-    *type* field. In other words, you don't need to resolve your types if you
-    only use them for static type checking.
+    这仅在你需要在 :class:`Attribute` 的 *type* 字段中使用具体类型时才需要。换句话说，如果你只是用于静态类型检查，则无需解析你的类型。
 
-    With no arguments, names will be looked up in the module in which the class
-    was created. If this is not what you want, for example, if the name only
-    exists inside a method, you may pass *globalns* or *localns* to specify
-    other dictionaries in which to look up these names. See the docs of
-    `typing.get_type_hints` for more details.
+    如果没有参数，名称将会在创建类的模块中查找。如果这不是你想要的，例如，如果名称仅存在于方法内部，你可以传递 *globalns* 或 *localns* 来指定其他字典以查找这些名称。有关更多详细信息，请参见 `typing.get_type_hints` 的文档。
 
     Args:
-        cls (type): Class to resolve.
+        cls (type): 要解析的类。
 
-        globalns (dict | None): Dictionary containing global variables.
+        globalns (dict | None): 包含全局变量的字典。
 
-        localns (dict | None): Dictionary containing local variables.
+        localns (dict | None): 包含局部变量的字典。
 
         attribs (list | None):
-            List of attribs for the given class. This is necessary when calling
-            from inside a ``field_transformer`` since *cls* is not an *attrs*
-            class yet.
+            给定类的 attribs 列表。当从 ``field_transformer`` 内部调用时，这是必要的，因为 *cls* 还不是一个 *attrs* 类。
 
         include_extras (bool):
-            Resolve more accurately, if possible. Pass ``include_extras`` to
-            ``typing.get_hints``, if supported by the typing module. On
-            supported Python versions (3.9+), this resolves the types more
-            accurately.
+            如果可能，更准确地解析。如果类型模块支持，传递 ``include_extras`` 到 ``typing.get_hints`` 。在支持的 Python 版本（3.9+）上，这将更准确地解析类型。
 
     Raises:
-        TypeError: If *cls* is not a class.
+        TypeError: 如果 *cls* 不是一个类。
 
         attrs.exceptions.NotAnAttrsClassError:
-            If *cls* is not an *attrs* class and you didn't pass any attribs.
+            如果 *cls* 不是一个 *attrs* 类，并且你没有传递任何 attribs 。
 
-        NameError: If types cannot be resolved because of missing variables.
+        NameError: 如果因为缺少变量而无法解析类型。
 
     Returns:
-        *cls* so you can use this function also as a class decorator. Please
-        note that you have to apply it **after** `attrs.define`. That means the
-        decorator has to come in the line **before** `attrs.define`.
+        *cls*，这样你也可以将此函数用作类装饰器。请注意，必须在 `attrs.define` **之后** 应用它。这意味着装饰器必须在 `attrs.define` **之前** 出现。
 
     ..  versionadded:: 20.1.0
     ..  versionadded:: 21.1.0 *attribs*

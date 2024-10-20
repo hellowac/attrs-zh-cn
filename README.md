@@ -18,16 +18,15 @@
 
 <!-- teaser-begin -->
 
-*attrs* is the Python package that will bring back the **joy** of **writing classes** by relieving you from the drudgery of implementing object protocols (aka [dunder methods](https://www.attrs.org/en/latest/glossary.html#term-dunder-methods)).
-[Trusted by NASA](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/personalizing-your-profile#list-of-qualifying-repositories-for-mars-2020-helicopter-contributor-achievement) for Mars missions since 2020!
+*attrs* 是一个 Python 包，它将通过免除你实现对象协议（即 [双下方法](https://www.attrs.org/en/latest/glossary.html#term-dunder-methods)）的繁琐工作，重新带回**编写类**的**乐趣**。自 2020 年以来，它已被 [NASA 信赖](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/personalizing-your-profile#list-of-qualifying-repositories-for-mars-2020-helicopter-contributor-achievement) 并用于火星任务！
 
-Its main goal is to help you to write **concise** and **correct** software without slowing down your code.
+它的主要目标是帮助你编写**简洁**且**正确**的软件，同时不降低代码的执行效率。
 
 
-## Sponsors
+## 赞助商
 
-*attrs* would not be possible without our [amazing sponsors](https://github.com/sponsors/hynek).
-Especially those generously supporting us at the *The Organization* tier and higher:
+*attrs* 项目离不开我们 [优秀的赞助商](https://github.com/sponsors/hynek) 的支持。
+特别是那些慷慨支持我们 *The Organization* 级别及更高级别的赞助商：
 
 <!-- sponsor-break-begin -->
 
@@ -51,14 +50,14 @@ for sponsor in tomllib.loads(pathlib.Path("pyproject.toml").read_text())["tool"]
 <!-- sponsor-break-end -->
 
 <p align="center">
-   <strong>Please consider <a href="https://github.com/sponsors/hynek">joining them</a> to help make <em>attrs</em>’s maintenance more sustainable!</strong>
+   <strong>请考虑<a href="https://github.com/sponsors/hynek">加入他们</a>，帮助使 <em>attrs</em> 的维护更加可持续！</strong>
 </p>
 
 <!-- teaser-end -->
 
-## Example
+## 示例
 
-*attrs* gives you a class decorator and a way to declaratively define the attributes on that class:
+*attrs* 提供了一个类装饰器，以及一种声明式定义类属性的方式：
 
 <!-- code-begin -->
 
@@ -96,29 +95,29 @@ SomeClass(a_number=42, list_of_numbers=[])
 C(a='foo', b='bar')
 ```
 
-After *declaring* your attributes, *attrs* gives you:
+在*声明*了属性之后，*attrs* 为你提供：
 
-- a concise and explicit overview of the class's attributes,
-- a nice human-readable `__repr__`,
-- equality-checking methods,
-- an initializer,
-- and much more,
+- 简洁明了的类属性概览，
+- 人类可读的 `__repr__`，
+- 等值检查方法，
+- 初始化器，
+- 以及更多功能，
 
-*without* writing dull boilerplate code again and again and *without* runtime performance penalties.
+**不需要**重复编写无聊的样板代码，并且**不会**带来运行时性能的损失。
 
 ---
 
-This example uses *attrs*'s modern APIs that have been introduced in version 20.1.0, and the *attrs* package import name that has been added in version 21.3.0.
-The classic APIs (`@attr.s`, `attr.ib`, plus their serious-business aliases) and the `attr` package import name will remain **indefinitely**.
+这个例子使用了 *attrs* 现代 API，它在 20.1.0 版本中引入，而 *attrs* 包的导入名称则在 21.3.0 版本中加入。
+经典 API（如 `@attr.s`、`attr.ib` 以及它们的正式别名）和 `attr` 包的导入名称将**无限期**保留。
 
-Check out [*On The Core API Names*](https://www.attrs.org/en/latest/names.html) for an in-depth explanation!
+查看 [*关于核心 API 名称*](https://www.attrs.org/en/latest/names.html) 了解详细解释！
 
 
-### Hate Type Annotations!?
+### 讨厌类型注解！？
 
-No problem!
-Types are entirely **optional** with *attrs*.
-Simply assign `attrs.field()` to the attributes instead of annotating them with types:
+没问题！
+在 *attrs* 中，类型是完全**可选**的。
+你可以简单地将 `attrs.field()` 赋值给属性，而不是使用类型注解：
 
 ```python
 from attrs import define, field
@@ -129,30 +128,27 @@ class SomeClass:
     list_of_numbers = field(factory=list)
 ```
 
+## 数据类
 
-## Data Classes
+乍一看，*attrs* 可能让你联想到 `dataclasses`（事实上，`dataclasses` [确实是 *attrs* 的后代](https://hynek.me/articles/import-attrs/)）。
+但在实际应用中，*attrs* 提供了更多的功能，并且更灵活。
+例如，它允许你定义[NumPy 数组的特殊处理，以进行相等性检查](https://www.attrs.org/en/stable/comparison.html#customization)，提供了更多的方式来[接入初始化过程](https://www.attrs.org/en/stable/init.html#hooking-yourself-into-initialization)，并提供了 `__init_subclass__` 的替代方法，甚至允许你通过调试器逐步执行生成的方法。
 
-On the tin, *attrs* might remind you of `dataclasses` (and indeed, `dataclasses` [are a descendant](https://hynek.me/articles/import-attrs/) of *attrs*).
-In practice it does a lot more and is more flexible.
-For instance, it allows you to define [special handling of NumPy arrays for equality checks](https://www.attrs.org/en/stable/comparison.html#customization), allows more ways to [plug into the initialization process](https://www.attrs.org/en/stable/init.html#hooking-yourself-into-initialization), has a replacement for `__init_subclass__`, and allows for stepping through the generated methods using a debugger.
+想了解更多细节，请查看我们的[对比页面](https://www.attrs.org/en/stable/why.html#data-classes)，但一般来说，我们更有可能为了实现某些预期的功能而“打破常规”，尽管这些功能在实际操作中可能非常复杂。
 
-For more details, please refer to our [comparison page](https://www.attrs.org/en/stable/why.html#data-classes), but generally speaking, we are more likely to commit crimes against nature to make things work that one would expect to work, but that are quite complicated in practice.
+## 项目信息
 
-
-## Project Information
-
-- [**Changelog**](https://www.attrs.org/en/stable/changelog.html)
-- [**Documentation**](https://www.attrs.org/)
+- [**更新日志**](https://www.attrs.org/en/stable/changelog.html)
+- [**文档**](https://www.attrs.org/)
 - [**PyPI**](https://pypi.org/project/attrs/)
-- [**Source Code**](https://github.com/python-attrs/attrs)
-- [**Contributing**](https://github.com/python-attrs/attrs/blob/main/.github/CONTRIBUTING.md)
-- [**Third-party Extensions**](https://github.com/python-attrs/attrs/wiki/Extensions-to-attrs)
-- **Get Help**: use the `python-attrs` tag on [Stack Overflow](https://stackoverflow.com/questions/tagged/python-attrs)
+- [**源代码**](https://github.com/python-attrs/attrs)
+- [**贡献指南**](https://github.com/python-attrs/attrs/blob/main/.github/CONTRIBUTING.md)
+- [**第三方扩展**](https://github.com/python-attrs/attrs/wiki/Extensions-to-attrs)
+- **寻求帮助**：在 [Stack Overflow](https://stackoverflow.com/questions/tagged/python-attrs) 上使用 `python-attrs` 标签
 
+### 面向企业的 *attrs*
 
-### *attrs* for Enterprise
+可作为 [Tidelift 订阅服务](https://tidelift.com/?utm_source=lifter&utm_medium=referral&utm_campaign=hynek) 的一部分提供。
 
-Available as part of the [Tidelift Subscription](https://tidelift.com/?utm_source=lifter&utm_medium=referral&utm_campaign=hynek).
-
-The maintainers of *attrs* and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source packages you use to build your applications.
-Save time, reduce risk, and improve code health, while paying the maintainers of the exact packages you use.
+*attrs* 的维护者与数千个其他包的开发者正在与 Tidelift 合作，为你在构建应用程序时使用的开源包提供商业支持和维护。
+节省时间，降低风险，改善代码健康，同时为你实际使用的包的维护者提供报酬。

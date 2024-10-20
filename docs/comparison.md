@@ -1,24 +1,22 @@
-# Comparison
+# 比较(Comparison)
 
-By default, two instances of *attrs* classes are equal if they have the same type and all their fields are equal.
-For that, *attrs* writes `__eq__` and `__ne__` methods for you.
+默认情况下，两个 *attrs* 类的实例如果具有相同的类型且所有字段相等，则被视为相等。为此，*attrs* 会为您编写 `__eq__` 和 `__ne__` 方法。
 
-Additionally, if you pass `order=True`, *attrs* will also create a complete set of ordering methods: `__le__`, `__lt__`, `__ge__`, and `__gt__`.
+此外，如果您传递 `order=True`，*attrs* 还会创建一整套排序方法：`__le__`、`__lt__`、`__ge__` 和 `__gt__`。
 
-For equality, *attrs* will generate a statement comparing the types of both instances,
-and then comparing each attribute in turn using `==`.
+在进行相等性比较时，*attrs* 将生成一个语句，比较两个实例的类型，然后逐个比较每个属性，使用 `==`。
 
-For order, *attrs* will:
+在进行排序时，*attrs* 将：
 
-- Check if the types of the instances you're comparing are equal,
-- if so, create a tuple of all field values for each instance,
-- and finally perform the desired comparison operation on those tuples.
+- 检查您正在比较的实例的类型是否相等，
+- 如果相等，为每个实例创建一个包含所有字段值的元组，
+- 最后对这些元组执行所需的比较操作。
 
 (custom-comparison)=
 
-## Customization
+## 自定义(Customization)
 
-As with other features, you can exclude fields from being involved in comparison operations:
+与其他功能一样，您可以排除字段参与比较操作：
 
 ```{doctest}
 >>> from attrs import define, field
@@ -31,8 +29,7 @@ As with other features, you can exclude fields from being involved in comparison
 True
 ```
 
-Additionally you can also pass a *callable* instead of a bool to both *eq* and *order*.
-It is then used as a key function like you may know from {func}`sorted`:
+此外，您还可以向 *eq* 和 *order* 传递一个 *可调用对象* 而不是布尔值。然后，它将被用作键函数，就像您在 {func}`sorted` 中可能知道的那样：
 
 ```{doctest}
 >>> @define
@@ -50,11 +47,9 @@ True
 True
 ```
 
-This is especially useful when you have fields with objects that have atypical comparison properties.
-Common examples of such objects are [NumPy arrays](https://github.com/python-attrs/attrs/issues/435).
+当您有具有不典型比较属性的对象字段时，这尤其有用。此类对象的常见示例是 [NumPy 数组](https://github.com/python-attrs/attrs/issues/435)。
 
-To save you unnecessary boilerplate, *attrs* comes with the {func}`attrs.cmp_using` helper to create such functions.
-For NumPy arrays it would look like this:
+为了让您避免不必要的样板代码，*attrs* 提供了 {func}`attrs.cmp_using` 帮助器来创建这样的函数。对于 NumPy 数组，它看起来像这样：
 
 ```python
 import numpy
@@ -65,6 +60,5 @@ class C:
 ```
 
 :::{warning}
-Please note that *eq* and *order* are set *independently*, because *order* is `False` by default in {func}`~attrs.define` (but not in {func}`attr.s`).
-You can set both at once by using the *cmp* argument that we've undeprecated just for this use-case.
+请注意，*eq* 和 *order* 是 *独立设置* 的，因为在 {func}`~attrs.define` 中 *order* 默认为 `False`（但在 {func}`attr.s` 中不是）。您可以通过使用我们刚刚为此用例重新引入的 *cmp* 参数来同时设置两者。
 :::

@@ -1,74 +1,72 @@
-# Why not…
+# 为什么不用……
 
-If you'd like third party's account why *attrs* is great, have a look at Glyph's [*The One Python Library Everyone Needs*](https://glyph.twistedmatrix.com/2016/08/attrs.html).
-It predates type annotations and hence Data Classes, but it masterfully illustrates the appeal of class-building packages.
-
-
-## … Data Classes?
-
-{pep}`557` added Data Classes to [Python 3.7](https://docs.python.org/3.7/whatsnew/3.7.html#dataclasses) that resemble *attrs* in many ways.
-
-They are the result of the Python community's [wish](https://mail.python.org/pipermail/python-ideas/2017-May/045618.html) to have an easier way to write classes in the standard library that doesn't carry the problems of `namedtuple`s.
-To that end, *attrs* and its developers were involved in the PEP process and while we may disagree with some minor decisions that have been made, it's a fine library and if it stops you from abusing `namedtuple`s, they are a huge win.
-
-Nevertheless, there are still reasons to prefer *attrs* over Data Classes.
-Whether they're relevant to *you* depends on your circumstances:
-
-- Data Classes are *intentionally* less powerful than *attrs*.
-  There is a long list of features that were sacrificed for the sake of simplicity and while the most obvious ones are validators, converters, [equality customization](custom-comparison), a solution to the [`__init_subclass__` problem](init-subclass), or {doc}`extensibility <extending>` in general -- it permeates throughout all APIs.
-
-  On the other hand, Data Classes currently do not offer any significant feature that *attrs* doesn't already have.
-
-- We are more likely to commit crimes against nature to make things work that one would expect to work, but that are quite complicated.
-
-  This includes stepping through generated methods using a debugger, cell rewriting to make bare `super()` calls work, or making {func}`functools.cached_property` work on slotted classes.
-
-- *attrs* supports all mainstream Python versions including PyPy.
-
-- *attrs* doesn't force type annotations on you if you don't like them.
-
-- But since it **also** supports typing, it's the best way to embrace type hints *gradually*, too.
-
-- While Data Classes are implementing features from *attrs* every now and then, their presence is dependent on the Python version, not the package version.
-  For example, support for `__slots__` has only been added in Python 3.10, but it doesn’t do cell rewriting and therefore doesn’t support bare calls to `super()`.
-
-  This may or may not be fixed in later Python releases, but handling all these differences is especially painful for PyPI packages that support multiple Python versions.
-  And of course, this includes possible implementation bugs.
-
-- *attrs* can and will move faster.
-  We are not bound to any release schedules and we have a clear deprecation policy.
-
-  One of the [reasons](https://peps.python.org/pep-0557/#why-not-just-use-attrs) to not vendor *attrs* in the standard library was to not impede *attrs*'s future development.
-
-One way to think about *attrs* vs Data Classes is that *attrs* is a fully-fledged toolkit to write powerful classes while Data Classes are an easy way to get a class with some attributes.
-Basically what *attrs* was in 2015.
+如果你想了解第三方对 *attrs* 优点的看法，可以看看 Glyph 的 [*The One Python Library Everyone Needs*](https://glyph.twistedmatrix.com/2016/08/attrs.html)。
+它的出现早于类型注解和数据类，但它巧妙地说明了类构建库的吸引力。
 
 
-## … Pydantic?
+## ……数据类？
 
-Pydantic is first and foremost a *data validation & type coercion library*.
-As such, it is a capable complement to class building libraries like *attrs* (or Data Classes!) for parsing and validating untrusted data.
+{pep}`557` 在 [Python 3.7](https://docs.python.org/3.7/whatsnew/3.7.html#dataclasses) 中添加了数据类，它们在许多方面与 *attrs* 相似。
 
-However, as convenient as it might be, using it for your business or data layer [is problematic in several ways](https://threeofwands.com/why-i-use-attrs-instead-of-pydantic/):
-Is it really necessary to re-validate all your objects while reading them from a trusted database?
-Should the shape of your web API really apply design pressure on your business objects and therefore business code?
+它们是 Python 社区[希望](https://mail.python.org/pipermail/python-ideas/2017-May/045618.html)能在标准库中拥有一种比 `namedtuple` 更简单的类写法的产物。
+为此，*attrs* 及其开发者参与了 PEP 过程，虽然我们对其中一些小决定持不同意见，但它依然是一个不错的库，如果它能阻止你滥用 `namedtuple`，那无疑是一个巨大胜利。
 
-In the parlance of [*Form, Command, and Model Validation*](https://verraes.net/2015/02/form-command-model-validation/), Pydantic is the right tool for *Commands*.
+尽管如此，仍然有理由选择 *attrs* 而非数据类。它们是否与*你*相关取决于你的情况：
 
-[*Separation of concerns*](https://en.wikipedia.org/wiki/Separation_of_concerns) feels tedious at times, but it's one of those things that you get to appreciate once you've shot your own foot often enough and seen the results of allowing design pressure from the edges of your system, like ORMs or web APIs.
+- 数据类*故意*比 *attrs* 功能少。为了简化，许多功能被牺牲了，最明显的是验证器、转换器、[自定义相等性](custom-comparison)、[`__init_subclass__` 问题的解决方案](init-subclass)或 {doc}`扩展性 <extending>`等功能——这种简化贯穿了所有 API。
 
-*attrs* emphatically does **not** try to be a validation library, but a toolkit to write well-behaved classes like you would write yourself.
-If you'd like a powerful library for structuring, unstructuring, and validating data, have a look at [*cattrs*](https://catt.rs/) which is an official member of the *attrs* family.
-One of it's core tenants is that it doesn't couple your classes to external factors.
+  另一方面，数据类目前没有提供 *attrs* 已经不具备的任何重要功能。
+
+- 我们更愿意不惜代价去实现那些复杂但合理的功能。
+
+  这包括通过调试器逐步执行生成的方法、进行单元重写以使裸 `super()` 调用正常工作，或在 slotted 类上使 {func}`functools.cached_property` 正常工作。
+
+- *attrs* 支持所有主流 Python 版本，包括 PyPy。
+
+- 如果你不喜欢类型注解，*attrs* 不会强迫你使用它们。
+
+- 但因为它**也**支持类型提示，因此也是逐步接受类型提示的最佳方式。
+
+- 尽管数据类偶尔会实现一些 *attrs* 的功能，但它们的实现与 Python 版本相关，而非包的版本。
+  例如，对 `__slots__` 的支持仅在 Python 3.10 中添加，但它不进行单元重写，因此不支持裸 `super()` 调用。
+
+  这可能会在后续的 Python 版本中修复，但处理这些差异对支持多个 Python 版本的 PyPI 包尤其痛苦。
+  当然，这也包括可能存在的实现错误。
+
+- *attrs* 可以并且将会更快地发展。
+  我们不受任何发布计划的约束，并且有明确的弃用政策。
+
+  不将 *attrs* 包含在标准库中的[原因之一](https://peps.python.org/pep-0557/#why-not-just-use-attrs)是为了不妨碍 *attrs* 的未来发展。
+
+可以这样看待 *attrs* 与数据类的区别：*attrs* 是一个功能齐全的工具包，用于编写强大的类，而数据类则是获得带有一些属性的类的简便方法。
+基本上相当于 2015 年的 *attrs*。
 
 
-## … namedtuples?
+## ……Pydantic？
 
-{obj}`collections.namedtuple`s are tuples with names, not classes.[^history]
-Since writing classes is tiresome in Python, every now and then someone discovers all the typing they could save and gets really excited.
-However, that convenience comes at a price.
+Pydantic 首先是一个*数据验证与类型强制库*。
+因此，它是类构建库（如 *attrs* 或数据类）的有力补充，用于解析和验证不受信任的数据。
 
-The most obvious difference between `namedtuple`s and *attrs*-based classes is that the latter are type-sensitive:
+然而，尽管它可能很方便，但将其用于你的业务或数据层[在多个方面是有问题的](https://threeofwands.com/why-i-use-attrs-instead-of-pydantic/)：
+是否真的有必要在从受信任的数据库中读取对象时重新验证所有对象？
+你的 Web API 的结构是否应该对你的业务对象（从而是业务代码）施加设计压力？
+
+按照 [*表单、命令和模型验证*](https://verraes.net/2015/02/form-command-model-validation/)的说法，Pydantic 是适用于*命令*的正确工具。
+
+[*关注点分离*](https://en.wikipedia.org/wiki/Separation_of_concerns) 有时可能显得繁琐，但它是一种你会在犯了足够多的错误后逐渐欣赏的设计原则，尤其当你看到允许来自系统边缘（如 ORM 或 Web API）的设计压力的结果时。
+
+*attrs* 明确**不会**尝试成为一个验证库，而是一个工具包，用于编写像你自己会编写的良好行为类。
+如果你想要一个强大的库用于结构化、去结构化和验证数据，可以看看 [*cattrs*](https://catt.rs/)，它是 *attrs* 家族的正式成员。
+它的核心原则之一是它不将你的类与外部因素耦合。
+
+
+## ……namedtuple？
+
+{obj}`collections.namedtuple` 是带名字的元组，而不是类。[^history]
+由于在 Python 中编写类比较繁琐，时不时有人发现他们可以节省大量的输入操作，结果对此感到非常兴奋。
+然而，这种方便是有代价的。
+
+`namedtuple` 和基于 *attrs* 的类之间最明显的区别在于后者是类型敏感的：
 
 ```{doctest}
 >>> import attrs
@@ -82,7 +80,7 @@ True
 False
 ```
 
-…while a `namedtuple` is *intentionally* [behaving like a tuple](https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences) which means the type of a tuple is *ignored*:
+……而 `namedtuple` *故意* [表现得像个元组](https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences)，这意味着元组的类型*被忽略*：
 
 ```{doctest}
 >>> from collections import namedtuple
@@ -94,128 +92,127 @@ False
 True
 ```
 
-Other often surprising behaviors include:
+其他经常令人意外的行为包括：
 
-- Since they are a subclass of tuples, `namedtuple`s have a length and are both iterable and indexable.
-  That's not what you'd expect from a class and is likely to shadow subtle typo bugs.
+- 由于它们是元组的子类，`namedtuple` 有长度，并且既可迭代又可索引。
+  这不是你对类的期望，可能会掩盖一些微妙的拼写错误。
 
-- Iterability also implies that it's easy to accidentally unpack a `namedtuple` which leads to hard-to-find bugs.[^iter]
+- 可迭代性还意味着 `namedtuple` 容易被意外解包，这会导致难以发现的错误。[^iter]
 
-- `namedtuple`s have their methods *on your instances* whether you like it or not.[^pollution]
+- 无论你是否喜欢，`namedtuple` 的方法都会在你的实例上存在。[^pollution]
 
-- `namedtuple`s are *always* immutable.
-  Not only does that mean that you can't decide for yourself whether your instances should be immutable or not, it also means that if you want to influence your class' initialization (validation? default values?), you have to implement {meth}`__new__() <object.__new__>` which is a particularly hacky and error-prone requirement for a very common problem.[^immutable]
+- `namedtuple` 始终*不可变*。
+  这不仅意味着你不能自行决定实例是否不可变，还意味着如果你想要影响类的初始化（验证？默认值？），你必须实现 {meth}`__new__() <object.__new__>`，这是一个特别棘手且容易出错的解决方案，对于一个非常常见的问题来说尤为如此。[^immutable]
 
-- To attach methods to a `namedtuple` you have to subclass it.
-  And if you follow the standard library documentation's recommendation of:
+- 如果要为 `namedtuple` 添加方法，你必须对其进行子类化。
+  如果你按照标准库文档的建议：
 
   ```
   class Point(namedtuple('Point', ['x', 'y'])):
       # ...
   ```
 
-  you end up with a class that has *two* `Point`s in its {attr}`__mro__ <type.__mro__>`: `[<class 'point.Point'>, <class 'point.Point'>, <type 'tuple'>, <type 'object'>]`.
+  你最终会得到一个在 {attr}`__mro__ <type.__mro__>` 中包含*两个* `Point` 的类：`[<class 'point.Point'>, <class 'point.Point'>, <type 'tuple'>, <type 'object'>]`。
 
-  That's not only confusing, it also has very practical consequences:
-  for example if you create documentation that includes class hierarchies like [*Sphinx*'s autodoc](https://www.sphinx-doc.org/en/stable/usage/extensions/autodoc.html) with `show-inheritance`.
-  Again: common problem, hacky solution with confusing fallout.
+  这不仅令人困惑，还会产生非常实际的影响：
+  例如，如果你创建包含类层次结构的文档（如 [*Sphinx* 的 autodoc](https://www.sphinx-doc.org/en/stable/usage/extensions/autodoc.html) 并显示继承关系），会带来混乱。
+  再次强调：常见问题，方案笨拙且后果令人困惑。
 
-All these things make `namedtuple`s a particularly poor choice for public APIs because all your objects are irrevocably tainted.
-With *attrs* your users won't notice a difference because it creates regular, well-behaved classes.
+所有这些都使得 `namedtuple` 对公共 API 来说是一个特别糟糕的选择，因为所有的对象都不可挽回地被污染了。
+使用 *attrs*，你的用户不会注意到任何区别，因为它创建的是常规的、良好行为的类。
 
-:::{admonition} Summary
-If you want a *tuple with names*, by all means: go for a `namedtuple`.[^perf]
-But if you want a class with methods, you're doing yourself a disservice by relying on a pile of hacks that requires you to employ even more hacks as your requirements expand.
+:::{admonition} 总结
+如果你只想要一个*带名字的元组*，那么尽管使用 `namedtuple` 吧。[^perf]
+但如果你想要一个带有方法的类，依赖于一堆需要更多 hack 才能应对扩展需求的 hack 只会给自己带来麻烦。
 
-Other than that, *attrs* also adds nifty features like validators, converters, and (mutable!) default values.
+除此之外，*attrs* 还添加了一些方便的功能，如验证器、转换器和（可变的！）默认值。
 :::
 
-[^history]: The word is that `namedtuple`s were added to the Python standard library as a way to make tuples in return values more readable.
-    And indeed that is something you see throughout the standard library.
+[^history]: 据说 `namedtuple` 被添加到 Python 标准库中，是为了让返回值中的元组更加可读。
+    确实，你可以在整个标准库中看到这种使用。
 
-    Looking at what the makers of `namedtuple`s use it for themselves is a good guideline for deciding on your own use cases.
+    看看 `namedtuple` 的创造者自己是如何使用它的，这对你决定自己的使用场景是一个很好的指南。
 
-[^pollution]: *attrs* only adds a single attribute: `__attrs_attrs__` for introspection.
-    All helpers are functions in the `attr` package.
-    Since they take the instance as first argument, you can easily attach them to your classes under a name of your own choice.
+[^pollution]: *attrs* 只添加了一个属性：`__attrs_attrs__`，用于自省。
+    所有辅助函数都在 `attr` 包中。
+    由于它们以实例作为第一个参数，你可以轻松地将它们附加到自己的类中，并为其指定自己的名称。
 
-[^iter]: {func}`attrs.astuple` can be used to get that behavior in *attrs* on *explicit demand*.
+[^iter]: {func}`attrs.astuple` 可用于在 *attrs* 中*按需显式*获取此行为。
 
-[^immutable]: *attrs* offers *optional* immutability through the `frozen` keyword.
+[^immutable]: *attrs* 通过 `frozen` 关键字提供*可选*的不可变性。
 
-[^perf]: Although *attrs* would serve you just as well!
-    Since both employ the same method of writing and compiling Python code for you, the performance penalty is negligible at worst and in some cases *attrs* is even faster if you use `slots=True` (which is generally a good idea anyway).
+[^perf]: 虽然 *attrs* 也能很好地胜任！
+    由于两者都采用为你编写和编译 Python 代码的方法，性能差异在最坏的情况下是可以忽略的，在某些情况下，如果你使用 `slots=True`（这通常是个好主意），*attrs* 甚至更快。
 
 
 ## … tuples?
 
-### Readability
+### 可读性
 
-What makes more sense while debugging:
+调试时，哪个更清晰：
 
 ```
 Point(x=1, y=2)
 ```
 
-or:
+还是：
 
 ```
 (1, 2)
 ```
 
-?
+？
 
-Let's add even more ambiguity:
+让我们增加一些歧义：
 
 ```
 Customer(id=42, reseller=23, first_name="Jane", last_name="John")
 ```
 
-or:
+还是：
 
 ```
 (42, 23, "Jane", "John")
 ```
 
-?
+？
 
-Why would you want to write `customer[2]` instead of `customer.first_name`?
+为什么你要写 `customer[2]` 而不是 `customer.first_name`？
 
-Don't get me started when you add nesting.
-If you've never run into mysterious tuples you had no idea what the hell they meant while debugging, you're much smarter than yours truly.
+当你还涉及嵌套时，问题就更复杂了。
+如果你调试时从未遇到过那些让人摸不着头脑的神秘元组，那你肯定比我聪明得多。
 
-Using proper classes with names and types makes program code much more readable and [comprehensible](https://arxiv.org/pdf/1304.5257.pdf).
-Especially when trying to grok a new piece of software or returning to old code after several months.
-
-
-### Extendability
-
-Imagine you have a function that takes or returns a tuple.
-Especially if you use tuple unpacking (eg. `x, y = get_point()`), adding additional data means that you have to change the invocation of that function *everywhere*.
-
-Adding an attribute to a class concerns only those who actually care about that attribute.
+使用具有名称和类型的合适类，使程序代码更加易读且[易于理解](https://arxiv.org/pdf/1304.5257.pdf)。
+尤其是在试图理解一段新软件时，或者几个月后重新查看旧代码时。
 
 
-## … dicts?
+### 可扩展性
 
-Dictionaries are not for fixed fields.
+假设你有一个接受或返回元组的函数。
+尤其是在你使用元组解包（如 `x, y = get_point()`）的情况下，添加额外的数据意味着你必须在*所有地方*更改该函数的调用方式。
 
-If you have a dict, it maps something to something else.
-You should be able to add and remove values.
-
-*attrs* lets you be specific about those expectations; a dictionary does not.
-It gives you a named entity (the class) in your code, which lets you explain in other places whether you take a parameter of that class or return a value of that class.
-
-In other words: if your dict has a fixed and known set of keys, it is an object, not a hash.
-So if you never iterate over the keys of a dict, you should use a proper class.
+而向类中添加一个属性只会影响那些真正关心该属性的人。
 
 
-## … hand-written classes?
+## …… 字典？
 
-While we're fans of all things artisanal, writing the same nine methods again and again doesn't qualify.
-I usually manage to get some typos inside and there's simply more code that can break and thus has to be tested.
+字典不适用于固定字段。
 
-To bring it into perspective, the equivalent of
+如果你有一个字典，它应该将某物映射到其他东西。
+你应该可以随意添加或删除值。
+
+*attrs* 让你可以明确这些预期；字典则不能。
+它在代码中为你提供了一个带有名称的实体（类），这让你可以在其他地方说明你是接受该类的参数，还是返回该类的值。
+
+换句话说：如果你的字典有一个固定且已知的键集，那么它就是一个对象，而不是一个哈希表。
+因此，如果你从未遍历字典的键，那么你应该使用合适的类。
+
+
+## …… 手写类？
+
+虽然我们很喜欢手工制作的东西，但一遍又一遍地写同样的九个方法不太算在内。我通常会不小心打错字，而且有更多的代码可能会出错，因此需要测试。
+
+为了更直观地比较，相当于以下代码：
 
 ```{doctest}
 >>> @attrs.define
@@ -226,7 +223,7 @@ To bring it into perspective, the equivalent of
 SmartClass(a=1, b=2)
 ```
 
-is roughly
+手写类的大致代码如下：
 
 ```{doctest}
 >>> class ArtisanalClass:
@@ -280,12 +277,9 @@ is roughly
 ArtisanalClass(a=1, b=2)
 ```
 
-That's quite a mouthful and it doesn't even use any of *attrs*'s more advanced features like validators or default values.
-Also: no tests whatsoever.
-And who will guarantee you, that you don't accidentally flip the `<` in your tenth implementation of `__gt__`?
+这段代码相当冗长，甚至还没使用 *attrs* 的高级功能，比如验证器或默认值。此外：完全没有任何测试。而且，谁能保证你在第十次实现 `__gt__` 时不会不小心把 `<` 反转过来？
 
-It also should be noted that *attrs* is not an all-or-nothing solution.
-You can freely choose which features you want and disable those that you want more control over:
+还需要注意的是，*attrs* 并不是一个全有或全无的解决方案。你可以自由选择想要的功能，并禁用那些你希望自己控制的部分：
 
 ```{doctest}
 >>> @attrs.define
@@ -299,10 +293,10 @@ You can freely choose which features you want and disable those that you want mo
 <SmartClass(a=1)>
 ```
 
-:::{admonition} Summary
-If you don't care and like typing, we're not gonna stop you.
+:::{admonition} 总结
+如果你不介意大量的重复打字，我们不会阻止你。
 
-However it takes a lot of bias and determined rationalization to claim that *attrs* raises the mental burden on a project given how difficult it is to find the important bits in a hand-written class and how annoying it is to ensure you've copy-pasted your code correctly over all your classes.
+然而，考虑到在手写类中很难找到关键部分，并且保证在所有类中正确地复制粘贴代码是多么麻烦，声称 *attrs* 增加了项目的心智负担，需要很大的偏见和决心来合理化这一点。
 
-In any case, if you ever get sick of the repetitiveness and the drowning of important code in a sea of boilerplate, *attrs* will be waiting for you.
+无论如何，如果你有一天厌倦了重复性的工作和淹没在大量样板代码中的重要逻辑，*attrs* 将会在此等候你。
 :::

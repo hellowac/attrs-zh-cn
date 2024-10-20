@@ -1,22 +1,21 @@
-API Reference for the ``attr`` Namespace
+``attr`` 命名空间API参考
 ========================================
 
 .. note::
 
-   These are the traditional APIs whose creation predates type annotations.
-   They are **not** deprecated, but we suggest using the :mod:`attrs` namespace for new code, because they look nicer and have better defaults.
+   这些是传统的 API，其创建早于类型注解。它们 **不是** 被弃用，但我们建议在新代码中使用 :mod:`attrs` 命名空间，因为它们看起来更美观，且具有更好的默认值。
 
-   See also :doc:`names`.
+   同样参见 :doc:`names`.
 
 .. module:: attr
 
 
-Core
-----
+核心(Core)
+------------
 
 .. autofunction:: attr.s(these=None, repr_ns=None, repr=None, cmp=None, hash=None, init=None, slots=False, frozen=False, weakref_slot=True, str=False, auto_attribs=False, kw_only=False, cache_hash=False, auto_exc=False, eq=None, order=None, auto_detect=False, collect_by_mro=False, getstate_setstate=None, on_setattr=None, field_transformer=None, match_args=True, unsafe_hash=None)
 
-   For example:
+   例如:
 
    .. doctest::
 
@@ -54,9 +53,9 @@ Core
 
    .. note::
 
-      *attrs* also comes with a serious-business alias ``attr.attrib``.
+      *attrs* 还附带一个重要别名 ``attr.attrib`` 。
 
-   The object returned by `attr.ib` also allows for setting the default and the validator using decorators:
+   `attr.ib` 返回的对象还允许使用装饰器设置默认值和验证器：
 
    .. doctest::
 
@@ -80,41 +79,41 @@ Core
 
 .. function:: attrs
 
-   Serious business alias for `attr.s`.
+   `attr.s` 的严肃业务别名。
 
 .. function:: define
 
-   Same as `attrs.define`.
+   与 `attrs.define` 一样.
 
 .. function:: mutable
 
-   Same as `attrs.mutable`.
+   与 `attrs.mutable` 一样.
 
 .. function:: frozen
 
-   Same as `attrs.frozen`.
+   与 `attrs.frozen` 一样.
 
 .. function:: field
 
-   Same as `attrs.field`.
+   与 `attrs.field` 一样.
 
 .. class:: Attribute
 
-   Same as `attrs.Attribute`.
+   与 `attrs.Attribute` 一样.
 
 .. function:: make_class
 
-   Same as `attrs.make_class`.
+   与 `attrs.make_class` 一样.
 
 .. autoclass:: Factory
    :noindex:
 
-   Same as `attrs.Factory`.
+   与 `attrs.Factory` 一样.
 
 
 .. data:: NOTHING
 
-   Same as `attrs.NOTHING`.
+   与 `attrs.NOTHING` 一样.
 
 
 Exceptions
@@ -122,9 +121,9 @@ Exceptions
 
 .. module:: attr.exceptions
 
-All exceptions are available from both ``attr.exceptions`` and `attrs.exceptions` (it's the same module in a different namespace).
+所有异常都可以从 ``attr.exceptions`` 和 `attrs.exceptions` 获得（它们是不同命名空间中的相同模块）。
 
-Please refer to `attrs.exceptions` for details.
+请参阅 `attrs.exceptions` 了解详情。
 
 
 Helpers
@@ -134,23 +133,23 @@ Helpers
 
 .. function:: cmp_using
 
-   Same as `attrs.cmp_using`.
+   与 `attrs.cmp_using` 一样.
 
 .. function:: fields
 
-   Same as `attrs.fields`.
+   与 `attrs.fields` 一样.
 
 .. function:: fields_dict
 
-   Same as `attrs.fields_dict`.
+   与 `attrs.fields_dict` 一样.
 
 .. function:: has
 
-   Same as `attrs.has`.
+   与 `attrs.has` 一样.
 
 .. function:: resolve_types
 
-   Same as `attrs.resolve_types`.
+   与 `attrs.resolve_types` 一样.
 
 .. autofunction:: asdict
 .. autofunction:: astuple
@@ -159,15 +158,15 @@ Helpers
 
 .. function:: include
 
-   Same as `attrs.filters.include`.
+   与 `attrs.filters.include` 一样.
 
 .. function:: exclude
 
-   Same as `attrs.filters.exclude`.
+   与 `attrs.filters.exclude` 一样.
 
-See :func:`attrs.asdict` for examples.
+参见 :func:`attrs.asdict` 查看更多示例.
 
-All objects from `attrs.filters` are also available in ``attr.filters``.
+``attr.filters`` 中的所有对象也可在 `attrs.filters` 中使用。
 
 ----
 
@@ -175,11 +174,11 @@ All objects from `attrs.filters` are also available in ``attr.filters``.
 
 .. function:: evolve
 
-   Same as `attrs.evolve`.
+   与 `attrs.evolve` 一样.
 
 .. function:: validate
 
-   Same as `attrs.validate`.
+   与 `attrs.validate` 一样.
 
 
 Validators
@@ -187,8 +186,7 @@ Validators
 
 .. module:: attr.validators
 
-All objects from `attrs.validators` are also available in ``attr.validators``.
-Please refer to the former for details.
+所有来自 `attrs.validators` 的对象也可以在 ``attr.validators`` 中找到。详情请参阅前者。
 
 
 Converters
@@ -196,8 +194,7 @@ Converters
 
 .. module:: attr.converters
 
-All objects from `attrs.converters` are also available from ``attr.converters``.
-Please refer to the former for details.
+所有来自 `attrs.converters` 的对象也可以从 ``attr.converters`` 获得。请参阅前者了解详情。
 
 
 Setters
@@ -205,8 +202,7 @@ Setters
 
 .. module:: attr.setters
 
-All objects from `attrs.setters` are also available in ``attr.setters``.
-Please refer to the former for details.
+所有来自 `attrs.setters` 的对象也可以在 ``attr.setters`` 中使用。请参阅前者以了解详情。
 
 
 Deprecated APIs
@@ -214,12 +210,12 @@ Deprecated APIs
 
 .. currentmodule:: attr
 
-To help you write backward compatible code that doesn't throw warnings on modern releases, the ``attr`` module has an ``__version_info__`` attribute as of version 19.2.0.
-It behaves similarly to `sys.version_info` and is an instance of `attr.VersionInfo`:
+为了帮助您编写向后兼容的代码，在现代版本中不会引发警告， ``attr`` 模块自 19.2.0 版本起提供了一个 ``__version_info__`` 属性。
+它的行为类似于 `sys.version_info` ，并且是 `attr.VersionInfo` 的一个实例：
 
 .. autoclass:: VersionInfo
 
-   With its help you can write code like this:
+   在它的帮助下，您可以编写如下代码：
 
    >>> if getattr(attr, "__version_info__", (0,)) >= (19, 2):
    ...     cmp_off = {"eq": False}
@@ -236,13 +232,13 @@ It behaves similarly to `sys.version_info` and is an instance of `attr.VersionIn
 
 .. autofunction:: assoc
 
-Before *attrs* got `attrs.validators.set_disabled` and  `attrs.validators.set_disabled`, it had the following APIs to globally enable and disable validators.
-They won't be removed, but are discouraged to use:
+在 *attrs* 获得 `attrs.validators.set_disabled` 和 `attrs.validators.get_disabled` 之前，它有以下 API 用于全局启用和禁用验证器。
+这些 API 不会被移除，但不推荐使用：
 
 .. autofunction:: set_run_validators
 .. autofunction:: get_run_validators
 
 ----
 
-The serious-business aliases used to be called ``attr.attributes`` and ``attr.attr``.
-There are no plans to remove them but they shouldn't be used in new code.
+以前，严肃的别名被称为 ``attr.attributes`` 和 ``attr.attr``。
+虽然没有计划移除它们，但不应在新代码中使用。

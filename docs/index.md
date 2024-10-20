@@ -28,52 +28,43 @@ for sponsor in tomllib.loads(pathlib.Path("pyproject.toml").read_text())["tool"]
 ```
 
 
-## Getting Started
+## 入门指南
 
-*attrs* is a Python-only package [hosted on PyPI](https://pypi.org/project/attrs/).
+*attrs* 是一个仅适用于 Python 的包，[托管在 PyPI](https://pypi.org/project/attrs/) 上。
 
-The following steps will get you up and running in no time:
+以下步骤将帮助你快速上手：
 
-- {doc}`overview` will show you a simple example of *attrs* in action and introduce you to its philosophy.
-  Afterwards, you can start writing your own classes and understand what drives *attrs*'s design.
-- {doc}`examples` will give you a comprehensive tour of *attrs*'s features.
-  After reading, you will know about our advanced features and how to use them.
-- {doc}`why` gives you a rundown of potential alternatives and why we think *attrs* is still worthwhile -- depending on *your* needs even superior.
-- If at any point you get confused by some terminology, please check out our {doc}`glossary`.
+- {doc}`overview` 将展示一个简单的 *attrs* 示例，并介绍它的设计理念。之后，你可以开始编写自己的类，理解 *attrs* 的设计驱动。
+- {doc}`examples` 将带你全面了解 *attrs* 的功能。阅读后，你将掌握高级功能并知道如何使用它们。
+- {doc}`why` 会介绍一些可能的替代方案，以及为什么我们认为 *attrs* 仍然值得使用——甚至在某些情况下，依你的需求可能是更好的选择。
+- 如果你在任何时候对某些术语感到困惑，请查阅我们的 {doc}`glossary`。
 
-If you need any help while getting started, feel free to use the `python-attrs` tag on [Stack Overflow](https://stackoverflow.com/questions/tagged/python-attrs) and someone will surely help you out!
+如果在入门时需要帮助，欢迎在 [Stack Overflow](https://stackoverflow.com/questions/tagged/python-attrs) 上使用 `python-attrs` 标签寻求帮助，定会有人为你解答！
 
+## 日常使用
 
-## Day-to-Day Usage
-
-- {doc}`types` help you to write *correct* and *self-documenting* code.
-  *attrs* has first class support for them, yet keeps them optional if you’re not convinced!
-- Instance initialization is one of *attrs* key feature areas.
-  Our goal is to relieve you from writing as much code as possible.
-  {doc}`init` gives you an overview what *attrs* has to offer and explains some related philosophies we believe in.
-- Comparing and ordering objects is a common task.
-  {doc}`comparison` shows you how *attrs* helps you with that and how you can customize it.
-- If you want to put objects into sets or use them as keys in dictionaries, they have to be hashable.
-  The simplest way to do that is to use frozen classes, but the topic is more complex than it seems and {doc}`hashing` will give you a primer on what to look out for.
-- Once you're comfortable with the concepts, our {doc}`api` contains all information you need to use *attrs* to its fullest.
-- *attrs* is built for extension from the ground up.
-  {doc}`extending` will show you the affordances it offers and how to make it a building block of your own projects.
-- Finally, if you're confused by all the `attr.s`, `attr.ib`, `attrs`, `attrib`, `define`, `frozen`, and `field`, head over to {doc}`names` for a very short explanation, and optionally a quick history lesson.
+- {doc}`types` 帮助你编写*正确*且*自文档化*的代码。*attrs* 对类型提供了一流的支持，但如果你不需要，也可以完全不使用它们！
+- 实例初始化是 *attrs* 的关键功能之一。我们的目标是尽可能减少你需要编写的代码。{doc}`init` 提供了 *attrs* 所能提供的功能概述，并解释了我们所信奉的一些相关理念。
+- 比较和排序对象是常见任务。{doc}`comparison` 展示了 *attrs* 如何帮助你实现这些任务，以及如何对其进行自定义。
+- 如果你想将对象放入集合或作为字典的键，它们必须是可哈希的。最简单的方法是使用冻结类，但这个话题比看起来要复杂得多，{doc}`hashing` 会为你提供一些基本提示，让你知道需要注意什么。
+- 一旦你熟悉了这些概念，我们的 {doc}`api` 包含了使用 *attrs* 的全部信息，帮助你充分利用它。
+- *attrs* 从设计之初就为了扩展性而构建。{doc}`extending` 将向你展示它的扩展功能，以及如何将它作为你自己项目的构建模块。
+- 最后，如果你对 `attr.s`、`attr.ib`、`attrs`、`attrib`、`define`、`frozen` 和 `field` 感到困惑，请前往 {doc}`names` 进行简短的解释，或者选择性地了解一下它们的历史。
 
 
-## *attrs* for Enterprise
+## 面向企业的 *attrs*
 
 ```{include} ../README.md
-:start-after: '### *attrs* for Enterprise'
+:start-after: '### 面向企业的 *attrs*'
 ```
 
 ---
 
-## Full Table of Contents
+## 完整目录
 
 ```{toctree}
 :maxdepth: 2
-:caption: Getting Started
+:caption: 入门
 
 overview
 why
@@ -82,7 +73,7 @@ examples
 
 ```{toctree}
 :maxdepth: 2
-:caption: Explanations
+:caption: 解释说明
 
 types
 init
@@ -92,7 +83,7 @@ hashing
 
 ```{toctree}
 :maxdepth: 2
-:caption: Reference
+:caption: 参考
 
 api
 api-attr
@@ -100,7 +91,7 @@ glossary
 ```
 ```{toctree}
 :maxdepth: 2
-:caption: Advanced
+:caption: 高级用法
 
 extending
 how-does-it-work
@@ -115,9 +106,9 @@ license
 changelog
 PyPI <https://pypi.org/project/attrs/>
 GitHub <https://github.com/python-attrs/attrs>
-Third-party Extensions <https://github.com/python-attrs/attrs/wiki/Extensions-to-attrs>
-Contributing <https://github.com/python-attrs/attrs/blob/main/.github/CONTRIBUTING.md>
-Funding <https://hynek.me/say-thanks/>
+第三方扩展 <https://github.com/python-attrs/attrs/wiki/Extensions-to-attrs>
+贡献 <https://github.com/python-attrs/attrs/blob/main/.github/CONTRIBUTING.md>
+基金 <https://hynek.me/say-thanks/>
 ```
 
 [Full Index](genindex)

@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 # SPDX-License-Identifier: MIT
 
 """
@@ -45,297 +46,181 @@ def define(
     match_args=True,
 ):
     r"""
-    A class decorator that adds :term:`dunder methods` according to
-    :term:`fields <field>` specified using :doc:`type annotations <types>`,
-    `field()` calls, or the *these* argument.
+    一个类装饰器, 它根据使用 :doc:`类型注释 <types>` 、`field()` 调用或 *these* 参数指定的 :term:`fields(字段) <field>` , 添加 :term:`双下划线方法 <dunder methods>` 。
 
-    Since *attrs* patches or replaces an existing class, you cannot use
-    `object.__init_subclass__` with *attrs* classes, because it runs too early.
-    As a replacement, you can define ``__attrs_init_subclass__`` on your class.
-    It will be called by *attrs* classes that subclass it after they're
-    created. See also :ref:`init-subclass`.
+    由于 *attrs* 会对现有类进行修补或替换, 因此您无法在 *attrs* 类中使用 `object.__init_subclass__` , 因为它运行得太早。作为替代, 您可以在类上定义 ``__attrs_init_subclass__`` 。此方法将在 *attrs* 类创建后调用该子类。另请参见 :ref:`init-subclass` 。
 
     Args:
         slots (bool):
-            Create a :term:`slotted class <slotted classes>` that's more
-            memory-efficient. Slotted classes are generally superior to the
-            default dict classes, but have some gotchas you should know about,
-            so we encourage you to read the :term:`glossary entry <slotted
-            classes>`.
+            创建一个更节省内存的 :term:`slotted class <slotted classes>` 。slotted 类通常优于默认的 dict 类, 但有一些您需要了解的注意事项, 因此我们建议您阅读 :term:`glossary entry <slotted classes>`。
 
         auto_detect (bool):
-            Instead of setting the *init*, *repr*, *eq*, and *hash* arguments
-            explicitly, assume they are set to True **unless any** of the
-            involved methods for one of the arguments is implemented in the
-            *current* class (meaning, it is *not* inherited from some base
-            class).
+            不必显式设置 *init*、*repr*、*eq* 和 *hash* 参数, 假定它们被设置为 True **除非** 其中一个参数的相关方法在 *当前* 类中实现(意味着它并不是从某个基类继承的)。
 
-            So, for example by implementing ``__eq__`` on a class yourself,
-            *attrs* will deduce ``eq=False`` and will create *neither*
-            ``__eq__`` *nor* ``__ne__`` (but Python classes come with a
-            sensible ``__ne__`` by default, so it *should* be enough to only
-            implement ``__eq__`` in most cases).
+            例如, 通过自己在类上实现 ``__eq__`` ,  *attrs* 将推断出 ``eq=False`` , 并且将不会创建 *neither* ``__eq__`` *nor* ``__ne__`` (但是 Python 类默认有一个合理的 ``__ne__``, 因此在大多数情况下仅实现 ``__eq__`` 应该足够)。
 
-            Passing True or False` to *init*, *repr*, *eq*, or *hash*
-            overrides whatever *auto_detect* would determine.
+            将 True 或 False 传递给 *init*、*repr*、*eq* 或 *hash* 将覆盖 *auto_detect* 的任何判断。
 
         auto_exc (bool):
-            If the class subclasses `BaseException` (which implicitly includes
-            any subclass of any exception), the following happens to behave
-            like a well-behaved Python exception class:
+            如果类继承自 `BaseException` (隐含包括任何异常的子类), 则会表现得像一个行为良好的 Python 异常类：
 
-            - the values for *eq*, *order*, and *hash* are ignored and the
-              instances compare and hash by the instance's ids [#]_ ,
-            - all attributes that are either passed into ``__init__`` or have a
-              default value are additionally available as a tuple in the
-              ``args`` attribute,
-            - the value of *str* is ignored leaving ``__str__`` to base
-              classes.
+            - *eq*、*order* 和 *hash* 的值将被忽略, 实例将根据实例的 ID 进行比较和哈希 [#]_, 
+            - 所有传递给 ``__init__`` 或具有默认值的属性将额外作为元组在 ``args`` 属性中可用, 
+            - *str* 的值将被忽略, ``__str__`` 将交给基类处理。
 
             .. [#]
-               Note that *attrs* will *not* remove existing implementations of
-               ``__hash__`` or the equality methods. It just won't add own
-               ones.
+                请注意, *attrs* 不会移除现有的 ``__hash__`` 或相等方法的实现。它只是不添加自己的实现。
 
         on_setattr (~typing.Callable | list[~typing.Callable] | None | ~typing.Literal[attrs.setters.NO_OP]):
-            A callable that is run whenever the user attempts to set an
-            attribute (either by assignment like ``i.x = 42`` or by using
-            `setattr` like ``setattr(i, "x", 42)``). It receives the same
-            arguments as validators: the instance, the attribute that is being
-            modified, and the new value.
+            一个可调用对象, 在用户尝试设置属性(无论是通过赋值如 ``i.x = 42`` 还是使用 `setattr` 如 ``setattr(i, "x", 42)``)时运行。它接收与验证器相同的参数：实例、正在修改的属性和新值。
 
-            If no exception is raised, the attribute is set to the return value
-            of the callable.
+            如果没有引发异常, 该属性将被设置为可调用对象的返回值。
 
-            If a list of callables is passed, they're automatically wrapped in
-            an `attrs.setters.pipe`.
+            如果传递了一个可调用对象的列表, 它们会自动包装在 `attrs.setters.pipe` 中。
 
-            If left None, the default behavior is to run converters and
-            validators whenever an attribute is set.
+            如果保持为 None, 默认行为是在设置属性时运行转换器和验证器。
 
         init (bool):
-            Create a ``__init__`` method that initializes the *attrs*
-            attributes. Leading underscores are stripped for the argument name,
-            unless an alias is set on the attribute.
+            创建一个 ``__init__`` 方法, 用于初始化 *attrs* 属性。参数名的前导下划线会被去掉, 除非在属性上设置了别名。
 
             .. seealso::
-                `init` shows advanced ways to customize the generated
-                ``__init__`` method, including executing code before and after.
+                `init` 显示了自定义生成的 ``__init__`` 方法的高级方法, 包括在前后执行代码。
 
-        repr(bool):
-            Create a ``__repr__`` method with a human readable representation
-            of *attrs* attributes.
+        repr (bool):
+            创建一个 ``__repr__`` 方法, 用于生成 *attrs* 属性的可读表示。
 
         str (bool):
-            Create a ``__str__`` method that is identical to ``__repr__``. This
-            is usually not necessary except for `Exception`\ s.
+            创建一个与 ``__repr__`` 相同的 ``__str__`` 方法。除非是 `Exception`, 通常不需要这样做。
 
         eq (bool | None):
-            If True or None (default), add ``__eq__`` and ``__ne__`` methods
-            that check two instances for equality.
+            如果为 True 或 None(默认), 则添加 ``__eq__`` 和 ``__ne__`` 方法, 用于检查两个实例是否相等。
 
             .. seealso::
-                `comparison` describes how to customize the comparison behavior
-                going as far comparing NumPy arrays.
+                `comparison` 描述了如何自定义比较行为, 甚至可以比较 NumPy 数组。
 
         order (bool | None):
-            If True, add ``__lt__``, ``__le__``, ``__gt__``, and ``__ge__``
-            methods that behave like *eq* above and allow instances to be
-            ordered.
+            如果为 True, 添加 ``__lt__``、``__le__``、``__gt__`` 和 ``__ge__`` 方法, 这些方法的行为与上面的 *eq* 一样, 并允许实例进行排序。
 
-            They compare the instances as if they were tuples of their *attrs*
-            attributes if and only if the types of both classes are
-            *identical*.
+            仅当两个类的类型完全相同时, 实例才会像它们的 *attrs* 属性元组一样进行比较。
 
-            If `None` mirror value of *eq*.
+            如果为 `None`, 则镜像 *eq* 的值。
 
             .. seealso:: `comparison`
 
         unsafe_hash (bool | None):
-            If None (default), the ``__hash__`` method is generated according
-            how *eq* and *frozen* are set.
+            如果为 None(默认), 则根据 *eq* 和 *frozen* 的设置生成 ``__hash__`` 方法。
 
-            1. If *both* are True, *attrs* will generate a ``__hash__`` for
-               you.
-            2. If *eq* is True and *frozen* is False, ``__hash__`` will be set
-               to None, marking it unhashable (which it is).
-            3. If *eq* is False, ``__hash__`` will be left untouched meaning
-               the ``__hash__`` method of the base class will be used. If the
-               base class is `object`, this means it will fall back to id-based
-               hashing.
+            1. 如果 *两者* 为 True, *attrs* 将为您生成一个 ``__hash__``。
+            2. 如果 *eq* 为 True 且 *frozen* 为 False, ``__hash__`` 将被设置为 None, 标记为不可哈希(确实如此)。
+            3. 如果 *eq* 为 False, ``__hash__`` 将保持不变, 意味着将使用基类的 ``__hash__`` 方法。如果基类是 `object`, 这意味着将回退到基于 ID 的哈希。
 
-            Although not recommended, you can decide for yourself and force
-            *attrs* to create one (for example, if the class is immutable even
-            though you didn't freeze it programmatically) by passing True or
-            not.  Both of these cases are rather special and should be used
-            carefully.
+            虽然不推荐, 您可以自行决定并强制 *attrs* 创建一个(例如, 如果类是不可变的, 即使您没有以编程方式冻结它)通过传递 True 或不传递。这两种情况都比较特殊, 应谨慎使用。
 
             .. seealso::
-
-                - Our documentation on `hashing`,
-                - Python's documentation on `object.__hash__`,
-                - and the `GitHub issue that led to the default \ behavior
-                  <https://github.com/python-attrs/attrs/issues/136>`_ for more
-                  details.
+                - 我们关于 `hashing` 的文档, 
+                - Python 关于 `object.__hash__` 的文档, 
+                - 以及 `导致默认行为的 GitHub issue <https://github.com/python-attrs/attrs/issues/136>`_ 的更多细节。
 
         hash (bool | None):
-            Deprecated alias for *unsafe_hash*. *unsafe_hash* takes precedence.
+            *unsafe_hash* 的弃用别名。*unsafe_hash* 优先。
 
         cache_hash (bool):
-            Ensure that the object's hash code is computed only once and stored
-            on the object.  If this is set to True, hashing must be either
-            explicitly or implicitly enabled for this class.  If the hash code
-            is cached, avoid any reassignments of fields involved in hash code
-            computation or mutations of the objects those fields point to after
-            object creation.  If such changes occur, the behavior of the
-            object's hash code is undefined.
+            确保对象的哈希码只计算一次并存储在对象上。如果设置为 True, 哈希必须显式或隐式启用。如果哈希码被缓存, 请避免在对象创建后对哈希码计算涉及的字段进行任何重新赋值或对这些字段指向的对象进行任何变更。如果发生这种变化, 对象的哈希码行为是未定义的。
 
         frozen (bool):
-            Make instances immutable after initialization.  If someone attempts
-            to modify a frozen instance, `attrs.exceptions.FrozenInstanceError`
-            is raised.
+            使实例在初始化后不可变。如果有人试图修改一个冻结的实例, 将引发 `attrs.exceptions.FrozenInstanceError`。
 
             .. note::
+                1. 这是通过在您的类上安装一个自定义的 ``__setattr__`` 方法实现的, 因此您无法实现自己的方法。
 
-                1. This is achieved by installing a custom ``__setattr__``
-                   method on your class, so you can't implement your own.
+                2. 在 Python 中, 真正的不可变性是不可能的。
 
-                2. True immutability is impossible in Python.
+                3. 这 *确实* 对初始化新实例有轻微的运行时性能 `影响 <how-frozen>`。换句话说：使用 ``frozen=True`` 时, ``__init__`` 会稍微慢一些。
 
-                3. This *does* have a minor a runtime performance `impact
-                   <how-frozen>` when initializing new instances.  In other
-                   words: ``__init__`` is slightly slower with ``frozen=True``.
+                4. 如果一个类被冻结, 您不能在 ``__attrs_post_init__`` 或自定义的 ``__init__`` 中修改 ``self``。您可以通过使用
+                    ``object.__setattr__(self, "attribute_name", value)`` 来规避该限制。
 
-                4. If a class is frozen, you cannot modify ``self`` in
-                   ``__attrs_post_init__`` or a self-written ``__init__``. You
-                   can circumvent that limitation by using
-                   ``object.__setattr__(self, "attribute_name", value)``.
-
-                5. Subclasses of a frozen class are frozen too.
+                5. 冻结类的子类也会被冻结。
 
         kw_only (bool):
-            Make all attributes keyword-only in the generated ``__init__`` (if
-            *init* is False, this parameter is ignored).
+            使生成的 ``__init__`` 中所有属性仅限关键字参数(如果 *init* 为 False, 此参数将被忽略)。
 
         weakref_slot (bool):
-            Make instances weak-referenceable.  This has no effect unless
-            *slots* is True.
+            使实例可被弱引用。这在 *slots* 为 True 的情况下有效。
 
         field_transformer (~typing.Callable | None):
-            A function that is called with the original class object and all
-            fields right before *attrs* finalizes the class.  You can use this,
-            for example, to automatically add converters or validators to
-            fields based on their types.
+            一个函数, 在 *attrs* 最终确定类之前, 使用原始类对象和所有字段调用。您可以使用此功能, 例如, 自动根据字段的类型为字段添加转换器或验证器。
 
             .. seealso:: `transform-fields`
 
         match_args (bool):
-            If True (default), set ``__match_args__`` on the class to support
-            :pep:`634` (*Structural Pattern Matching*). It is a tuple of all
-            non-keyword-only ``__init__`` parameter names on Python 3.10 and
-            later. Ignored on older Python versions.
+            如果为 True(默认), 则在类上设置 ``__match_args__`` 以支持 :pep:`634` (*结构模式匹配*)。它是一个元组, 包含所有非关键字参数的 ``__init__`` 参数名, 仅在 Python 3.10 及更高版本中可用。在较旧的 Python 版本中被忽略。
 
         collect_by_mro (bool):
-            If True, *attrs* collects attributes from base classes correctly
-            according to the `method resolution order
-            <https://docs.python.org/3/howto/mro.html>`_. If False, *attrs*
-            will mimic the (wrong) behavior of `dataclasses` and :pep:`681`.
+            如果为 True, *attrs* 将根据 `方法解析顺序
+            <https://docs.python.org/3/howto/mro.html>`_ 正确收集基类的属性。如果为 False, *attrs* 将模仿(错误的) `dataclasses` 和 :pep:`681` 的行为。
 
-            See also `issue #428
-            <https://github.com/python-attrs/attrs/issues/428>`_.
+            另请参见 `issue #428
+            <https://github.com/python-attrs/attrs/issues/428>`_。
 
         getstate_setstate (bool | None):
             .. note::
+                这通常仅对 slotted 类有趣, 您可能只需将 *auto_detect* 设置为 True。
 
-                This is usually only interesting for slotted classes and you
-                should probably just set *auto_detect* to True.
+            如果为 True, 将生成 ``__getstate__`` 和 ``__setstate__`` 并附加到类上。这对于 slotted 类能够被 pickle 是必要的。如果为 None, 则 slotted 类默认为 True, 而 dict 类为 False。
 
-            If True, ``__getstate__`` and ``__setstate__`` are generated and
-            attached to the class. This is necessary for slotted classes to be
-            pickleable. If left None, it's True by default for slotted classes
-            and False for dict classes.
-
-            If *auto_detect* is True, and *getstate_setstate* is left None, and
-            **either** ``__getstate__`` or ``__setstate__`` is detected
-            directly on the class (meaning: not inherited), it is set to False
-            (this is usually what you want).
+            如果 *auto_detect* 为 True, 且 *getstate_setstate* 为 None, 且 **任一** ``__getstate__`` 或 ``__setstate__`` 直接在类上被检测到(意味着：不是继承的), 则它将被设置为 False(这通常是您想要的)。
 
         auto_attribs (bool | None):
-            If True, look at type annotations to determine which attributes to
-            use, like `dataclasses`. If False, it will only look for explicit
-            :func:`field` class attributes, like classic *attrs*.
+            如果为 True, 查看类型注解以确定使用哪些属性, 类似于 `dataclasses`。如果为 False, 则仅查找显式的 :func:`field` 类属性, 类似于经典的 *attrs*。
 
-            If left None, it will guess:
+            如果为 None, 将进行推测：
 
-            1. If any attributes are annotated and no unannotated
-               `attrs.field`\ s are found, it assumes *auto_attribs=True*.
-            2. Otherwise it assumes *auto_attribs=False* and tries to collect
-               `attrs.field`\ s.
+            1. 如果有任何属性被注解且未找到未注解的 `attrs.field`, 则假设 *auto_attribs=True*。
+            2. 否则, 假设 *auto_attribs=False* 并尝试收集 `attrs.field`。
 
-            If *attrs* decides to look at type annotations, **all** fields
-            **must** be annotated. If *attrs* encounters a field that is set to
-            a :func:`field` / `attr.ib` but lacks a type annotation, an
-            `attrs.exceptions.UnannotatedAttributeError` is raised.  Use
-            ``field_name: typing.Any = field(...)`` if you don't want to set a
-            type.
+            如果 *attrs* 决定查看类型注解, **所有** 字段 **必须** 被注解。如果 *attrs* 遇到一个设置为 :func:`field` / `attr.ib` 但缺少类型注解的字段, 将引发 `attrs.exceptions.UnannotatedAttributeError`。如果您不想设置类型, 请使用 ``field_name: typing.Any = field(...)``。
 
             .. warning::
+                对于使用属性名称创建装饰器的功能(例如, :ref:`validators <validators>`), 您仍然 *必须* 将 :func:`field` / `attr.ib` 分配给它们。否则, Python 将无法找到名称或尝试使用默认值调用, 例如 ``validator``。
 
-                For features that use the attribute name to create decorators
-                (for example, :ref:`validators <validators>`), you still *must*
-                assign :func:`field` / `attr.ib` to them. Otherwise Python will
-                either not find the name or try to use the default value to
-                call, for example, ``validator`` on it.
-
-            Attributes annotated as `typing.ClassVar`, and attributes that are
-            neither annotated nor set to an `field()` are **ignored**.
+            被标注为 `typing.ClassVar` 的属性, 以及既没有被注解又没有设置为 `field()` 的属性将被 **忽略**。
 
         these (dict[str, object]):
-            A dictionary of name to the (private) return value of `field()`
-            mappings. This is useful to avoid the definition of your attributes
-            within the class body because you can't (for example, if you want
-            to add ``__repr__`` methods to Django models) or don't want to.
+            一个名称到 `field()` 返回值(私有)映射的字典。这对于避免在类体内定义您的属性很有用, 因为您不能(例如, 如果您想向 Django 模型添加 ``__repr__`` 方法)或不想这样做。
 
-            If *these* is not `None`, *attrs* will *not* search the class body
-            for attributes and will *not* remove any attributes from it.
+            如果 *these* 不为 `None`, *attrs* 将 *不* 在类体中搜索属性, 并且将 *不* 从中删除任何属性。
 
-            The order is deduced from the order of the attributes inside
-            *these*.
+            顺序由 *these* 中属性的顺序推导得出。
 
-            Arguably, this is a rather obscure feature.
+            可以说, 这是一个相当晦涩的功能。
 
-    .. versionadded:: 20.1.0
-    .. versionchanged:: 21.3.0 Converters are also run ``on_setattr``.
-    .. versionadded:: 22.2.0
-       *unsafe_hash* as an alias for *hash* (for :pep:`681` compliance).
-    .. versionchanged:: 24.1.0
-       Instances are not compared as tuples of attributes anymore, but using a
-       big ``and`` condition. This is faster and has more correct behavior for
-       uncomparable values like `math.nan`.
-    .. versionadded:: 24.1.0
-       If a class has an *inherited* classmethod called
-       ``__attrs_init_subclass__``, it is executed after the class is created.
-    .. deprecated:: 24.1.0 *hash* is deprecated in favor of *unsafe_hash*.
+    .. versionadded:: 20.1.0  
+    .. versionchanged:: 21.3.0 转换器也在 ``on_setattr`` 上运行。  
+    .. versionadded:: 22.2.0  
+        *unsafe_hash* 作为 *hash* 的别名(为了兼容 :pep:`681`)。  
+    .. versionchanged:: 24.1.0  
+        实例不再作为属性元组进行比较, 而是使用一个大的 ``and`` 条件。这更快, 并且对于无法比较的值(如 `math.nan`)具有更正确的行为。  
+    .. versionadded:: 24.1.0  
+        如果一个类有一个 *继承的* 类方法 ``__attrs_init_subclass__``, 它将在类创建后执行。  
+    .. deprecated:: 24.1.0 *hash* 已被弃用, 取而代之的是 *unsafe_hash*。
 
     .. note::
 
-        The main differences to the classic `attr.s` are:
+        与经典的 `attr.s` 的主要区别如下：
 
-        - Automatically detect whether or not *auto_attribs* should be `True`
-          (c.f. *auto_attribs* parameter).
-        - Converters and validators run when attributes are set by default --
-          if *frozen* is `False`.
+        - 自动检测 *auto_attribs* 是否应为 `True`
+            (参见 *auto_attribs* 参数)。
+        - 当属性被设置时, 转换器和验证器默认运行 --
+            如果 *frozen* 为 `False`。
         - *slots=True*
 
-          Usually, this has only upsides and few visible effects in everyday
-          programming. But it *can* lead to some surprising behaviors, so
-          please make sure to read :term:`slotted classes`.
+            通常, 这只有好处, 并且在日常编程中几乎没有可见效果。但它 *可能* 导致一些意外行为, 因此请确保阅读 :term:`slotted classes`。
 
-        - *auto_exc=True*
-        - *auto_detect=True*
-        - *order=False*
-        - Some options that were only relevant on Python 2 or were kept around
-          for backwards-compatibility have been removed.
+        - *auto_exc=True*  
+        - *auto_detect=True*  
+        - *order=False*  
+        - 一些仅在 Python 2 中相关或为向后兼容而保留的选项已被删除。
 
     """
 
@@ -367,9 +252,9 @@ def define(
 
     def wrap(cls):
         """
-        Making this a wrapper ensures this code runs during class creation.
+        将其作为包装器可以确保此代码在类创建期间运行。
 
-        We also ensure that frozen-ness of classes is inherited.
+        我们还确保类的冻结状态(frozen-ness)是可继承的。
         """
         nonlocal frozen, on_setattr
 
@@ -428,147 +313,97 @@ def field(
     alias=None,
 ):
     """
-    Create a new :term:`field` / :term:`attribute` on a class.
+    创建一个新的 :term:`field` / :term:`attribute` 在类上。
 
-    ..  warning::
+    .. warning::
 
-        Does **nothing** unless the class is also decorated with
-        `attrs.define` (or similar)!
+        除非该类也使用 `attrs.define` (或类似的)进行装饰, 否则 **无任何作用** !
 
     Args:
         default:
-            A value that is used if an *attrs*-generated ``__init__`` is used
-            and no value is passed while instantiating or the attribute is
-            excluded using ``init=False``.
+            如果使用 *attrs* 生成的 ``__init__`` 方法且在实例化时未传递值, 或者使用 ``init=False`` 排除了该属性, 则使用此值。
 
-            If the value is an instance of `attrs.Factory`, its callable will
-            be used to construct a new value (useful for mutable data types
-            like lists or dicts).
+            如果该值是 `attrs.Factory` 的实例, 则会使用其可调用对象构造新值(对于可变数据类型, 如列表或字典, 非常有用)。
 
-            If a default is not set (or set manually to `attrs.NOTHING`), a
-            value *must* be supplied when instantiating; otherwise a
-            `TypeError` will be raised.
+            如果未设置默认值(或手动设置为 `attrs.NOTHING` ), 则在实例化时必须提供一个值;否则会引发 `TypeError` 。
 
             .. seealso:: `defaults`
 
         factory (~typing.Callable):
-            Syntactic sugar for ``default=attr.Factory(factory)``.
+            ``default=attr.Factory(factory)`` 的语法糖。
 
         validator (~typing.Callable | list[~typing.Callable]):
-            Callable that is called by *attrs*-generated ``__init__`` methods
-            after the instance has been initialized.  They receive the
-            initialized instance, the :func:`~attrs.Attribute`, and the passed
-            value.
+            可调用对象, 在 *attrs* 生成的 ``__init__`` 方法调用后被调用。它们接收已初始化的实例、:func:`~attrs.Attribute` 和传入的值。
 
-            The return value is *not* inspected so the validator has to throw
-            an exception itself.
+            返回值不会被检查, 因此验证器必须自己抛出异常。
 
-            If a `list` is passed, its items are treated as validators and must
-            all pass.
+            如果传入一个 `list` , 其项将被视为验证器, 且必须全部通过。
 
-            Validators can be globally disabled and re-enabled using
-            `attrs.validators.get_disabled` / `attrs.validators.set_disabled`.
+            可以使用 `attrs.validators.get_disabled` / `attrs.validators.set_disabled` 全局禁用和重新启用验证器。
 
-            The validator can also be set using decorator notation as shown
-            below.
+            验证器也可以使用装饰器语法设置, 如下所示。
 
             .. seealso:: :ref:`validators`
 
         repr (bool | ~typing.Callable):
-            Include this attribute in the generated ``__repr__`` method. If
-            True, include the attribute; if False, omit it. By default, the
-            built-in ``repr()`` function is used. To override how the attribute
-            value is formatted, pass a ``callable`` that takes a single value
-            and returns a string. Note that the resulting string is used as-is,
-            which means it will be used directly *instead* of calling
-            ``repr()`` (the default).
+            在生成的 ``__repr__`` 方法中包含此属性。如果为 True, 则包含该属性;如果为 False, 则省略它。默认情况下, 使用内置的 ``repr()`` 函数。要覆盖属性值的格式, 可以传递一个可调用对象, 该对象接受一个值并返回一个字符串。请注意, 结果字符串将原样使用, 这意味着它将直接用于替代调用 ``repr()``(默认)。
 
         eq (bool | ~typing.Callable):
-            If True (default), include this attribute in the generated
-            ``__eq__`` and ``__ne__`` methods that check two instances for
-            equality. To override how the attribute value is compared, pass a
-            callable that takes a single value and returns the value to be
-            compared.
+            如果为 True(默认), 则在生成的 ``__eq__`` 和 ``__ne__`` 方法中包含此属性, 以检查两个实例的相等性。要覆盖属性值的比较方式, 可以传递一个可调用对象, 该对象接受一个值并返回要比较的值。
 
             .. seealso:: `comparison`
 
         order (bool | ~typing.Callable):
-            If True (default), include this attributes in the generated
-            ``__lt__``, ``__le__``, ``__gt__`` and ``__ge__`` methods. To
-            override how the attribute value is ordered, pass a callable that
-            takes a single value and returns the value to be ordered.
+            如果为 True(默认), 则在生成的 ``__lt__``、``__le__``、``__gt__`` 和 ``__ge__`` 方法中包含此属性。要覆盖属性值的排序方式, 可以传递一个可调用对象, 该对象接受一个值并返回要排序的值。
 
             .. seealso:: `comparison`
 
         hash (bool | None):
-            Include this attribute in the generated ``__hash__`` method.  If
-            None (default), mirror *eq*'s value.  This is the correct behavior
-            according the Python spec.  Setting this value to anything else
-            than None is *discouraged*.
+            在生成的 ``__hash__`` 方法中包含此属性。如果为 None(默认), 则反映 *eq* 的值。这是根据 Python 规范的正确行为。将此值设置为其他任何值都*不推荐*。
 
             .. seealso:: `hashing`
 
         init (bool):
-            Include this attribute in the generated ``__init__`` method.
+            在生成的 ``__init__`` 方法中包含此属性。
 
-            It is possible to set this to False and set a default value. In
-            that case this attributed is unconditionally initialized with the
-            specified default value or factory.
+            可以将其设置为 False, 并设置默认值。在这种情况下, 此属性将无条件地使用指定的默认值或工厂进行初始化。
 
             .. seealso:: `init`
 
         converter (typing.Callable | Converter):
-            A callable that is called by *attrs*-generated ``__init__`` methods
-            to convert attribute's value to the desired format.
+            一个可调用对象, 由 *attrs* 生成的 ``__init__`` 方法调用, 以将属性值转换为所需的格式。
 
-            If a vanilla callable is passed, it is given the passed-in value as
-            the only positional argument. It is possible to receive additional
-            arguments by wrapping the callable in a `Converter`.
+            如果传递的是普通的可调用对象, 它将作为唯一的位置参数传递传入的值。通过将可调用对象包装在 `Converter` 中, 可以接收额外的参数。
 
-            Either way, the returned value will be used as the new value of the
-            attribute.  The value is converted before being passed to the
-            validator, if any.
+            无论哪种方式, 返回的值将用作属性的新值。在传递给验证器之前(如果有的话)将进行值的转换。
 
             .. seealso:: :ref:`converters`
 
         metadata (dict | None):
-            An arbitrary mapping, to be used by third-party code.
+            一个任意映射, 用于第三方代码。
 
-            .. seealso:: `extending-metadata`.
+            .. seealso:: `extending-metadata`。
 
         type (type):
-            The type of the attribute. Nowadays, the preferred method to
-            specify the type is using a variable annotation (see :pep:`526`).
-            This argument is provided for backwards-compatibility and for usage
-            with `make_class`. Regardless of the approach used, the type will
-            be stored on ``Attribute.type``.
+            属性的类型。现在, 指定类型的首选方法是使用变量注释(见 :pep:`526`)。此参数是为了向后兼容和与 `make_class` 一起使用。无论使用何种方法, 类型将存储在 ``Attribute.type`` 中。
 
-            Please note that *attrs* doesn't do anything with this metadata by
-            itself. You can use it as part of your own code or for `static type
-            checking <types>`.
+            请注意, *attrs* 本身并不会对该元数据执行任何操作。您可以将其作为自己代码的一部分或用于 `静态类型检查 <types>`。
 
         kw_only (bool):
-            Make this attribute keyword-only in the generated ``__init__`` (if
-            ``init`` is False, this parameter is ignored).
+            在生成的 ``__init__`` 中将此属性设置为仅通过关键字传递(如果 ``init`` 为 False, 则此参数被忽略)。
 
         on_setattr (~typing.Callable | list[~typing.Callable] | None | ~typing.Literal[attrs.setters.NO_OP]):
-            Allows to overwrite the *on_setattr* setting from `attr.s`. If left
-            None, the *on_setattr* value from `attr.s` is used. Set to
-            `attrs.setters.NO_OP` to run **no** `setattr` hooks for this
-            attribute -- regardless of the setting in `define()`.
+            允许覆盖来自 `attr.s` 的 *on_setattr* 设置。如果留空为 None, 将使用来自 `attr.s` 的 *on_setattr* 值。设置为 `attrs.setters.NO_OP` 可对该属性**不**运行任何 `setattr` 钩子——无论 `define()` 中的设置如何。
 
         alias (str | None):
-            Override this attribute's parameter name in the generated
-            ``__init__`` method. If left None, default to ``name`` stripped
-            of leading underscores. See `private-attributes`.
+            在生成的 ``__init__`` 方法中覆盖此属性的参数名称。如果留空为 None, 则默认为 ``name``, 去掉前导下划线。请参见 `private-attributes`。
 
     .. versionadded:: 20.1.0
     .. versionchanged:: 21.1.0
-       *eq*, *order*, and *cmp* also accept a custom callable
+       *eq*, *order*, 和 *cmp* 同样接受自定义的 callable
     .. versionadded:: 22.2.0 *alias*
     .. versionadded:: 23.1.0
-       The *type* parameter has been re-added; mostly for `attrs.make_class`.
-       Please note that type checkers ignore this metadata.
+       *type* 参数已重新添加;主要是为了 `attrs.make_class` 。请注意, 类型检查器会忽略这些元数据。
 
     .. seealso::
 
@@ -597,6 +432,8 @@ def asdict(inst, *, recurse=True, filter=None, value_serializer=None):
     Same as `attr.asdict`, except that collections types are always retained
     and dict is always used as *dict_factory*.
 
+    与 `attr.asdict` 相同, 但集合类型始终被保留, 并且字典(dict)始终使用 *dict_factory*。
+
     .. versionadded:: 21.3.0
     """
     return _asdict(
@@ -610,8 +447,7 @@ def asdict(inst, *, recurse=True, filter=None, value_serializer=None):
 
 def astuple(inst, *, recurse=True, filter=None):
     """
-    Same as `attr.astuple`, except that collections types are always retained
-    and `tuple` is always used as the *tuple_factory*.
+    与 `attr.asdict` 相同, 但集合类型始终被保留, 并且元素(`tuple`)始终使用 *tuple_factory*。
 
     .. versionadded:: 21.3.0
     """

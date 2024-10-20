@@ -1,14 +1,14 @@
-# Changelog
+# 变更历史(Changelog)
 
-Versions follow [Calendar Versioning](https://calver.org) with a strict backwards-compatibility policy.
+版本遵循 [Calendar Versioning](https://calver.org) 以及严格的向后兼容性政策。
 
-The **first number** of the version is the year.
-The **second number** is incremented with each release, starting at 1 for each year.
-The **third number** is when we need to start branches for older releases (only for emergencies).
+**版本的第一位数字** 是年份。
+**第二位数字** 随每次发布递增，从每年的 1 开始。
+**第三位数字** 是我们需要开始为旧版本分支时的编号（仅用于紧急情况）。
 
-You can find our backwards-compatibility policy [here](https://github.com/python-attrs/attrs/blob/main/.github/SECURITY.md).
+您可以在 [这里](https://github.com/python-attrs/attrs/blob/main/.github/SECURITY.md) 找到我们的向后兼容性政策。
 
-Changes for the upcoming release can be found in the [`changelog.d` directory](https://github.com/python-attrs/attrs/tree/main/changelog.d) in our repository.
+即将发布的版本的变更可以在我们的仓库中的 [`changelog.d` 目录](https://github.com/python-attrs/attrs/tree/main/changelog.d) 中找到。
 
 <!-- towncrier release notes start -->
 

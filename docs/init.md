@@ -1,11 +1,11 @@
-# Initialization
+# 初始化(Initialization)
 
-In Python, instance initialization happens in the `__init__` method.
-Generally speaking, you should keep as little logic as possible in it, and you should think about what the class needs and not how it is going to be instantiated.
+在 Python 中，实例初始化发生在 `__init__` 方法中。
+一般来说，您应该尽量保持其逻辑简单，并应考虑类所需的内容，而不是如何实例化它。
 
-Passing complex objects into `__init__` and then using them to derive data for the class unnecessarily couples your new class with the old class which makes it harder to test and also will cause problems later.
+将复杂对象传递给 `__init__` 并使用它们派生类的数据，不必要地将您的新类与旧类耦合，这使得测试变得更加困难，并且会导致后续问题。
 
-So assuming you use an ORM and want to extract 2D points from a row object, do not write code like this:
+因此，假设您使用 ORM 并想从行对象中提取 2D 点，请不要写这样的代码：
 
 ```python
 class Point:
@@ -16,7 +16,7 @@ class Point:
 pt = Point(row)
 ```
 
-Instead, write a {obj}`classmethod` that will extract it for you:
+相反，请编写一个 {obj}`classmethod` 来提取它：
 
 ```python
 @define
@@ -31,46 +31,46 @@ class Point:
 pt = Point.from_row(row)
 ```
 
-This is sometimes called a *named constructor* or a *factory method*.
+这有时被称为 *命名构造函数* 或 *工厂方法*。
 
-Now, you can instantiate `Point`s without creating fake row objects in your tests.
-You can also have as many smart creation helpers as you want.
-This flexibility is useful because additional data sources tend to appear over time.
+现在，您可以实例化 `Point`，而无需在测试中创建虚假的行对象。
+您还可以有尽可能多的智能创建辅助函数。
+这种灵活性非常有用，因为额外的数据源往往会随着时间而出现。
 
 ---
 
-For similar reasons, we strongly discourage from patterns like:
+出于类似的原因，我们强烈不建议使用以下模式：
 
 ```python
 pt = Point(**row.attributes)
 ```
 
-which couples your classes to the database data model.
-Try to design your classes in a way that is clean and convenient to use -- not based on your database format.
-The database format can change anytime and you're stuck with a bad class design that is hard to change.
-Embrace functions and classmethods as a filter between reality and what's best for you to work with.
+这将您的类与数据库数据模型耦合。
+尝试以干净且方便的方式设计类，而不是基于数据库格式。
+数据库格式可以随时更改，而您却被迫使用难以更改的糟糕类设计。
+将函数和类方法作为现实与您工作所需的最佳形式之间的过滤器。
 
-:::{important}
-While *attrs*'s initialization concepts (including the following sections about validators and converters) are powerful, they are **not** intended to replace a fully-featured serialization or validation system.
+:::{重要}
+虽然 *attrs* 的初始化概念（包括后续关于验证器和转换器的部分）非常强大，但它们 **并不** 旨在替代功能齐全的序列化或验证系统。
 
-We want to help you to write a `__init__` that you'd write by hand, but with less boilerplate.
+我们希望帮助您编写一个您愿意手动编写的 `__init__`，但可以减少样板代码。
 
-If you look for powerful-yet-unintrusive serialization and validation for your *attrs* classes, have a look at our sibling project [*cattrs*](https://catt.rs/) or our [third-party extensions](https://github.com/python-attrs/attrs/wiki/Extensions-to-attrs).
+如果您在寻找强大而不具侵入性的序列化和验证功能以供您的 *attrs* 类使用，请查看我们的姐妹项目 [*cattrs*](https://catt.rs/) 或我们的 [第三方扩展](https://github.com/python-attrs/attrs/wiki/Extensions-to-attrs)。
 
-This separation of creating classes and serializing them is a conscious design decision.
-We don't think that your business model and your serialization format should be coupled.
+这种创建类与序列化的分离是一个有意识的设计决策。
+我们认为您的业务模型和序列化格式不应耦合。
 :::
 
 (private-attributes)=
 
-## Private Attributes and Aliases
+## 私有属性和别名(Private Attributes and Aliases)
 
-One thing people tend to find confusing is the treatment of private attributes that start with an underscore.
-Although there is [a convention](https://docs.python.org/3/tutorial/classes.html#tut-private) that members of an object that start with an underscore should be treated as private, consider that a core feature of *attrs* is to automatically create an `__init__` method whose arguments correspond to the members.
-There is no corresponding convention for private arguments: the entire signature of a function is its public interface to be used by callers.
+人们往往对以一个下划线开头的私有属性的处理感到困惑。
+尽管存在 [一个约定](https://docs.python.org/3/tutorial/classes.html#tut-private)，即以下划线开头的对象成员应该被视为私有，但考虑到 *attrs* 的一个核心特性是自动创建一个 `__init__` 方法，其参数对应于成员。
+对于私有参数没有相应的约定：函数的整个签名是其供调用者使用的公共接口。
 
-However, it is sometimes useful to accept a public argument when an object is constructed, but treat that attribute as private after the object is created, perhaps to maintain some invariant.
-As a convenience for this use case, the default behavior of *attrs* is that if you specify a member that starts with an underscore, it will strip the underscore from the name when it creates the `__init__` method signature:
+然而，有时在构造对象时接受一个公共参数是有用的，但在对象创建后将该属性视为私有，可能是为了维护某些不变性。
+作为该用例的便利，*attrs* 的默认行为是，如果您指定一个以下划线开头的成员，它将在创建 `__init__` 方法签名时去掉下划线：
 
 ```{doctest}
 >>> import inspect
@@ -82,7 +82,7 @@ As a convenience for this use case, the default behavior of *attrs* is that if y
 <Signature (self, fd: int) -> None>
 ```
 
-Even if you're not using this feature, it's important to be aware of it because it can lead to surprising syntax errors:
+即使您不使用此功能，了解它也是很重要的，因为它可能导致意外的语法错误：
 
 ```{doctest}
 >>> @define
@@ -93,11 +93,11 @@ Traceback (most recent call last):
 SyntaxError: invalid syntax
 ```
 
-In this case a valid attribute name `_1` got transformed into an invalid argument name `1`.
+在这种情况下，一个有效的属性名 `_1` 被转变为一个无效的参数名 `1`。
 
-Whether this feature is useful to you is a matter of taste.
-If your taste differs, you can use the *alias* argument to {func}`attrs.field` to explicitly set the argument name.
-This can be used to override private attribute handling, or make other arbitrary changes to `__init__` argument names.
+这个功能是否对您有用是个人口味的问题。
+如果您的口味不同，可以使用 *alias* 参数来 {func}`attrs.field` 明确设置参数名。
+这可以用于覆盖私有属性的处理，或对 `__init__` 参数名进行其他任意更改。
 
 ```{doctest}
 >>> from attrs import field
@@ -112,12 +112,12 @@ This can be used to override private attribute handling, or make other arbitrary
 
 (defaults)=
 
-## Defaults
+## 默认值(Defaults)
 
-Sometimes you don't want to pass all attribute values to a class.
-And sometimes, certain attributes aren't even intended to be passed but you want to allow for customization anyways for easier testing.
+有时您不想将所有属性值传递给类。
+有时，某些属性甚至不打算传递，但您希望允许自定义以便于测试。
 
-This is when default values come into play:
+这时默认值就派上用场了：
 
 ```{doctest}
 >>> from attrs import Factory
@@ -125,7 +125,7 @@ This is when default values come into play:
 ... class C:
 ...     a: int = 42
 ...     b: list = field(factory=list)
-...     c: list = Factory(list)  # syntactic sugar for above
+...     c: list = Factory(list)  # 上面的语法糖
 ...     d: dict = field()
 ...     @d.default
 ...     def _any_name_except_a_name_of_an_attribute(self):
@@ -134,9 +134,9 @@ This is when default values come into play:
 C(a=42, b=[], c=[], d={})
 ```
 
-It's important that the decorated method -- or any other method or property! -- doesn't have the same name as the attribute, otherwise it would overwrite the attribute definition.
+重要的是，被装饰的方法（或任何其他方法或属性！）不能与属性同名，否则将覆盖属性定义。
 
-Similar to the [common gotcha with mutable default arguments](https://docs.python-guide.org/writing/gotchas/#mutable-default-arguments), `default=[]` will *not* do what you may think it might do:
+类似于[常见的可变默认参数问题](https://docs.python-guide.org/writing/gotchas/#mutable-default-arguments)，`default=[]`将*不会*执行您可能认为的那样：
 
 ```{doctest}
 >>> @define
@@ -149,38 +149,36 @@ Similar to the [common gotcha with mutable default arguments](https://docs.pytho
 [42]
 ```
 
-This is why *attrs* comes with factory options.
+这就是*attrs* 提供工厂选项的原因。
 
 :::{warning}
-Please note that the decorator based defaults have one gotcha:
-they are executed when the attribute is set, that means depending on the order of attributes, the `self` object may not be fully initialized when they're called.
+请注意，基于装饰器的默认值有一个陷阱：
+它们在属性被设置时执行，这意味着根据属性的顺序，在调用时，`self` 对象可能尚未完全初始化。
 
-Therefore you should use `self` as little as possible.
+因此，您应该尽量少使用 `self`。
 
-Even the smartest of us can [get confused](https://github.com/python-attrs/attrs/issues/289) by what happens if you pass partially initialized objects around.
+即使是我们中最聪明的人也可能会[感到困惑](https://github.com/python-attrs/attrs/issues/289)，如果您传递的是部分初始化的对象，会发生什么。 
 :::
 
 (validators)=
 
-## Validators
+## 验证器(Validators)
 
-Another thing that definitely *does* belong in `__init__` is checking the resulting instance for invariants.
-This is why *attrs* has the concept of validators.
+另一个绝对应该在 `__init__` 中完成的事情是检查结果实例是否符合不变性。这就是 *attrs* 引入验证器概念的原因。
 
+### 装饰器(Decorator)
 
-### Decorator
+最简单的方法是使用属性的 `validator` 方法作为装饰器。
 
-The most straightforward way is using the attribute's `validator` method as a decorator.
+该方法必须接受三个参数：
 
-The method has to accept three arguments:
+1. 被验证的 *实例*（即 `self`），
+2. 正在验证的 *属性*，以及最后
+3. 传递给它的 *值*。
 
-1. the *instance* that's being validated (aka `self`),
-2. the *attribute* that it's validating, and finally
-3. the *value* that is passed for it.
+这些值作为 *位置参数* 传递，因此它们的名称无关紧要。
 
-These values are passed as *positional arguments*, therefore their names don't matter.
-
-If the value does not pass the validator's standards, it just raises an appropriate exception.
+如果值未通过验证器的标准，它将引发适当的异常。
 
 ```{doctest}
 >>> @define
@@ -198,17 +196,16 @@ Traceback (most recent call last):
 ValueError: x must be smaller or equal to 42
 ```
 
-Again, it's important that the decorated method doesn't have the same name as the attribute and that the {func}`attrs.field` helper is used.
+同样，重要的是被装饰的方法不能与属性同名，并且必须使用 {func}`attrs.field` 辅助函数。
 
 
-### Callables
+### 可调用对象(Callables)
 
-If you want to reuse your validators, you should have a look at the `validator` argument to {func}`attrs.field`.
+如果你想重用你的验证器，你应该查看 {func}`attrs.field` 的 `validator` 参数。
 
-It takes either a callable or a list of callables (usually functions) and treats them as validators that receive the same arguments as with the decorator approach.
-Also as with the decorator approach, they are passed as *positional arguments* so you can name them however you want.
+它接受一个可调用对象或一个可调用对象列表（通常是函数），并将它们视为接收与装饰器方法相同参数的验证器。同样，与装饰器方法一样，它们作为 *位置参数* 传递，因此你可以随意命名它们。
 
-Since the validators run *after* the instance is initialized, you can refer to other attributes while validating:
+由于验证器在实例初始化 *之后* 运行，你可以在验证时引用其他属性：
 
 ```{doctest}
 >>> import attrs
@@ -228,12 +225,12 @@ Traceback (most recent call last):
 ValueError: 'x' has to be smaller than 'y'!
 ```
 
-This example demonstrates a convenience shortcut:
-Passing a list of validators directly is equivalent to passing them wrapped in the {obj}`attrs.validators.and_` validator and all validators must pass.
+这个示例演示了一种便利的快捷方式：
+直接传递验证器列表等同于将它们包裹在 {obj}`attrs.validators.and_` 验证器中，并且所有验证器必须都通过。
 
-*attrs* won't intercept your changes to those attributes but you can always call {func}`attrs.validate` on any instance to verify that it's still valid:
+*attrs* 不会拦截你对这些属性的更改，但你可以随时在任何实例上调用 {func}`attrs.validate` 来验证它是否仍然有效：
 
-When using {func}`attrs.define` or [`attrs.frozen`](attrs.frozen), however, *attrs* will run the validators even when setting the attribute.
+然而，当使用 {func}`attrs.define` 或 [`attrs.frozen`](attrs.frozen) 时，*attrs* 将在设置属性时运行验证器。
 
 ```{doctest}
 >>> i = C(4, 5)
@@ -243,7 +240,7 @@ Traceback (most recent call last):
 ValueError: 'x' has to be smaller than 'y'!
 ```
 
-*attrs* ships with a bunch of validators, make sure to [check them out]( api-validators) before writing your own:
+*attrs* 随附了一些验证器，请确保在编写自己的验证器之前 [查看它们]( api-validators)：
 
 ```{doctest}
 >>> @define
@@ -257,8 +254,8 @@ Traceback (most recent call last):
 TypeError: ("'x' must be <type 'int'> (got '42' that is a <type 'str'>).", Attribute(name='x', default=NOTHING, factory=NOTHING, validator=<instance_of validator for type <type 'int'>>, type=None), <type 'int'>, '42')
 ```
 
-Of course you can mix and match the two approaches at your convenience.
-If you use both ways to define validators for an attribute, they are both ran:
+当然，你可以根据需要混合和匹配这两种方法。
+如果你为一个属性使用两种方式定义验证器，它们都会被运行：
 
 ```{doctest}
 >>> @define
@@ -280,7 +277,7 @@ Traceback (most recent call last):
 ValueError: value out of bounds
 ```
 
-Finally, validators can be globally disabled:
+最后，验证器可以被全局禁用：
 
 ```{doctest}
 >>> attrs.validators.set_disabled(True)
@@ -293,7 +290,7 @@ Traceback (most recent call last):
 TypeError: ("'x' must be <class 'int'> (got '128' that is a <class 'str'>).", Attribute(name='x', default=NOTHING, validator=[<instance_of validator for type <class 'int'>>, <function fits_byte at 0x10fd7a0d0>], repr=True, cmp=True, hash=True, init=True, metadata=mappingproxy({}), type=None, converter=None), <class 'int'>, '128')
 ```
 
-... or within a context manager:
+... 或者在上下文管理器内：
 
 ```{doctest}
 >>> with attrs.validators.disabled():
@@ -307,12 +304,11 @@ TypeError: ("'x' must be <class 'int'> (got '128' that is a <class 'str'>).", At
 
 (converters)=
 
-## Converters
+## 转换器(Converters)
 
-Sometimes, it is necessary to normalize the values coming in, therefore *attrs* comes with converters.
+有时，有必要规范化传入的值，因此 *attrs* 提供了转换器。
 
-Attributes can have a `converter` function specified, which will be called with the attribute's passed-in value to get a new value to use.
-This can be useful for doing type-conversions on values that you don't want to force your callers to do.
+属性可以指定一个 `converter` 函数，该函数将在属性传入的值上被调用，以获取要使用的新值。这对于对值进行类型转换非常有用，而你不想强迫调用者去执行这些转换。
 
 ```{doctest}
 >>> @define
@@ -326,7 +322,7 @@ This can be useful for doing type-conversions on values that you don't want to f
 2
 ```
 
-Converters are run *before* validators, so you can use validators to check the final form of the value.
+转换器在 *验证器* 之前运行，因此你可以使用验证器来检查值的最终形式。
 
 ```{doctest}
 >>> def validate_x(instance, attribute, value):
@@ -344,7 +340,7 @@ Traceback (most recent call last):
 ValueError: x must be at least 0.
 ```
 
-Arguably, you can abuse converters as one-argument validators:
+可以说，你可以将转换器滥用为单参数验证器：
 
 ```{doctest}
 >>> C("x")
@@ -353,8 +349,7 @@ Traceback (most recent call last):
 ValueError: invalid literal for int() with base 10: 'x'
 ```
 
-If a converter's first argument has a type annotation, that type will appear in the signature for `__init__`.
-A converter will override an explicit type annotation or `type` argument.
+如果转换器的第一个参数有类型注解，则该类型将在 `__init__` 的签名中出现。转换器会覆盖显式的类型注解或 `type` 参数。
 
 ```{doctest}
 >>> def str2int(x: str) -> int:
@@ -366,7 +361,7 @@ A converter will override an explicit type annotation or `type` argument.
 {'return': None, 'x': <class 'str'>}
 ```
 
-If you need more control over the conversion process, you can wrap the converter with a {class}`attrs.Converter` and ask for the instance and/or the field that are being initialized:
+如果你需要更多控制权来处理转换过程，可以用 {class}`attrs.Converter` 包装转换器，并要求提供正在初始化的实例和/或字段：
 
 ```{doctest}
 >>> def complicated(value, self_, field):
@@ -384,28 +379,22 @@ If you need more control over the conversion process, you can wrap the converter
 C(x=410)
 ```
 
+## 将自己挂钩到初始化中(Hooking Yourself Into Initialization)
 
-## Hooking Yourself Into Initialization
+一般来说，当你意识到需要比 *attrs* 提供的更精细的控制来实例化类时，通常最好使用 {obj}`classmethod` 工厂或应用 [建造者模式](https://en.wikipedia.org/wiki/Builder_pattern)。
 
-Generally speaking, the moment you realize the need of finer control – than what *attrs* offers – over how a class is instantiated, it's usually best to use a {obj}`classmethod` factory or to apply the [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern).
+但是，有时你需要在类初始化之前或之后做某件快速的事情。为此，*attrs* 提供了以下选项：
 
-However, sometimes you need to do that one quick thing before or after your class is initialized.
-For that purpose, *attrs* offers the following options:
+- `__attrs_pre_init__` 会被自动检测并在 *attrs* 开始初始化之前运行。如果 `__attrs_pre_init__` 接受多个参数，*attrs* 生成的 `__init__` 将用它自身接收到的相同参数调用它。如果你需要注入对 `super().__init__()` 的调用（无论是否带参数），这非常有用。
 
-- `__attrs_pre_init__` is automatically detected and run *before* *attrs* starts initializing.
-  If `__attrs_pre_init__` takes more than the `self` argument, the *attrs*-generated `__init__` will call it with the same arguments it received itself.
-  This is useful if you need to inject a call to `super().__init__()` -- with or without arguments.
+- `__attrs_post_init__` 会被自动检测并在 *attrs* 完成实例初始化后运行。如果你想从其他属性中派生某个属性或对整个实例进行某种验证，这非常有用。
 
-- `__attrs_post_init__` is automatically detected and run *after* *attrs* is done initializing your instance.
-  This is useful if you want to derive some attribute from others or perform some kind of validation over the whole instance.
-
-- `__attrs_init__` is written and attached to your class *instead* of `__init__`, if *attrs* is told to not write one (when `init=False` or a by a combination of `auto_detect=True` and a custom `__init__`).
-  This is useful if you want full control over the initialization process, but don't want to set the attributes by hand.
+- `__attrs_init__` 是在 `__init__` 之 *前* 被写入并附加到你的类上的，如果 *attrs* 被告知不写一个（当 `init=False` 或通过 `auto_detect=True` 和自定义 `__init__` 的组合时）。如果你想完全控制初始化过程，但又不想手动设置属性，这非常有用。
 
 
-### Pre Init
+### 预初始化(Pre Init)
 
-The sole reason for the existence of `__attrs_pre_init__` is to give users the chance to call `super().__init__()`, because some subclassing-based APIs require that.
+`__attrs_pre_init__` 存在的唯一原因是给用户一个机会调用 `super().__init__()`，因为一些基于子类化的 API 需要这样做。
 
 ```{doctest}
 >>> @define
@@ -417,21 +406,17 @@ The sole reason for the existence of `__attrs_pre_init__` is to give users the c
 C(x=42)
 ```
 
-If you need more control, use the custom init approach described next.
+如果你需要更多控制，可以使用下面描述的自定义初始化方法。
 
 :::{warning}
-You never need to use `super()` with *attrs* classes that inherit from other *attrs* classes.
-Each *attrs* class implements an `__init__` based on its own fields and those of all its base classes.
+你在继承其他 *attrs* 类的 *attrs* 类中永远不需要使用 `super()`。每个 *attrs* 类都会基于其自身的字段和所有基类的字段实现一个 `__init__`。
 
-You only need this escape hatch when subclassing non-*attrs* classes.
+你只有在继承非 *attrs* 类时才需要这个逃生口。
 :::
 
+### 自定义初始化(Custom Init)
 
-### Custom Init
-
-If you tell *attrs* to not write an `__init__`, it will write an `__attrs_init__` instead, with the same code that it would have used for `__init__`.
-You have full control over the initialization, but also have to type out the types of your arguments etc.
-Here's an example of a manual default value:
+如果你告诉 *attrs* 不要写 `__init__`，它将改为写一个 `__attrs_init__`，代码与它将用于 `__init__` 的代码相同。你对初始化有完全的控制权，但也必须逐一输入参数的类型等。以下是手动默认值的示例：
 
 ```{doctest}
 >>> @define
@@ -444,8 +429,7 @@ Here's an example of a manual default value:
 C(x=42)
 ```
 
-
-### Post Init
+### 后初始化(Post Init)
 
 ```{doctest}
 >>> @define
@@ -458,7 +442,7 @@ C(x=42)
 C(x=1, y=2)
 ```
 
-Please note that you can't directly set attributes on frozen classes:
+请注意，你无法在冻结类上直接设置属性：
 
 ```{doctest}
 >>> @frozen
@@ -473,7 +457,7 @@ Traceback (most recent call last):
 attrs.exceptions.FrozenInstanceError: can't set attribute
 ```
 
-If you need to set attributes on a frozen class, you'll have to resort to the [same trick](how-frozen) as *attrs* and use {meth}`object.__setattr__`:
+如果你需要在冻结类上设置属性，你必须采用与 *attrs* 相同的 [技巧](how-frozen)，使用 {meth}`object.__setattr__`：
 
 ```{doctest}
 >>> @define
@@ -486,34 +470,33 @@ If you need to set attributes on a frozen class, you'll have to resort to the [s
 Frozen(x=1, y=2)
 ```
 
-Note that you *must not* access the hash code of the object in `__attrs_post_init__` if `cache_hash=True`.
+请注意，如果 `cache_hash=True`，你 *绝对不能* 在 `__attrs_post_init__` 中访问对象的哈希值。
 
 
 ## Order of Execution
 
-If present, the hooks are executed in the following order:
+如果存在，钩子的执行顺序如下：
 
-1. `__attrs_pre_init__` (if present on *current* class)
+1. `__attrs_pre_init__`（如果在 *当前* 类中存在）
 
-2. For each attribute, in the order it was declared:
+2. 对于每个属性，按声明的顺序：
 
-   1. default factory
-   2. converter
+   1. 默认工厂
+   2. 转换器
 
-3. *all* validators
+3. *所有* 验证器
 
-4. `__attrs_post_init__` (if present on *current* class)
+4. `__attrs_post_init__`（如果在 *当前* 类中存在）
 
-Notably this means, that you can access all attributes from within your validators, but your converters have to deal with invalid values and have to return a valid value.
+值得注意的是，这意味着你可以从验证器中访问所有属性，但转换器必须处理无效值，并且必须返回有效值。
 
+## 派生属性(Derived Attributes)
 
-## Derived Attributes
+在 *Stack Overflow* 上，关于 *attrs* 最常见的问题之一是如何使属性依赖于其他属性。
+例如，如果你有一个 API 令牌，并希望实例化一个使用它进行身份验证的网络客户端。
+基于前面的部分，有两种方法。
 
-One of the most common *attrs* questions on *Stack Overflow* is how to have attributes that depend on other attributes.
-For example if you have an API token and want to instantiate a web client that uses it for authentication.
-Based on the previous sections, there are two approaches.
-
-The simpler one is using `__attrs_post_init__`:
+较简单的方法是使用 `__attrs_post_init__`：
 
 ```python
 @define
@@ -525,20 +508,20 @@ class APIClient:
         self.client = WebClient(self.token)
 ```
 
-The second one is using a decorator-based default:
+第二种方法是使用基于装饰器的默认值：
 
 ```python
 @define
 class APIClient:
     token: str
-    client: WebClient = field()  # needed! attr.ib works too
+    client: WebClient = field()  # 必需！attr.ib 也可以
 
     @client.default
     def _client_factory(self):
         return WebClient(self.token)
 ```
 
-That said, and as pointed out in the beginning of the chapter, a better approach would be to have a factory class method:
+话虽如此，正如本章开头指出的，更好的方法是使用工厂类方法：
 
 ```python
 @define
@@ -550,15 +533,15 @@ class APIClient:
         return cls(client=WebClient(token))
 ```
 
-This makes the class more testable.
+这使得类更具可测试性。
 
 (init-subclass)=
 
-## *attrs* and `__init_subclass__`
+## *attrs* 和 `__init_subclass__`
 
-{meth}`object.__init_subclass__` is a special method that is called when a subclass of the class that defined it is created.
+{meth}`object.__init_subclass__` 是一个特殊方法，当定义它的类的子类被创建时会被调用。
 
-For example:
+例如：
 
 ```{doctest}
 >>> class Base:
@@ -570,11 +553,11 @@ For example:
 Base has been subclassed by <class 'Derived'>.
 ```
 
-Unfortunately, a class decorator-based approach like *attrs* (or `dataclasses`) doesn't play well with `__init_subclass__`.
-With {term}`dict classes`, it is run *before* the class has been processed by *attrs* and in the case of {term}`slotted classes`, where *attrs* has to *replace* the original class, `__init_subclass__` is called *twice*: once for the original class and once for the *attrs* class.
+不幸的是，像 *attrs*（或 `dataclasses`）这样的类装饰器方法与 `__init_subclass__` 的兼容性较差。
+对于 {term}`字典类`，该方法在类被 *attrs* 处理之前运行；而对于 {term}`槽类`，由于 *attrs* 需要 *替换* 原始类，`__init_subclass__` 会被调用 *两次*：一次用于原始类，一次用于 *attrs* 类。
 
-To alleviate this, *attrs* provides `__attrs_init_subclass__` which is also called once the class is done assembling.
-The base class doesn't even have to be an *attrs* class:
+为了解决这个问题，*attrs* 提供了 `__attrs_init_subclass__`，它会在类组装完成后被调用。
+基类甚至不必是 *attrs* 类：
 
 ```{doctest}
 >>> class Base:

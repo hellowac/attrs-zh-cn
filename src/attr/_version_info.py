@@ -11,7 +11,7 @@ from ._make import attrib, attrs
 @attrs(eq=False, order=False, slots=True, frozen=True)
 class VersionInfo:
     """
-    A version object that can be compared to tuple of length 1--4:
+    可以与长度为 1--4 的元组进行比较的版本对象:
 
     >>> attr.VersionInfo(19, 1, 0, "final")  <= (19, 2)
     True

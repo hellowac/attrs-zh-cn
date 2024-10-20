@@ -1,85 +1,84 @@
-# Hashing
+# 哈希(Hashing)
 
-## Hash Method Generation
+## 哈希方法生成(Hash Method Generation)
 
 :::{warning}
-The overarching theme is to never set the `@attrs.define(unsafe_hash=X)` parameter yourself.
-Leave it at `None` which means that *attrs* will do the right thing for you, depending on the other parameters:
+总体主题是切勿自己设置 `@attrs.define(unsafe_hash=X)` 参数。  
+将其保留为 `None`，这意味着 *attrs* 会根据其他参数为您做正确的事情：
 
-- If you want to make objects hashable by value: use `@define(frozen=True)`.
-- If you want hashing and equality by object identity: use `@define(eq=False)`
+- 如果您希望通过值使对象可哈希：使用 `@define(frozen=True)`。
+- 如果您希望通过对象身份进行哈希和相等性比较：使用 `@define(eq=False)`
 
-Setting `unsafe_hash` yourself can have unexpected consequences so we recommend to tinker with it only if you know exactly what you're doing.
+自己设置 `unsafe_hash` 可能会产生意想不到的后果，因此我们建议您仅在确切知道自己在做什么的情况下进行调整。
 :::
 
-Under certain circumstances, it's necessary for objects to be *hashable*.
-For example if you want to put them into a {class}`set` or if you want to use them as keys in a {class}`dict`.
+在某些情况下，对象需要是 *可哈希* 的。  
+例如，如果您想将它们放入一个 {class}`set` 或者想将它们用作 {class}`dict` 中的键。
 
-The *hash* of an object is an integer that represents the contents of an object.
-It can be obtained by calling {func}`hash` on an object and is implemented by writing a `__hash__` method for your class.
+对象的 *哈希* 是一个表示对象内容的整数。  
+可以通过在对象上调用 {func}`hash` 来获得，并通过为您的类编写 `__hash__` 方法来实现。
 
-*attrs* will happily write a `__hash__` method for you [^fn1], however it will *not* do so by default.
-Because according to the [definition](https://docs.python.org/3/glossary.html#term-hashable) from the official Python docs, the returned hash has to fulfill certain constraints:
+*attrs* 会很乐意为您编写 `__hash__` 方法 [^fn1]，但默认情况下不会这样做。  
+因为根据官方 Python 文档的 [定义](https://docs.python.org/3/glossary.html#term-hashable)，返回的哈希必须满足某些约束条件：
 
-[^fn1]: The hash is computed by hashing a tuple that consists of a unique id for the class plus all attribute values.
+[^fn1]: 哈希是通过对一个由类的唯一 ID 及所有属性值组成的元组进行哈希计算得出的。
 
-1. Two objects that are equal, **must** have the same hash.
-   This means that if `x == y`, it *must* follow that `hash(x) == hash(y)`.
+1. 两个相等的对象 **必须** 具有相同的哈希。  
+   这意味着如果 `x == y`，那么 *必须* 确保 `hash(x) == hash(y)`。
 
-   By default, Python classes are compared *and* hashed by their `id`.
-   That means that every instance of a class has a different hash, no matter what attributes it carries.
+   默认情况下，Python 类是通过其 `id` 进行比较和哈希的。  
+   这意味着类的每个实例都有不同的哈希，无论它携带哪些属性。
 
-   It follows that the moment you (or *attrs*) change the way equality is handled by implementing `__eq__` which is based on attribute values, this constraint is broken.
-   For that reason Python 3 will make a class that has customized equality unhashable.
-   Python 2 on the other hand will happily let you shoot your foot off.
-   Unfortunately, *attrs* still mimics (otherwise unsupported) Python 2's behavior for backward-compatibility reasons if you set `unsafe_hash=False`.
+   由此可见，当您（或 *attrs*）通过基于属性值实现的 `__eq__` 更改相等性处理方式时，这一约束就会被打破。  
+   因此，Python 3 会使具有自定义相等性的类变为不可哈希。  
+   而 Python 2 则乐于让您自食其果。  
+   不幸的是，如果您设置 `unsafe_hash=False`，*attrs* 仍然模仿（不再支持）Python 2 的行为，以保持向后兼容性。
 
-   The *correct way* to achieve hashing by id is to set `@define(eq=False)`.
-   Setting `@define(unsafe_hash=False)` (which implies `eq=True`) is almost certainly a *bug*.
+   实现基于 ID 的哈希的 *正确方法* 是设置 `@define(eq=False)`。  
+   设置 `@define(unsafe_hash=False)`（这隐含 `eq=True`）几乎肯定是一个 *bug*。
 
    :::{warning}
-   Be careful when subclassing!
-   Setting `eq=False` on a class whose base class has a non-default `__hash__` method will *not* make *attrs* remove that `__hash__` for you.
+   小心子类化！  
+   在具有非默认 `__hash__` 方法的基类上将 `eq=False` 设置为 *不会* 使 *attrs* 为您删除该 `__hash__`。
 
-   It is part of *attrs*'s philosophy to only *add* to classes so you have the freedom to customize your classes as you wish.
-   So if you want to *get rid* of methods, you'll have to do it by hand.
+   *attrs* 的理念是仅对类进行 *添加*，因此您可以自由自定义您的类。  
+   如果您想 *移除* 方法，则必须手动完成。
 
-   The easiest way to reset `__hash__` on a class is adding `__hash__ = object.__hash__` in the class body.
+   在类体中添加 `__hash__ = object.__hash__` 是重置 `__hash__` 的最简单方法。
    :::
 
-2. If two objects are not equal, their hash **should** be different.
+2. 如果两个对象不相等，它们的哈希 **应该** 不同。  
 
-   While this isn't a requirement from a standpoint of correctness, sets and dicts become less effective if there are a lot of identical hashes.
-   The worst case is when all objects have the same hash which turns a set into a list.
+   虽然从正确性角度来看这不是强制要求，但如果有许多相同的哈希，集合和字典的效率会降低。  
+   最糟糕的情况是，当所有对象具有相同的哈希，这会使集合变成列表。
 
-3. The hash of an object **must not** change.
+3. 对象的哈希 **必须不** 改变。  
 
-   If you create a class with `@define(frozen=True)` this is fulfilled by definition, therefore *attrs* will write a `__hash__` function for you automatically.
-   You can also force it to write one with `unsafe_hash=True` but then it's *your* responsibility to make sure that the object is not mutated.
+   如果您创建一个使用 `@define(frozen=True)` 的类，这一点在定义上得到了满足，因此 *attrs* 会自动为您编写 `__hash__` 函数。  
+   您也可以通过 `unsafe_hash=True` 强制它为您编写一个，但那样您就 *必须* 确保对象不会被改变。
 
-   This point is the reason why mutable structures like lists, dictionaries, or sets aren't hashable while immutable ones like tuples or `frozenset`s are:
-   point 1 and 2 require that the hash changes with the contents but point 3 forbids it.
+   这一点是为什么可变结构如列表、字典或集合不是可哈希的，而不可变结构如元组或 `frozenset` 是的原因：  
+   第 1 点和第 2 点要求哈希随内容变化，而第 3 点则禁止其变化。
 
-For a more thorough explanation of this topic, please refer to this blog post: [*Python Hashes and Equality*](https://hynek.me/articles/hashes-and-equality/).
+有关此主题的更详细解释，请参阅此博客文章：[*Python 哈希与相等性*](https://hynek.me/articles/hashes-and-equality/)。
 
 :::{note}
-Please note that the `unsafe_hash` argument's original name was `hash` but was changed to conform with {pep}`681` in 22.2.0.
-The old argument name is still around and will **not** be removed -- but setting `unsafe_hash` takes precedence over `hash`.
-The field-level argument is still called `hash` and will remain so.
+请注意，`unsafe_hash` 参数的原始名称是 `hash`，但在 22.2.0 中已更改以符合 {pep}`681`。  
+旧参数名称仍然存在，并且 **不会** 被删除——但设置 `unsafe_hash` 优先于 `hash`。  
+字段级参数仍称为 `hash`，并将保持不变。  
 :::
 
 
-## Hashing and Mutability
+## 哈希与可变性(Hashing and Mutability)
 
-Changing any field involved in hash code computation after the first call to `__hash__` (typically this would be after its insertion into a hash-based collection) can result in silent bugs.
-Therefore, it is strongly recommended that hashable classes be `frozen`.
-Beware, however, that this is not a complete guarantee of safety:
-if a field points to an object and that object is mutated, the hash code may change, but `frozen` will not protect you.
+在第一次调用 `__hash__` 之后更改任何参与哈希代码计算的字段（通常这将在其插入哈希基础集合之后）可能会导致静默错误。  
+因此，强烈建议哈希可用的类应为 `frozen`。  
+但是，请注意，这并不能完全保证安全：  
+如果一个字段指向一个对象，而该对象被修改，则哈希代码可能会改变，但 `frozen` 并不会保护您。
 
+## 哈希代码缓存(Hash Code Caching)
 
-## Hash Code Caching
-
-Some objects have hash codes which are expensive to compute.
-If such objects are to be stored in hash-based collections, it can be useful to compute the hash codes only once and then store the result on the object to make future hash code requests fast.
-To enable caching of hash codes, pass `@define(cache_hash=True)`.
-This may only be done if *attrs* is already generating a hash function for the object.
+某些对象的哈希代码计算开销较大。  
+如果这些对象要存储在基于哈希的集合中，仅计算一次哈希代码并将结果存储在对象上以加速未来的哈希代码请求可能会很有用。  
+要启用哈希代码的缓存，请传递 `@define(cache_hash=True)`。  
+这只能在 *attrs* 已经为对象生成哈希函数的情况下进行。

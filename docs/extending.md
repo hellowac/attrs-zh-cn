@@ -1,9 +1,9 @@
-# Extending
+# 扩展(Extending)
 
-Each *attrs*-decorated class has a `__attrs_attrs__` class attribute.
-It's a tuple of {class}`attrs.Attribute` carrying metadata about each attribute.
+每个 *attrs* 装饰的类都有一个 `__attrs_attrs__` 类属性。
+它是一个包含关于每个属性元数据的 {class}`attrs.Attribute` 元组。
 
-So it is fairly simple to build your own decorators on top of *attrs*:
+因此，构建自己的装饰器在 *attrs* 之上相当简单：
 
 ```{doctest}
 >>> from attrs import define
@@ -18,8 +18,8 @@ So it is fairly simple to build your own decorators on top of *attrs*:
 ```
 
 :::{warning}
-The {func}`attrs.define` / {func}`attr.s` decorator **must** be applied first because it puts `__attrs_attrs__` in place!
-That means that is has to come *after* your decorator because:
+{func}`attrs.define` / {func}`attr.s` 装饰器 **必须** 首先应用，因为它会放置 `__attrs_attrs__`！
+这意味着它必须在你的装饰器 *之后*，因为：
 
 ```python
 @a
@@ -28,7 +28,7 @@ def f():
    pass
 ```
 
-is just [syntactic sugar](https://en.wikipedia.org/wiki/Syntactic_sugar) for:
+仅仅是 [语法糖](https://en.wikipedia.org/wiki/Syntactic_sugar) 的表现形式：
 
 ```python
 def original_f():
@@ -39,19 +39,19 @@ f = a(b(original_f))
 :::
 
 
-## Wrapping the Decorator
+## Wrapping装饰器(Wrapping the Decorator)
 
-A more elegant way can be to wrap *attrs* altogether and build a class [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) on top of it.
+一种更优雅的方式是完全包装 *attrs* 并在其上构建一个类 [DSL](https://en.wikipedia.org/wiki/Domain-specific_language)。
 
-An example for that is the package [*environ-config*](https://github.com/hynek/environ-config) that uses *attrs* under the hood to define environment-based configurations declaratively without exposing *attrs* APIs at all.
+一个例子是包 [*environ-config*](https://github.com/hynek/environ-config)，它在底层使用 *attrs* 以声明方式定义基于环境的配置，而不暴露 *attrs* API。
 
-Another common use case is to overwrite *attrs*'s defaults.
+另一个常见用例是覆盖 *attrs* 的默认值。
 
 
 ### Mypy
 
-Unfortunately, decorator wrapping currently [confuses](https://github.com/python/mypy/issues/5406) Mypy's *attrs* plugin.
-At the moment, the best workaround is to hold your nose, write a fake Mypy plugin, and mutate a bunch of global variables:
+不幸的是，装饰器包装目前会 [困扰](https://github.com/python/mypy/issues/5406) Mypy 的 *attrs* 插件。
+此时，最佳的解决方法是忍耐一下，编写一个伪 Mypy 插件，并变更一堆全局变量：
 
 ```python
 from mypy.plugin import Plugin
@@ -61,17 +61,17 @@ from mypy.plugins.attrs import (
    attr_dataclass_makers,
 )
 
-# These work just like `attr.dataclass`.
+# 这些工作方式与 `attr.dataclass` 完全相同。
 attr_dataclass_makers.add("my_module.method_looks_like_attr_dataclass")
 
-# This works just like `attr.s`.
+# 这与 `attr.s` 的工作方式相同。
 attr_class_makers.add("my_module.method_looks_like_attr_s")
 
-# These are our `attr.ib` makers.
+# 这些是我们的 `attr.ib` 制作器。
 attr_attrib_makers.add("my_module.method_looks_like_attrib")
 
 class MyPlugin(Plugin):
-    # Our plugin does nothing but it has to exist so this file gets loaded.
+    # 我们的插件什么都不做，但它必须存在，以便这个文件被加载。
     pass
 
 
@@ -79,7 +79,7 @@ def plugin(version):
     return MyPlugin
 ```
 
-Then tell Mypy about your plugin using your project's `mypy.ini`:
+然后使用项目的 `mypy.ini` 告诉 Mypy 关于你的插件：
 
 ```ini
 [mypy]
@@ -87,16 +87,16 @@ plugins=<path to file>
 ```
 
 :::{warning}
-Please note that it is currently *impossible* to let Mypy know that you've changed defaults like *eq* or *order*.
-You can only use this trick to tell Mypy that a class is actually an *attrs* class.
+请注意，目前 *不可能* 让 Mypy 知道你已经更改了默认值，例如 *eq* 或 *order*。
+你只能使用这个技巧告诉 Mypy 一个类实际上是一个 *attrs* 类。
 :::
 
 
 ### Pyright
 
-Generic decorator wrapping is supported in [Pyright](https://github.com/microsoft/pyright) via `typing.dataclass_transform` / {pep}`681`.
+通用装饰器包装在 [Pyright](https://github.com/microsoft/pyright) 中通过 `typing.dataclass_transform` / {pep}`681` 得到了支持。
 
-For a custom wrapping of the form:
+对于自定义包装的形式：
 
 ```
 @typing.dataclass_transform(field_specifiers=(attr.attrib, attrs.field))
@@ -104,14 +104,14 @@ def custom_define(f):
     return attrs.define(f)
 ```
 
-## Types
+## 类型(Types)
 
-*attrs* offers two ways of attaching type information to attributes:
+*attrs* 提供了两种将类型信息附加到属性的方法：
 
-- {pep}`526` annotations,
-- and the *type* argument to {func}`attr.ib` / {func}`attrs.field`.
+- {pep}`526` 注解，
+- 以及传递给 {func}`attr.ib` / {func}`attrs.field` 的 *type* 参数。
 
-This information is available to you:
+这些信息对你来说是可用的：
 
 ```{doctest}
 >>> from attrs import define, field, fields
@@ -125,24 +125,24 @@ This information is available to you:
 <class 'str'>
 ```
 
-Currently, *attrs* doesn't do anything with this information but it's very useful if you'd like to write your own validators or serializers!
+目前，*attrs* 并不对这些信息做任何处理，但如果你想编写自己的验证器或序列化器，这非常有用！
 
-Originally, we didn't add the *type* argument to the new {func}`attrs.field` API, because type annotations are the preferred way.
-But we reintroduced it later, so `field` can be used with the {func}`attrs.make_class` function.
-We strongly discourage the use of the *type* parameter outside of {func}`attrs.make_class`.
+最初，我们没有将 *type* 参数添加到新的 {func}`attrs.field` API，因为类型注解是首选方式。
+但我们后来重新引入了它，以便 `field` 可以与 {func}`attrs.make_class` 函数一起使用。
+我们强烈不建议在 {func}`attrs.make_class` 之外使用 *type* 参数。
 
 (extending-metadata)=
 
-## Metadata
+## 元数据(Metadata)
 
-If you're the author of a third-party library with *attrs* integration, you may want to take advantage of attribute metadata.
+如果你是一个与 *attrs* 集成的第三方库的作者，你可能想要利用属性元数据。
 
-Here are some tips for effective use of metadata:
+以下是有效使用元数据的一些提示：
 
-- Try making your metadata keys and values immutable.
-  This keeps the entire {class}`~attrs.Attribute` instances immutable too.
+- 尝试使你的元数据键和值不可变。
+  这也会保持整个 {class}`~attrs.Attribute` 实例不可变。
 
-- To avoid metadata key collisions, consider exposing your metadata keys from your modules.:
+- 为了避免元数据键冲突，考虑从你的模块中公开你的元数据键：
 
   ```python
   from mylib import MY_METADATA_KEY
@@ -152,10 +152,10 @@ Here are some tips for effective use of metadata:
     x = field(metadata={MY_METADATA_KEY: 1})
   ```
 
-  Metadata should be composable, so consider supporting this approach even if you decide implementing your metadata in one of the following ways.
+  元数据应该是可组合的，因此即使你决定以以下方式之一实现你的元数据，也要考虑支持这种方法。
 
-- Expose `field` wrappers for your specific metadata.
-  This is a more graceful approach if your users don't require metadata from other libraries.
+- 为你的特定元数据公开 `field` 包装器。
+  如果你的用户不需要来自其他库的元数据，这是更优雅的方法。
 
   ```{doctest}
   >>> from attrs import fields, NOTHING
@@ -183,26 +183,26 @@ Here are some tips for effective use of metadata:
 
 (transform-fields)=
 
-## Automatic Field Transformation and Modification
+## 自动生成字段的转换和修改(Automatic Field Transformation and Modification)
 
-*attrs* allows you to automatically modify or transform the class' fields while the class is being created.
-You do this by passing a *field_transformer* hook to {func}`~attrs.define` (and friends).
-Its main purpose is to automatically add converters to attributes based on their type to aid the development of API clients and other typed data loaders.
+*attrs* 允许你在类创建时自动修改或转换类的字段。
+你可以通过将 *field_transformer* 钩子传递给 {func}`~attrs.define`（及其相关函数）来实现这一点。
+其主要目的是基于字段类型自动添加转换器，以帮助 API 客户端和其他类型化数据加载器的开发。
 
-This hook must have the following signature:
+此钩子必须具有以下签名：
 
 ```{eval-rst}
 .. function:: your_hook(cls: type, fields: list[attrs.Attribute]) -> list[attrs.Attribute]
    :noindex:
 ```
 
-- *cls* is your class right *before* it is being converted into an attrs class.
-  This means it does not yet have the `__attrs_attrs__` attribute.
-- *fields* is a list of all `attrs.Attribute` instances that will later be set to `__attrs_attrs__`.
-  You can modify these attributes any way you want:
-  You can add converters, change types, and even remove attributes completely or create new ones!
+- *cls* 是在转换为 attrs 类之前的类。
+  这意味着它尚未拥有 `__attrs_attrs__` 属性。
+- *fields* 是将来将设置为 `__attrs_attrs__` 的所有 `attrs.Attribute` 实例的列表。
+  你可以以任何方式修改这些属性：
+  你可以添加转换器、改变类型，甚至完全删除属性或创建新的属性！
 
-For example, let's assume that you really don't like floats:
+例如，假设你真的不喜欢浮点数：
 
 ```{doctest}
 >>> def drop_floats(cls, fields):
@@ -218,7 +218,7 @@ For example, let's assume that you really don't like floats:
 Data(a=42, c='spam')
 ```
 
-A more realistic example would be to automatically convert data that you, for example, load from JSON:
+一个更现实的例子是自动转换你从 JSON 加载的数据：
 
 ```{doctest}
 >>> from datetime import datetime
@@ -247,8 +247,8 @@ A more realistic example would be to automatically convert data that you, for ex
 Data(a=3, b='spam', c=datetime.datetime(2020, 5, 4, 13, 37))
 ```
 
-Or, perhaps you would prefer to generate dataclass-compatible `__init__` signatures via a default field *alias*.
-Note, *field_transformer* operates on {class}`attrs.Attribute` instances before the default private-attribute handling is applied so explicit user-provided aliases can be detected.
+或者，你可能更愿意通过默认字段 *别名* 生成与数据类兼容的 `__init__` 签名。
+请注意，*field_transformer* 在应用默认私有属性处理之前对 {class}`attrs.Attribute` 实例进行操作，因此可以检测到显式用户提供的别名。
 
 ```{doctest}
 >>> def dataclass_names(cls, fields):
@@ -269,10 +269,10 @@ Note, *field_transformer* operates on {class}`attrs.Attribute` instances before 
 Data(public=42, _private='spam', explicit='yes')
 ```
 
-## Customize Value Serialization in `asdict()`
+## 在 `asdict()` 中自定义字段的序列化(Customize Value Serialization in `asdict()`)
 
-*attrs* allows you to serialize instances of *attrs* classes to dicts using the {func}`attrs.asdict` function.
-However, the result can not always be serialized since most data types will remain as they are:
+*attrs* 允许你使用 {func}`attrs.asdict` 函数将 *attrs* 类的实例序列化为字典。
+然而，结果并不总是可以序列化，因为大多数数据类型将保持原样：
 
 ```{doctest}
 >>> import json
@@ -292,8 +292,8 @@ Traceback (most recent call last):
 TypeError: Object of type datetime is not JSON serializable
 ```
 
-To help you with this, {func}`~attrs.asdict` allows you to pass a *value_serializer* hook.
-It has the signature
+为了解决这个问题，{func}`~attrs.asdict` 允许你传递一个 *value_serializer* 钩子。
+它的签名为：
 
 ```{eval-rst}
 .. function:: your_hook(inst: type, field: attrs.Attribute, value: typing.Any) -> typing.Any

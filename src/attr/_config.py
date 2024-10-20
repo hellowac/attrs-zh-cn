@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 # SPDX-License-Identifier: MIT
 
 __all__ = ["set_run_validators", "get_run_validators"]
@@ -7,14 +8,13 @@ _run_validators = True
 
 def set_run_validators(run):
     """
-    Set whether or not validators are run.  By default, they are run.
+    设置是否运行验证器。默认情况下，它们是运行的。
 
-    .. deprecated:: 21.3.0 It will not be removed, but it also will not be
-        moved to new ``attrs`` namespace. Use `attrs.validators.set_disabled()`
-        instead.
+    .. deprecated:: 21.3.0 不会被移除，但也不会迁移到新的 ``attrs`` 命名空间。请改用 `attrs.validators.set_disabled()`
+        。
     """
     if not isinstance(run, bool):
-        msg = "'run' must be bool."
+        msg = "'run' 必须是布尔值。"
         raise TypeError(msg)
     global _run_validators
     _run_validators = run
@@ -22,10 +22,9 @@ def set_run_validators(run):
 
 def get_run_validators():
     """
-    Return whether or not validators are run.
+    返回验证器是否运行。
 
-    .. deprecated:: 21.3.0 It will not be removed, but it also will not be
-        moved to new ``attrs`` namespace. Use `attrs.validators.get_disabled()`
-        instead.
+    .. deprecated:: 21.3.0 不会被移除，但也不会迁移到新的 ``attrs`` 命名空间。请改用 `attrs.validators.get_disabled()`
+        。
     """
     return _run_validators

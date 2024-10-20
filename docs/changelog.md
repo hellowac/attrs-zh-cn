@@ -1,5 +1,5 @@
 ```{include} ../CHANGELOG.md
-:end-before: Changes for the upcoming release can be found
+:end-before: 即将发布的版本的变更可以在我们的仓库中的
 ```
 
  ```{towncrier-draft-entries}

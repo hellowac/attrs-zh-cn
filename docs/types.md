@@ -1,8 +1,8 @@
-# Type Annotations
+# 类型注解
 
-*attrs* comes with first-class support for type annotations for both {pep}`526` and legacy syntax.
+*attrs* 对 {pep}`526` 和旧语法的类型注解提供了第一类支持。
 
-However, they will remain *optional* forever, therefore the example from the README could also be written as:
+然而，它们将永远保持 *可选(optional)*，因此来自 README 的示例也可以写成：
 
 ```{doctest}
 >>> from attrs import define, field
@@ -17,10 +17,10 @@ However, they will remain *optional* forever, therefore the example from the REA
 SomeClass(a_number=1, list_of_numbers=[1, 2, 3])
 ```
 
-You can choose freely between the approaches, but please remember that if you choose to use type annotations, you **must** annotate **all** attributes!
+您可以自由选择这两种方法，但请记住，如果您选择使用类型注解，您 **必须** 注解 **所有** 属性！
 
 :::{caution}
-If you define a class with a {func}`attrs.field` that **lacks** a type annotation, *attrs* will **ignore** other fields that have a type annotation, but are not defined using {func}`attrs.field`:
+如果您定义一个 {func}`attrs.field` 但 **缺少** 类型注解的类，*attrs* 将 **忽略** 其他已经有类型注解但未使用 {func}`attrs.field` 定义的字段：
 
 ```{doctest}
 >>> @define
@@ -32,45 +32,44 @@ SomeClass(a_number=42)
 ```
 :::
 
-Even when going all-in on type annotations, you will need {func}`attrs.field` for some advanced features, though.
+即使在全面使用类型注解的情况下，某些高级特性仍然需要 {func}`attrs.field`。
 
-One of those features are the decorator-based features like defaults.
-It's important to remember that *attrs* doesn't do any magic behind your back.
-All the decorators are implemented using an object that is returned by the call to {func}`attrs.field`.
+这些特性之一是基于装饰器的功能，例如默认值。
+重要的是要记住，*attrs* 不会在您背后做任何魔法。
+所有装饰器都是使用对 {func}`attrs.field` 调用返回的对象实现的。
 
-Attributes that only carry a class annotation do not have that object so trying to call a method on it will inevitably fail.
+仅携带类注解的属性没有该对象，因此尝试对其调用方法将不可避免地失败。
 
 ---
 
-Please note that types -- regardless how added -- are *only metadata* that can be queried from the class and they aren't used for anything out of the box!
+请注意，无论如何添加，类型仅是可从类查询的 *元数据(metadata)*，并且在开箱即用的情况下不用于任何其他用途！
 
-Because Python does not allow references to a class object before the class is defined,
-types may be defined as string literals, so-called *forward references* ({pep}`526`).
-You can enable this automatically for a whole module by using `from __future__ import annotations` ({pep}`563`).
-In this case *attrs* simply puts these string literals into the `type` attributes.
-If you need to resolve these to real types, you can call {func}`attrs.resolve_types` which will update the attribute in place.
+由于 Python 不允许在类定义之前引用类对象，因此类型可以定义为字符串字面量，即所谓的 *前向引用* ({pep}`526`)。
+您可以通过使用 `from __future__ import annotations` ({pep}`563`) 自动为整个模块启用此功能。
+在这种情况下，*attrs* 只是将这些字符串字面量放入 `type` 属性中。
+如果您需要将它们解析为真实类型，可以调用 {func}`attrs.resolve_types`，该方法将就地更新属性。
 
-In practice though, types show their biggest usefulness in combination with tools like [Mypy], [*pytype*], or [Pyright] that have dedicated support for *attrs* classes.
+然而，在实践中，类型在与像 [Mypy]、[*pytype*] 或 [Pyright] 这样的工具结合使用时显示出最大的实用性，这些工具对 *attrs* 类提供了专门支持。
 
-The addition of static types is certainly one of the most exciting features in the Python ecosystem and helps you write *correct* and *verified self-documenting* code.
+静态类型的增加无疑是 Python 生态系统中最令人兴奋的功能之一，并帮助您编写 *正确的(correct)* 和 *经过验证的自我文档(verified self-documenting)* 代码。
 
 
 ## Mypy
 
-While having a nice syntax for type metadata is great, it's even greater that [Mypy] ships with a dedicated *attrs* plugin which allows you to statically check your code.
+虽然有一个漂亮的类型元数据语法是很好的，但更棒的是 [Mypy] 提供了一个专门的 *attrs* 插件，可以让您静态检查代码。
 
-Imagine you add another line that tries to instantiate the defined class using `SomeClass("23")`.
-Mypy will catch that error for you:
+想象一下，您添加了一行代码，尝试使用 `SomeClass("23")` 实例化定义的类。
+Mypy 会为您捕获该错误：
 
 ```console
 $ mypy t.py
 t.py:12: error: Argument 1 to "SomeClass" has incompatible type "str"; expected "int"
 ```
 
-This happens *without* running your code!
+这一切都发生在 *不运行* 您的代码的情况下！
 
-And it also works with *both* legacy annotation styles.
-To Mypy, this code is equivalent to the one above:
+它还适用于 *两种* 旧的注解样式。
+对 Mypy 而言，这段代码与上面的代码等效：
 
 ```python
 @attr.s
@@ -79,16 +78,15 @@ class SomeClass:
     list_of_numbers = attr.ib(factory=list, type=list[int])
 ```
 
-The approach used for `list_of_numbers` one is only a available in our [old-style API](names.md) which is why the example still uses it.
-
+`list_of_numbers` 的这种方法仅在我们的 [旧式 API](names.md) 中可用，这就是示例仍然使用它的原因。
 
 ## Pyright
 
-*attrs* provides support for [Pyright] through the `dataclass_transform` / {pep}`681` specification.
-This provides static type inference for a subset of *attrs* equivalent to standard-library {mod}`dataclasses`,
-and requires explicit type annotations using the {func}`attrs.define` or `@attr.s(auto_attribs=True)` API.
+*attrs* 通过 `dataclass_transform` / {pep}`681` 规范提供对 [Pyright] 的支持。
+这为一部分 *attrs* 提供了静态类型推断，相当于标准库中的 {mod}`dataclasses`，
+并需要使用 {func}`attrs.define` 或 `@attr.s(auto_attribs=True)` API 进行显式类型注解。
 
-Given the following definition, Pyright will generate static type signatures for `SomeClass` attribute access, `__init__`, `__eq__`, and comparison methods:
+给定以下定义，Pyright 将为 `SomeClass` 的属性访问、`__init__`、`__eq__` 和比较方法生成静态类型签名：
 
 ```
 @attrs.define
@@ -98,23 +96,23 @@ class SomeClass:
 ```
 
 :::{warning}
-The Pyright inferred types are a tiny subset of those supported by Mypy, including:
+Pyright 推断的类型是支持的类型的一个小子集，包括：
 
-- The `attrs.frozen` decorator is not typed with frozen attributes, which are properly typed via `attrs.define(frozen=True)`.
+- `attrs.frozen` 装饰器没有与冻结属性进行类型注解，而这些属性可以通过 `attrs.define(frozen=True)` 进行正确的类型注解。
 
-Your constructive feedback is welcome in both [attrs#795](https://github.com/python-attrs/attrs/issues/795) and [pyright#1782](https://github.com/microsoft/pyright/discussions/1782).
-Generally speaking, the decision on improving *attrs* support in Pyright is entirely Microsoft's prerogative and they unequivocally indicated that they'll only add support for features that go through the PEP process, though.
+我们欢迎您对 [attrs#795](https://github.com/python-attrs/attrs/issues/795) 和 [pyright#1782](https://github.com/microsoft/pyright/discussions/1782) 提出建设性反馈。
+一般来说，改善 Pyright 中 *attrs* 支持的决定完全取决于微软，他们明确表示将仅添加经过 PEP 过程的功能支持。
 :::
 
 
-## Class variables and constants
+## 类变量和常量
 
-If you are adding type annotations to all of your code, you might wonder how to define a class variable (as opposed to an instance variable), because a value assigned at class scope becomes a default for that attribute.
-The proper way to type such a class variable, though, is with {data}`typing.ClassVar`, which indicates that the variable should only be assigned in the class (or its subclasses) and not in instances of the class.
-*attrs* will skip over members annotated with {data}`typing.ClassVar`, allowing you to write a type annotation without turning the member into an attribute.
-Class variables are often used for constants, though they can also be used for mutable singleton data shared across all instances of the class.
+如果您正在为所有代码添加类型注解，您可能会想知道如何定义类变量（与实例变量相对），因为在类作用域中赋值的值会成为该属性的默认值。
+然而，正确的方式是使用 {data}`typing.ClassVar` 来类型注解这样的类变量，这表明该变量应仅在类（或其子类）中进行赋值，而不是在类的实例中。
+*attrs* 将跳过注解为 {data}`typing.ClassVar` 的成员，允许您编写类型注解，而不会将该成员变成属性。
+类变量通常用于常量，但也可以用于在类的所有实例之间共享的可变单例数据。
 
-```
+```python
 @attrs.define
 class PngHeader:
     SIGNATURE: typing.ClassVar[bytes] = b'\x89PNG\r\n\x1a\n'

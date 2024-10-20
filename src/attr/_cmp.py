@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 # SPDX-License-Identifier: MIT
 
 
@@ -20,39 +21,32 @@ def cmp_using(
     class_name="Comparable",
 ):
     """
-    Create a class that can be passed into `attrs.field`'s ``eq``, ``order``,
-    and ``cmp`` arguments to customize field comparison.
+    创建一个可以传递给 `attrs.field` 的 ``eq``, ``order`` 和 ``cmp`` 参数以自定义字段比较的类。
 
-    The resulting class will have a full set of ordering methods if at least
-    one of ``{lt, le, gt, ge}`` and ``eq``  are provided.
+    如果提供了至少一个 ``{lt, le, gt, ge}`` 和 ``eq`` ，生成的类将具有完整的排序方法。
 
     Args:
         eq (typing.Callable | None):
-            Callable used to evaluate equality of two objects.
+            用于评估两个对象相等性的可调用对象。
 
         lt (typing.Callable | None):
-            Callable used to evaluate whether one object is less than another
-            object.
+            用于评估一个对象是否小于另一个对象的可调用对象。
 
         le (typing.Callable | None):
-            Callable used to evaluate whether one object is less than or equal
-            to another object.
+            用于评估一个对象是否小于或等于另一个对象的可调用对象。
 
         gt (typing.Callable | None):
-            Callable used to evaluate whether one object is greater than
-            another object.
+            用于评估一个对象是否大于另一个对象的可调用对象。
 
         ge (typing.Callable | None):
-            Callable used to evaluate whether one object is greater than or
-            equal to another object.
+            用于评估一个对象是否大于或等于另一个对象的可调用对象。
 
         require_same_type (bool):
-            When `True`, equality and ordering methods will return
-            `NotImplemented` if objects are not of the same type.
+            当为 `True` 时，如果对象不是同一类型，则相等和排序方法将返回 `NotImplemented`。
 
-        class_name (str | None): Name of class. Defaults to "Comparable".
+        class_name (str | None): 类的名称。默认为 "Comparable"。
 
-    See `comparison` for more details.
+    有关更多详细信息，请参阅 `comparison` 。
 
     .. versionadded:: 21.1.0
     """

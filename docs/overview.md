@@ -1,6 +1,6 @@
-# Overview
+# 概述
 
-In order to fulfill its ambitious goal of bringing back the joy to writing classes, it gives you a class decorator and a way to declaratively define the attributes on that class:
+为了实现让编写类重获乐趣的雄心勃勃的目标，*attrs* 提供了一个类装饰器，并以声明式的方式定义该类的属性：
 
 ```{include} ../README.md
 :start-after: 'code-begin -->'
@@ -8,64 +8,54 @@ In order to fulfill its ambitious goal of bringing back the joy to writing class
 ```
 
 
-## Philosophy
+## 理念
 
-**It's about regular classes.**
+**一切围绕常规类。**
 
-: *attrs* is for creating well-behaved classes with a type, attributes, methods, and everything that comes with a class.
-  It can be used for data-only containers like `namedtuple`s or `types.SimpleNamespace` but they're just a sub-genre of what *attrs* is good for.
+: *attrs* 用于创建具有类型、属性、方法等完整特性的良好行为类。虽然它可以用于像 `namedtuple` 或 `types.SimpleNamespace` 这样的仅包含数据的容器，但它们只是 *attrs* 所擅长的子类型之一。
 
+**类属于用户。**
 
-**The class belongs to the users.**
+: 你定义一个类，*attrs* 根据你声明的属性向该类添加静态方法。就这些。
+  它不会添加元类，也不会往继承树中塞入一些你从未听说过的类。
+  在运行时，一个 *attrs* 类与常规类毫无区别：因为它*就是*一个附加了少量样板方法的常规类。
 
-: You define a class and *attrs* adds static methods to that class based on the attributes you declare.
-  The end.
-  It doesn't add metaclasses.
-  It doesn't add classes you've never heard of to your inheritance tree.
-  An *attrs* class in runtime is indistinguishable from a regular class: because it *is* a regular class with a few boilerplate-y methods attached.
+**轻量化 API 影响。**
 
+: 尽管一开始看似方便，*attrs* 不会往你的类中添加任何方法，除了 {term}`双下划线方法 <dunder methods>`。
+  因此，所有随 *attrs* 提供的有用[工具](helpers)都存在于基于实例操作的函数中。
+  由于它们将 *attrs* 实例作为第一个参数，你可以用一行代码将它们附加到你的类中。
 
-**Be light on API impact.**
+**性能至关重要。**
 
-: As convenient as it seems at first, *attrs* will *not* tack on any methods to your classes except for the {term}`dunder ones <dunder methods>`.
-  Hence all the useful [tools](helpers) that come with *attrs* live in functions that operate on top of instances.
-  Since they take an *attrs* instance as their first argument, you can attach them to your classes with one line of code.
+: *attrs* 的运行时影响几乎为零，因为所有的工作都在类定义时完成。一旦你实例化它，*attrs* 就完全退出了场景。
 
+**无意外。**
 
-**Performance matters.**
+: *attrs* 创建的类可以说是按 Python 初学者合理预期的方式工作。
+  它不试图猜测你的意图，因为显式优于隐式。
+  它不试图“耍聪明”，因为软件不应当如此。
 
-: *attrs* runtime impact is very close to zero because all the work is done when the class is defined.
-  Once you're instantiating it, *attrs* is out of the picture completely.
-
-
-**No surprises.**
-
-: *attrs* creates classes that arguably work the way a Python beginner would reasonably expect them to work.
-  It doesn't try to guess what you mean because explicit is better than implicit.
-  It doesn't try to be clever because software shouldn't be clever.
-
-Check out {doc}`how-does-it-work` if you'd like to know how it achieves all of the above.
+如果你想了解它如何实现上述目标，请查看 {doc}`how-does-it-work`。
 
 
-## What *attrs* Is Not
+## *attrs* 不是什么
 
-*attrs* does *not* invent some kind of magic system that pulls classes out of its hat using meta classes, runtime introspection, and shaky interdependencies.
+*attrs* 不发明任何神奇的系统，不会通过元类、运行时自省或不稳定的依赖关系从魔术帽中拉出类。
 
-All *attrs* does is:
+*attrs* 所做的一切就是：
 
-1. Take your declaration,
-2. write {term}`dunder methods` based on that information,
-3. and attach them to your class.
+1. 获取你的声明，
+2. 根据这些信息编写 {term}`双下划线方法 <dunder methods>` (dunder methods)，
+3. 并将它们附加到你的类上。
 
-It does *nothing* dynamic at runtime, hence zero runtime overhead.
-It's still *your* class.
-Do with it as you please.
+它在运行时*完全没有*动态行为，因此没有任何运行时开销。
+它仍然是*你的*类，随意处理它吧。
 
 ---
 
-*attrs* also is *not* a fully-fledged serialization library.
-While it comes with features like converters and validators, it is meant to be a kit for building classes that you would write yourself – but with less boilerplate.
-If you look for powerful-yet-unintrusive serialization and validation for your *attrs* classes, have a look at our sibling project [*cattrs*](https://catt.rs/) or our [third-party extensions](https://github.com/python-attrs/attrs/wiki/Extensions-to-attrs).
+*attrs* 也*不是*一个功能齐全的序列化库。
+虽然它带有转换器和验证器等功能，但它旨在成为一个用于构建你自己编写类的工具包——只不过少了样板代码。
+如果你正在寻找强大但不打扰的序列化和验证工具，请查看我们的姐妹项目 [*cattrs*](https://catt.rs/) 或我们的[第三方扩展](https://github.com/python-attrs/attrs/wiki/Extensions-to-attrs)。
 
-This separation of creating classes and serializing them is a conscious design decision.
-We don't think that your business model and your serialization format should be coupled.
+这种将创建类与序列化分离的设计是经过深思熟虑的。我们不认为你的业务逻辑和序列化格式应该耦合在一起。

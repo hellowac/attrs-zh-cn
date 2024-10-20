@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 # SPDX-License-Identifier: MIT
 
 """
@@ -20,18 +21,17 @@ def _split_what(what):
 
 def include(*what):
     """
-    Create a filter that only allows *what*.
+    创建一个只允许 *what* 的过滤器。
 
     Args:
         what (list[type, str, attrs.Attribute]):
-            What to include. Can be a type, a name, or an attribute.
+            要包含的内容。可以是类型、名称或属性。
 
     Returns:
         Callable:
-            A callable that can be passed to `attrs.asdict`'s and
-            `attrs.astuple`'s *filter* argument.
+            可传递给 `attrs.asdict` 和 `attrs.astuple` 的 *filter* 参数的可调用对象。
 
-    .. versionchanged:: 23.1.0 Accept strings with field names.
+    .. versionchanged:: 23.1.0 接受字段名称的字符串。
     """
     cls, names, attrs = _split_what(what)
 
@@ -47,18 +47,19 @@ def include(*what):
 
 def exclude(*what):
     """
-    Create a filter that does **not** allow *what*.
+    创建一个不允许 *what* 的过滤器。
 
     Args:
         what (list[type, str, attrs.Attribute]):
-            What to exclude. Can be a type, a name, or an attribute.
+            要排除的内容. 可以是一个类型(type), 名称(name), 或者属性(attribute).
 
     Returns:
         Callable:
-            A callable that can be passed to `attrs.asdict`'s and
-            `attrs.astuple`'s *filter* argument.
+            A callable that can be passed to `attrs.asdict`'s and `attrs.astuple`'s *filter* argument.
 
-    .. versionchanged:: 23.3.0 Accept field name string as input argument
+            可以传递给 `attrs.asdict` 和 `attrs.astuple` 的 *filter* 参数的可调用函数。
+
+    .. versionchanged:: 23.3.0 接受字段名称字符串作为输入参数
     """
     cls, names, attrs = _split_what(what)
 

@@ -1,60 +1,56 @@
-# On The Core API Names
+# 核心API中的名称(On The Core API Names)
 
-You may be surprised seeing *attrs* classes being created using {func}`attrs.define` and with type annotated fields, instead of {func}`attr.s` and {func}`attr.ib()`.
+你可能会对使用 {func}`attrs.define` 创建 *attrs* 类并带有类型注解字段感到惊讶，而不是使用 {func}`attr.s` 和 {func}`attr.ib()`。
 
-Or, you wonder why the web and talks are full of this weird `attr.s` and `attr.ib` -- including people having strong opinions about it and using `attr.attrs` and `attr.attrib` instead.
+或者，你可能会想知道为什么网络和讲座中充满了这个奇怪的 `attr.s` 和 `attr.ib` -- 包括一些人对此有强烈的看法，并使用 `attr.attrs` 和 `attr.attrib`。
 
-And what even is `attr.dataclass` that's not documented but commonly used!?
-
+那么，什么是未记录但常用的 `attr.dataclass` 呢！？
 
 ## TL;DR
 
-We recommend our modern APIs for new code:
+我们建议在新代码中使用现代 API：
 
-% {func} syntax does currently not work for `.. function` definitions.
+- {func}`attrs.define` 用于定义新类，
+- [`attrs.mutable()`](attrs.mutable) 是 {func}`attrs.define` 的别名，
+- [`attrs.frozen()`](attrs.frozen) 是 `define(frozen=True)` 的别名，
+- 以及 {func}`attrs.field()` 用于定义属性。
 
-- {func}`attrs.define` to define a new class,
-- [`attrs.mutable()`](attrs.mutable) is an alias for {func}`attrs.define`,
-- [`attrs.frozen()`](attrs.frozen) is an alias for `define(frozen=True)`
-- and {func}`attrs.field()` to define an attribute.
+它们是在 *attrs* 20.1.0 中新增的，表达性强，并且具有现代默认设置，如插槽和类型注解默认启用。
+有时，它们被称为 *下一代* 或 *NG* API。
+自 *attrs* 21.3.0 起，你也可以从 `attrs` 包命名空间导入它们。
 
-They have been added in *attrs* 20.1.0, they are expressive, and they have modern defaults like slots and type annotation awareness switched on by default.
-Sometimes, they're referred to as *next-generation* or *NG* APIs.
-As of *attrs* 21.3.0 you can also import them from the `attrs` package namespace.
+传统的，或称为 *OG* API {func}`attr.s` / {func}`attr.ib`，它们的严肃别名 `attr.attrs` / `attr.attrib`，以及从未记录但流行的 `attr.dataclass` 彩蛋将永远保留。
 
-The traditional, or *OG*, APIs {func}`attr.s` / {func}`attr.ib`, their serious-business aliases `attr.attrs` / `attr.attrib`, and the never-documented, but popular `attr.dataclass` easter egg will stay **forever**.
+*attrs* **绝不会**强制你使用类型注解。
 
-*attrs* will **never** force you to use type annotations.
+## 简短的历史课(A Short History Lesson)
 
+到现在为止，*attrs* 已经是一个老项目。
+它的第一次发布是在 2015 年 4 月 -- 当时大多数 Python 代码还在 Python 2.7 上，Python 3.4 是第一个展现潜力的 Python 3 版本。
+*attrs* 一直以来都是以 Python 3 为主，但 [类型注解](https://peps.python.org/pep-0484/) 直到 2015 年 9 月的 Python 3.5 才发布，并在几年内基本上被忽视。
 
-## A Short History Lesson
+那时，如果你不想实现所有的 {term}`dunder 方法`，创建一个带有属性的类最常见的方法就是继承 {obj}`collections.namedtuple`，或者使用许多黑客手段，通过属性查找来访问字典键。
 
-At this point, *attrs* is an old project.
-It had its first release in April 2015 -- back when most Python code was on Python 2.7 and Python 3.4 was the first Python 3 release that showed promise.
-*attrs* was always Python 3-first, but [type annotations](https://peps.python.org/pep-0484/) came only into Python 3.5 that was released in September 2015 and were largely ignored until years later.
+但 *attrs* 的历史可以追溯得更远，最早可以追溯到现在被遗忘的 [*characteristic*](https://github.com/hynek/characteristic)，它于 2014 年 5 月发布，已经使用了类装饰器，但整体上使用起来过于繁琐。
 
-At this time, if you didn't want to implement all the {term}`dunder methods`, the most common way to create a class with some attributes on it was to subclass a {obj}`collections.namedtuple`, or one of the many hacks that allowed you to access dictionary keys using attribute lookup.
+在这一背景下，[Glyph](https://github.com/glyph) 和 [Hynek](https://github.com/hynek) 在 IRC 上聚会，集思广益，想如何保留 *characteristic* 的好点子，但让它更易于使用和阅读。
+当时的计划并不是将 *attrs* 打造成如今这样一个灵活的类构建工具。
+我们只想要一个简洁的库来定义带有属性的类。
 
-But *attrs* history goes even a bit further back, to the now-forgotten [*characteristic*](https://github.com/hynek/characteristic) that came out in May 2014 and already used a class decorator, but was overall too unergonomic.
+受困于笨拙的 `characteristic` 名称，我们决定从另一侧入手，使包名成为 API 的一部分，并保持 API 函数非常简短。
+这导致了臭名昭著的 {func}`attr.s` 和 {func}`attr.ib`，一些人觉得这很困惑，并将其读作 “attr dot s” 或者使用单一的 `@s` 作为装饰器。
+但这实际上只是表达 `attrs` 和 `attrib` 的一种方式[^attr]。
 
-In the wake of all of that, [Glyph](https://github.com/glyph) and [Hynek](https://github.com/hynek) came together on IRC and brainstormed how to take the good ideas of *characteristic*, but make them easier to use and read.
-At this point the plan was not to make *attrs* what it is now -- a flexible class-building kit.
-All we wanted was an ergonomic little library to succinctly define classes with attributes.
+[^attr]: 我们也考虑过将 PyPI 包命名为 `attr`，但这个名称已经被一个 *表面上* 不活跃的 [包在 PyPI](https://pypi.org/project/attr/#history) 占用了。
 
-Under the impression of the unwieldy `characteristic` name, we went to the other side and decided to make the package name part of the API, and keep the API functions very short.
-This led to the infamous {func}`attr.s` and {func}`attr.ib` which some found confusing and pronounced it as "attr dot s" or used a singular `@s` as the decorator.
-But it was really just a way to say `attrs` and `attrib`[^attr].
+一些人从一开始就讨厌这个可爱的 API，这就是我们添加别名的原因，称之为 *serious business*：`@attr.attrs` 和 `attr.attrib()`。
+他们的粉丝通常只导入这些名称，而根本不使用包名。
+不幸的是，`attr` 包名称在我们添加 `attr.Factory` 的那一刻开始显得不合适，因为它无法以任何方式被变成有意义的东西。
+随着更多 API 和模块的添加，这个问题变得越来越严重。
 
-[^attr]: We considered calling the PyPI package just `attr` too, but the name was already taken by an *ostensibly* inactive [package on PyPI](https://pypi.org/project/attr/#history).
+但总体来说，*attrs* 以这种形式取得了 **巨大的** 成功 -- 特别是在 Glyph 的博客文章 [*The One Python Library Everyone Needs*](https://glyph.twistedmatrix.com/2016/08/attrs.html) 在 2016 年 8 月发布后，以及 [*pytest*](https://docs.pytest.org/) 采纳它之后。
 
-Some people hated this cutey API from day one, which is why we added aliases for them that we called *serious business*: `@attr.attrs` and `attr.attrib()`.
-Fans of them usually imported the names and didn't use the package name in the first place.
-Unfortunately, the `attr` package name started creaking the moment we added `attr.Factory`, since it couldn’t be morphed into something meaningful in any way.
-A problem that grew worse over time, as more APIs and even modules were added.
-
-But overall, *attrs* in this shape was a **huge** success -- especially after Glyph's blog post [*The One Python Library Everyone Needs*](https://glyph.twistedmatrix.com/2016/08/attrs.html) in August 2016 and [*pytest*](https://docs.pytest.org/) adopting it.
-
-Being able to just write:
+能够简单地写：
 
 ```
 @attr.s
@@ -63,53 +59,52 @@ class Point:
     y = attr.ib()
 ```
 
-was a big step for those who wanted to write small, focused classes.
+对于那些想要编写小而专注的类的人来说，这是一个重要的进步。
 
-### Dataclasses Enter The Arena
+### Dataclasses 加入的竞争(Dataclasses Enter The Arena)
 
-A big change happened in May 2017 when Hynek sat down with [Guido van Rossum](https://en.wikipedia.org/wiki/Guido_van_Rossum) and [Eric V. Smith](https://github.com/ericvsmith) at PyCon US 2017.
+2017 年 5 月发生了一次重大变化，当时 Hynek 和 [Guido van Rossum](https://en.wikipedia.org/wiki/Guido_van_Rossum) 以及 [Eric V. Smith](https://github.com/ericvsmith) 在 PyCon US 2017 上坐在一起。
 
-Type annotations for class attributes have [just landed](https://peps.python.org/pep-0526/) in Python 3.6 and Guido felt like it would be a good mechanic to introduce something similar to *attrs* to the Python standard library.
-The result, of course, was {pep}`557`[^stdlib] which eventually became the `dataclasses` module in Python 3.7.
+类属性的类型注解刚刚在 Python 3.6 中到来，Guido 觉得引入类似于 *attrs* 的机制到 Python 标准库中是个好主意。
+结果当然是 {pep}`557`[^stdlib]，这最终成为了 Python 3.7 中的 `dataclasses` 模块。
 
-[^stdlib]: The highly readable PEP also explains why *attrs* wasn't just added to the standard library.
-    Don't believe the myths and rumors.
+[^stdlib]: 这篇高度可读的 PEP 还解释了为什么 *attrs* 并没有被直接添加到标准库中。
+    不要相信那些神话和谣言。
 
-*attrs* at this point was lucky to have several people on board who were also very excited about type annotations and helped implement it; including a [Mypy plugin](https://medium.com/@Pilot-EPD-Blog/mypy-and-attrs-e1b0225e9ac6).
-And so it happened that *attrs* [shipped](https://www.attrs.org/en/17.3.0.post2/changelog.html) the new method of defining classes more than half a year before Python 3.7 -- and thus `dataclasses` -- were released.
+在这一点上，*attrs* 很幸运，有几个人也对类型注解非常感兴趣，并帮助实现它；包括一个 [Mypy 插件](https://medium.com/@Pilot-EPD-Blog/mypy-and-attrs-e1b0225e9ac6)。
+于是 *attrs* 在 Python 3.7 发布之前的半年多时间里 [发布](https://www.attrs.org/en/17.3.0.post2/changelog.html) 了新的类定义方法，因此 `dataclasses` 也随之问世。
 
 ---
 
-Due to backwards-compatibility concerns, this feature is off by default in the {func}`attr.s` decorator and has to be activated using `@attr.s(auto_attribs=True)`, though.
-As a little easter egg and to save ourselves some typing, we've also [added](https://github.com/python-attrs/attrs/commit/88aa1c897dfe2ee4aa987e4a56f2ba1344a17238#diff-4fc63db1f2fcb7c6e464ee9a77c3c74e90dd191d1c9ffc3bdd1234d3a6663dc0R48) an alias called `attr.dataclass` that just set `auto_attribs=True`.
-It was never documented, but people found it and used it and loved it.
+由于向后兼容性的考虑，这个特性在 {func}`attr.s` 装饰器中默认是关闭的，必须使用 `@attr.s(auto_attribs=True)` 来激活。
+作为一个小彩蛋，为了节省打字，我们还 [添加](https://github.com/python-attrs/attrs/commit/88aa1c897dfe2ee4aa987e4a56f2ba1344a17238#diff-4fc63db1f2fcb7c6e464ee9a77c3c74e90dd191d1c9ffc3bdd1234d3a6663dc0R48) 了一个别名 `attr.dataclass`，它只是设置了 `auto_attribs=True`。
+这个别名从未被记录，但人们发现并使用它，并对此非常喜爱。
 
-Over the next months and years it became clear that type annotations have become the popular way to define classes and their attributes.
-However, it has also become clear that some people viscerally hate type annotations.
-We're determined to serve both.
-
+在接下来的几个月和几年中，显然类型注解已经成为定义类及其属性的流行方式。
+然而，也有一些人对类型注解表现出强烈的厌恶。
+我们决心服务于双方。
 
 ### *attrs* TNG
 
-Over its existence, *attrs* never stood still.
-But since we also greatly care about backwards-compatibility and not breaking our users' code, many features and niceties have to be manually activated.
+在其存在期间，*attrs* 从未停滞不前。
+但是由于我们非常重视向后兼容性，并不希望破坏用户的代码，许多功能和优点必须手动激活。
 
-That is not only annoying, it also leads to the problem that many of *attrs*'s users don't even know what it can do for them.
-We've spent years alone explaining that defining attributes using type annotations is in no way unique to {mod}`dataclasses`.
+这不仅令人恼火，而且还导致许多 *attrs* 的用户甚至不知道它能为他们做什么。
+我们花了多年的时间在解释，使用类型注解定义属性绝对不是 {mod}`dataclasses` 独有的。
 
-Finally we've decided to take the [Go route](https://go.dev/blog/module-compatibility):
-Instead of fiddling with the old APIs -- whose names felt anachronistic anyway -- we'd define new ones, with better defaults.
-So in July 2018, we [looked for better names](https://github.com/python-attrs/attrs/issues/408) and came up with {func}`attr.define`, {func}`attr.field`, and friends.
-Then in January 2019, we [started looking for inconvenient defaults](https://github.com/python-attrs/attrs/issues/487) that we now could fix without any repercussions.
+最终，我们决定采取 [Go 的做法](https://go.dev/blog/module-compatibility)：
+与其处理那些感觉过时的旧 API，我们不如定义新的 API，并提供更好的默认值。
+因此在 2018 年 7 月，我们 [寻找更好的名称](https://github.com/python-attrs/attrs/issues/408)，想出了 {func}`attr.define`、{func}`attr.field` 等等。
+然后在 2019 年 1 月，我们 [开始寻找不便的默认值](https://github.com/python-attrs/attrs/issues/487)，现在我们可以在没有任何后果的情况下进行修复。
 
-These APIs proved to be very popular, so we've finally changed the documentation to them in November of 2021.
+这些新 API 证明非常受欢迎，因此我们终于在 2021 年 11 月将文档改为使用这些 API。
 
-All of this took way too long, of course.
-One reason is the COVID-19 pandemic, but also our fear to fumble this historic chance to fix our APIs.
+当然，这一切花了太长时间。
+一个原因是 COVID-19 大流行，但还有我们的担忧，不希望在这一历史性机会中搞砸我们的 API。
 
-Finally, in December 2021, we've added the *attrs* package namespace.
+最终，在 2021 年 12 月，我们添加了 *attrs* 包命名空间。
 
-We hope you like the result:
+我们希望你喜欢这个结果：
 
 ```
 from attrs import define

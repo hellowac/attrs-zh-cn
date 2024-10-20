@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 # SPDX-License-Identifier: MIT
 
 """
@@ -41,16 +42,16 @@ __all__ = [
 
 def set_disabled(disabled):
     """
-    Globally disable or enable running validators.
+    全局禁用或启用运行验证器。
 
-    By default, they are run.
+    默认情况下，它们是运行的。
 
     Args:
-        disabled (bool): If `True`, disable running all validators.
+        disabled (bool): 如果为 `True`，禁用运行所有验证器。
 
     .. warning::
 
-        This function is not thread-safe!
+        此函数不是线程安全的！
 
     .. versionadded:: 21.3.0
     """
@@ -59,10 +60,10 @@ def set_disabled(disabled):
 
 def get_disabled():
     """
-    Return a bool indicating whether validators are currently disabled or not.
+    返回一个布尔值，指示验证器当前是否被禁用。
 
     Returns:
-        bool:`True` if validators are currently disabled.
+        bool: 如果验证器当前被禁用，则返回 `True`。
 
     .. versionadded:: 21.3.0
     """
@@ -72,11 +73,11 @@ def get_disabled():
 @contextmanager
 def disabled():
     """
-    Context manager that disables running validators within its context.
+    上下文管理器，在其上下文中禁用运行验证器。
 
     .. warning::
 
-        This context manager is not thread-safe!
+        此上下文管理器不是线程安全的！
 
     .. versionadded:: 21.3.0
     """
@@ -110,17 +111,15 @@ class _InstanceOfValidator:
 
 def instance_of(type):
     """
-    A validator that raises a `TypeError` if the initializer is called with a
-    wrong type for this particular attribute (checks are performed using
-    `isinstance` therefore it's also valid to pass a tuple of types).
+    一个验证器，如果初始化器使用错误类型调用该特定属性，则引发 `TypeError` 
+    （检查使用 `isinstance` 执行，因此也可以传递类型元组）。
 
     Args:
-        type (type | tuple[type]): The type to check for.
+        type (type | tuple[type]): 要检查的类型。
 
     Raises:
         TypeError:
-            With a human readable error message, the attribute (of type
-            `attrs.Attribute`), the expected type, and the value it got.
+            带有人类可读的错误消息，属性（类型为 `attrs.Attribute` ）、预期类型和它接收到的值。
     """
     return _InstanceOfValidator(type)
 
@@ -149,24 +148,24 @@ class _MatchesReValidator:
 
 def matches_re(regex, flags=0, func=None):
     r"""
-    A validator that raises `ValueError` if the initializer is called with a
-    string that doesn't match *regex*.
+    一个验证器，如果初始化器被调用时提供的字符串不匹配 *regex*，
+    则会引发 `ValueError` 。
 
     Args:
         regex (str, re.Pattern):
-            A regex string or precompiled pattern to match against
+            一个正则表达式字符串或预编译模式，用于匹配
 
         flags (int):
-            Flags that will be passed to the underlying re function (default 0)
+            将传递给底层 re 函数的标志（默认为 0）
 
         func (typing.Callable):
-            Which underlying `re` function to call. Valid options are
-            `re.fullmatch`, `re.search`, and `re.match`; the default `None`
-            means `re.fullmatch`. For performance reasons, the pattern is
-            always precompiled using `re.compile`.
+            调用哪个底层 `re` 函数。有效选项为
+            `re.fullmatch`、`re.search` 和 `re.match`；默认值为 `None`
+            意味着使用 `re.fullmatch`。出于性能考虑，模式总是使用
+            `re.compile` 预编译。
 
     .. versionadded:: 19.2.0
-    .. versionchanged:: 21.3.0 *regex* can be a pre-compiled pattern.
+    .. versionchanged:: 21.3.0 *regex* 可以是预编译模式。
     """
     valid_funcs = (re.fullmatch, None, re.search, re.match)
     if func not in valid_funcs:
@@ -211,18 +210,17 @@ class _OptionalValidator:
 
 def optional(validator):
     """
-    A validator that makes an attribute optional.  An optional attribute is one
-    which can be set to `None` in addition to satisfying the requirements of
-    the sub-validator.
+    一个使属性可选的验证器。可选属性是指可以设置为 `None` ，并且满足
+    子验证器的要求。
 
     Args:
         validator
             (typing.Callable | tuple[typing.Callable] | list[typing.Callable]):
-            A validator (or validators) that is used for non-`None` values.
+            用于非 `None` 值的验证器（或验证器列表）。
 
     .. versionadded:: 15.1.0
-    .. versionchanged:: 17.1.0 *validator* can be a list of validators.
-    .. versionchanged:: 23.1.0 *validator* can also be a tuple of validators.
+    .. versionchanged:: 17.1.0 *validator* 可以是验证器列表。
+    .. versionchanged:: 23.1.0 *validator* 也可以是验证器元组。
     """
     if isinstance(validator, (list, tuple)):
         return _OptionalValidator(_AndValidator(validator))
@@ -256,31 +254,24 @@ class _InValidator:
 
 def in_(options):
     """
-    A validator that raises a `ValueError` if the initializer is called with a
-    value that does not belong in the *options* provided.
+    一个验证器，如果初始化器使用不在提供的 *options* 中的值调用，则引发 `ValueError`。
 
-    The check is performed using ``value in options``, so *options* has to
-    support that operation.
+    检查使用 ``value in options`` 执行，因此 *options* 必须支持该操作。
 
-    To keep the validator hashable, dicts, lists, and sets are transparently
-    transformed into a `tuple`.
+    为了保持验证器的可哈希性，字典、列表和集合会透明地转换为 `tuple`。
 
     Args:
-        options: Allowed options.
+        options: 允许的选项。
 
     Raises:
         ValueError:
-            With a human readable error message, the attribute (of type
-            `attrs.Attribute`), the expected options, and the value it got.
+            带有人类可读的错误消息，属性（类型为 `attrs.Attribute`）、预期选项和它接收到的值。
 
     .. versionadded:: 17.1.0
     .. versionchanged:: 22.1.0
-       The ValueError was incomplete until now and only contained the human
-       readable error message. Now it contains all the information that has
-       been promised since 17.1.0.
+       直到现在，ValueError 还不完整，仅包含人类可读的错误消息。现在它包含自 17.1.0 以来承诺的所有信息。
     .. versionchanged:: 24.1.0
-       *options* that are a list, dict, or a set are now transformed into a
-       tuple to keep the validator hashable.
+       现在，作为列表、字典或集合的 *options* 被转换为元组，以保持验证器的可哈希性。
     """
     repr_options = options
     if isinstance(options, (list, dict, set)):
@@ -313,16 +304,15 @@ class _IsCallableValidator:
 
 def is_callable():
     """
-    A validator that raises a `attrs.exceptions.NotCallableError` if the
-    initializer is called with a value for this particular attribute that is
-    not callable.
+    一个验证器，如果初始化器被调用时为此特定属性提供的值不可调用，
+    则会引发 `attrs.exceptions.NotCallableError`。
 
     .. versionadded:: 19.1.0
 
     Raises:
         attrs.exceptions.NotCallableError:
-            With a human readable error message containing the attribute
-            (`attrs.Attribute`) name, and the value it got.
+            带有可读性错误信息，包含属性
+            (`attrs.Attribute`) 名称和获得的值。
     """
     return _IsCallableValidator()
 
@@ -358,16 +348,16 @@ class _DeepIterable:
 
 def deep_iterable(member_validator, iterable_validator=None):
     """
-    A validator that performs deep validation of an iterable.
+    一个验证器，执行对可迭代对象的深度验证。
 
     Args:
-        member_validator: Validator to apply to iterable members.
+        member_validator: 应用于可迭代成员的验证器。
 
         iterable_validator:
-            Validator to apply to iterable itself (optional).
+            应用于可迭代对象本身的验证器（可选）。
 
     Raises
-        TypeError: if any sub-validators fail
+        TypeError: 如果任何子验证器失败
 
     .. versionadded:: 19.1.0
     """
@@ -399,20 +389,20 @@ class _DeepMapping:
 
 def deep_mapping(key_validator, value_validator, mapping_validator=None):
     """
-    A validator that performs deep validation of a dictionary.
+    一个验证器，执行对字典的深度验证。
 
     Args:
-        key_validator: Validator to apply to dictionary keys.
+        key_validator: 应用于字典键的验证器。
 
-        value_validator: Validator to apply to dictionary values.
+        value_validator: 应用于字典值的验证器。
 
         mapping_validator:
-            Validator to apply to top-level mapping attribute (optional).
+            应用于顶层映射属性的验证器（可选）。
 
     .. versionadded:: 19.1.0
 
     Raises:
-        TypeError: if any sub-validators fail
+        TypeError: 如果任何子验证器失败
     """
     return _DeepMapping(key_validator, value_validator, mapping_validator)
 
@@ -437,13 +427,12 @@ class _NumberValidator:
 
 def lt(val):
     """
-    A validator that raises `ValueError` if the initializer is called with a
-    number larger or equal to *val*.
+    一个验证器，如果初始化器使用大于或等于 *val* 的数字调用，则引发 `ValueError` 。
 
-    The validator uses `operator.lt` to compare the values.
+    该验证器使用 `operator.lt` 来比较值。
 
     Args:
-        val: Exclusive upper bound for values.
+        val: 值的排他上界。
 
     .. versionadded:: 21.3.0
     """
@@ -452,13 +441,12 @@ def lt(val):
 
 def le(val):
     """
-    A validator that raises `ValueError` if the initializer is called with a
-    number greater than *val*.
+    一个验证器，如果初始化器使用大于 *val* 的数字调用，则引发 `ValueError`。
 
-    The validator uses `operator.le` to compare the values.
+    该验证器使用 `operator.le` 来比较值。
 
     Args:
-        val: Inclusive upper bound for values.
+        val: 值的包含上界。
 
     .. versionadded:: 21.3.0
     """
@@ -467,13 +455,12 @@ def le(val):
 
 def ge(val):
     """
-    A validator that raises `ValueError` if the initializer is called with a
-    number smaller than *val*.
+    一个验证器，如果初始化器使用小于 *val* 的数字调用，则引发 `ValueError`。
 
-    The validator uses `operator.ge` to compare the values.
+    该验证器使用 `operator.ge` 来比较值。
 
     Args:
-        val: Inclusive lower bound for values
+        val: 值的包含下界。
 
     .. versionadded:: 21.3.0
     """
@@ -482,13 +469,12 @@ def ge(val):
 
 def gt(val):
     """
-    A validator that raises `ValueError` if the initializer is called with a
-    number smaller or equal to *val*.
+    一个验证器，如果初始化器使用小于或等于 *val* 的数字调用，则引发 `ValueError`。
 
-    The validator uses `operator.ge` to compare the values.
+    该验证器使用 `operator.ge` 来比较值。
 
     Args:
-       val: Exclusive lower bound for values
+       val: 值的排他下界。
 
     .. versionadded:: 21.3.0
     """
@@ -513,11 +499,10 @@ class _MaxLengthValidator:
 
 def max_len(length):
     """
-    A validator that raises `ValueError` if the initializer is called
-    with a string or iterable that is longer than *length*.
+    一个验证器，如果初始化器使用长度超过 *length* 的字符串或可迭代对象调用，则引发 `ValueError`。
 
     Args:
-        length (int): Maximum length of the string or iterable
+        length (int): 字符串或可迭代对象的最大长度
 
     .. versionadded:: 21.3.0
     """
@@ -542,11 +527,10 @@ class _MinLengthValidator:
 
 def min_len(length):
     """
-    A validator that raises `ValueError` if the initializer is called
-    with a string or iterable that is shorter than *length*.
+    一个验证器，如果初始化器使用长度短于 *length* 的字符串或可迭代对象调用，则引发 `ValueError`。
 
     Args:
-        length (int): Minimum length of the string or iterable
+        length (int): 字符串或可迭代对象的最小长度
 
     .. versionadded:: 22.1.0
     """
@@ -630,30 +614,25 @@ class _NotValidator:
 
 def not_(validator, *, msg=None, exc_types=(ValueError, TypeError)):
     """
-    A validator that wraps and logically 'inverts' the validator passed to it.
-    It will raise a `ValueError` if the provided validator *doesn't* raise a
-    `ValueError` or `TypeError` (by default), and will suppress the exception
-    if the provided validator *does*.
+    一个包裹并逻辑上“反转”传入的验证器的验证器。
+    如果提供的验证器*没有*引发 `ValueError` 或 `TypeError` （默认情况下），
+    将抛出 `ValueError` ，并且如果提供的验证器*确实*引发异常，则会抑制该异常。
 
-    Intended to be used with existing validators to compose logic without
-    needing to create inverted variants, for example, ``not_(in_(...))``.
+    旨在与现有验证器一起使用，以组合逻辑，而无需创建反转变体，例如，``not_(in_(...))``。
 
     Args:
-        validator: A validator to be logically inverted.
+        validator: 一个需要逻辑反转的验证器。
 
         msg (str):
-            Message to raise if validator fails. Formatted with keys
-            ``exc_types`` and ``validator``.
+            如果验证器失败时要抛出的消息。使用键 ``exc_types`` 和 ``validator`` 格式化。
 
         exc_types (tuple[type, ...]):
-            Exception type(s) to capture. Other types raised by child
-            validators will not be intercepted and pass through.
+            要捕获的异常类型。子验证器引发的其他类型不会被拦截，将直接通过。
 
     Raises:
         ValueError:
-            With a human readable error message, the attribute (of type
-            `attrs.Attribute`), the validator that failed to raise an
-            exception, the value it got, and the expected exception types.
+            带有人类可读的错误消息，属性（类型为 `attrs.Attribute` ），未能引发异常的验证器，
+            以及获取的值和预期的异常类型。
 
     .. versionadded:: 22.2.0
     """
@@ -686,20 +665,17 @@ class _OrValidator:
 
 def or_(*validators):
     """
-    A validator that composes multiple validators into one.
+    一个将多个验证器组合成一个的验证器。
 
-    When called on a value, it runs all wrapped validators until one of them is
-    satisfied.
+    当在一个值上调用时，它会运行所有封装的验证器，直到满足其中一个。
 
     Args:
         validators (~collections.abc.Iterable[typing.Callable]):
-            Arbitrary number of validators.
+            任意数量的验证器。
 
     Raises:
         ValueError:
-            If no validator is satisfied. Raised with a human-readable error
-            message listing all the wrapped validators and the value that
-            failed all of them.
+            如果没有验证器被满足。会抛出一个可读性强的错误消息，列出所有封装的验证器和未通过的值。
 
     .. versionadded:: 24.1.0
     """

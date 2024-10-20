@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 # SPDX-License-Identifier: MIT
 
 from __future__ import annotations
@@ -58,13 +59,12 @@ _DEFAULT_ON_SETATTR = setters.pipe(setters.convert, setters.validate)
 
 class _Nothing(enum.Enum):
     """
-    Sentinel to indicate the lack of a value when `None` is ambiguous.
+    用于指示缺少值的哨兵(Sentinel)，当 `None` 含糊不清(ambiguous)时。
 
-    If extending attrs, you can use ``typing.Literal[NOTHING]`` to show
-    that a value may be ``NOTHING``.
+    如果扩展 attrs，您可以使用 ``typing.Literal[NOTHING]`` 来表示一个值可能是 ``NOTHING``。
 
-    .. versionchanged:: 21.1.0 ``bool(NOTHING)`` is now False.
-    .. versionchanged:: 22.2.0 ``NOTHING`` is now an ``enum.Enum`` variant.
+    .. versionchanged:: 21.1.0 ``bool(NOTHING)`` 现在返回 False。
+    .. versionchanged:: 22.2.0 ``NOTHING`` 现在是一个 ``enum.Enum`` 变体。
     """
 
     NOTHING = enum.auto()
@@ -116,41 +116,38 @@ def attrib(
     alias=None,
 ):
     """
-    Create a new field / attribute on a class.
+    在类上创建一个新的字段 / 属性。
 
-    Identical to `attrs.field`, except it's not keyword-only.
+    与 `attrs.field` 相同，只是它不是仅限关键字。
 
-    Consider using `attrs.field` in new code (``attr.ib`` will *never* go away,
-    though).
+    考虑在新代码中使用 `attrs.field` ( ``attr.ib`` 将 *永远* 不会消失)。
 
-    ..  warning::
+    .. warning::
 
-        Does **nothing** unless the class is also decorated with
-        `attr.s` (or similar)!
+        除非类也被装饰为 `attr.s` (或类似的)，否则 **不执行任何操作**!
 
 
     .. versionadded:: 15.2.0 *convert*
     .. versionadded:: 16.3.0 *metadata*
-    .. versionchanged:: 17.1.0 *validator* can be a ``list`` now.
+    .. versionchanged:: 17.1.0 *validator* 现在可以是 ``list``。
     .. versionchanged:: 17.1.0
-       *hash* is `None` and therefore mirrors *eq* by default.
+       *hash* 为 `None`，因此默认与 *eq* 镜像。
     .. versionadded:: 17.3.0 *type*
     .. deprecated:: 17.4.0 *convert*
     .. versionadded:: 17.4.0
-       *converter* as a replacement for the deprecated *convert* to achieve
-       consistency with other noun-based arguments.
+       *converter* 作为弃用的 *convert* 的替代，以实现与其他基于名词的参数的一致性。
     .. versionadded:: 18.1.0
-       ``factory=f`` is syntactic sugar for ``default=attr.Factory(f)``.
+       ``factory=f`` 是 ``default=attr.Factory(f)`` 的语法糖。
     .. versionadded:: 18.2.0 *kw_only*
-    .. versionchanged:: 19.2.0 *convert* keyword argument removed.
-    .. versionchanged:: 19.2.0 *repr* also accepts a custom callable.
-    .. deprecated:: 19.2.0 *cmp* Removal on or after 2021-06-01.
-    .. versionadded:: 19.2.0 *eq* and *order*
+    .. versionchanged:: 19.2.0 移除了 *convert* 关键字参数。
+    .. versionchanged:: 19.2.0 *repr* 现在也接受自定义可调用对象。
+    .. deprecated:: 19.2.0 *cmp* 在 2021-06-01 或之后将被移除。
+    .. versionadded:: 19.2.0 *eq* 和 *order*
     .. versionadded:: 20.1.0 *on_setattr*
-    .. versionchanged:: 20.3.0 *kw_only* backported to Python 2
+    .. versionchanged:: 20.3.0 *kw_only* 回溯到 Python 2
     .. versionchanged:: 21.1.0
-       *eq*, *order*, and *cmp* also accept a custom callable
-    .. versionchanged:: 21.1.0 *cmp* undeprecated
+       *eq*, *order*, 和 *cmp* 现在也接受自定义可调用对象
+    .. versionchanged:: 21.1.0 *cmp* 重新引入
     .. versionadded:: 22.2.0 *alias*
     """
     eq, eq_key, order, order_key = _determine_attrib_eq_order(
@@ -1196,70 +1193,57 @@ def attrs(
     unsafe_hash=None,
 ):
     r"""
-    A class decorator that adds :term:`dunder methods` according to the
-    specified attributes using `attr.ib` or the *these* argument.
+    一个类装饰器，根据指定的属性使用 `attr.ib` 或 *these* 参数添加 :term:`双下划线方法 <dunder methods>`。
 
-    Consider using `attrs.define` / `attrs.frozen` in new code (``attr.s`` will
-    *never* go away, though).
+    考虑在新代码中使用 `attrs.define` / `attrs.frozen` ( ``attr.s`` 将 *永远* 不会消失)。
 
     Args:
         repr_ns (str):
-            When using nested classes, there was no way in Python 2 to
-            automatically detect that.  This argument allows to set a custom
-            name for a more meaningful ``repr`` output.  This argument is
-            pointless in Python 3 and is therefore deprecated.
+            在使用嵌套类时，Python 2 中没有办法自动检测这一点。此参数允许设置一个自定义名称以获得更有意义的 ``repr`` 输出。此参数在 Python 3 中是无用的，因此被弃用。
 
     .. caution::
-        Refer to `attrs.define` for the rest of the parameters, but note that they
-        can have different defaults.
+        请参考 `attrs.define` 的其余参数，但请注意它们可能有不同的默认值。
 
-        Notably, leaving *on_setattr* as `None` will **not** add any hooks.
+        特别是，*on_setattr* 保持为 `None` 将 **不会** 添加任何钩子。
 
     .. versionadded:: 16.0.0 *slots*
     .. versionadded:: 16.1.0 *frozen*
     .. versionadded:: 16.3.0 *str*
-    .. versionadded:: 16.3.0 Support for ``__attrs_post_init__``.
+    .. versionadded:: 16.3.0 支持 ``__attrs_post_init__``。
     .. versionchanged:: 17.1.0
-       *hash* supports `None` as value which is also the default now.
+       *hash* 现在支持 `None` 作为值，这也是默认值。
     .. versionadded:: 17.3.0 *auto_attribs*
     .. versionchanged:: 18.1.0
-       If *these* is passed, no attributes are deleted from the class body.
-    .. versionchanged:: 18.1.0 If *these* is ordered, the order is retained.
+       如果传递了 *these* ，则不会从类体中删除任何属性。
+    .. versionchanged:: 18.1.0 如果 *these* 是有序的，则保留顺序。
     .. versionadded:: 18.2.0 *weakref_slot*
     .. deprecated:: 18.2.0
-       ``__lt__``, ``__le__``, ``__gt__``, and ``__ge__`` now raise a
-       `DeprecationWarning` if the classes compared are subclasses of
-       each other. ``__eq`` and ``__ne__`` never tried to compared subclasses
-       to each other.
+       ``__lt__``, ``__le__``, ``__gt__``, 和 ``__ge__`` 现在如果被比较的类是彼此的子类，将引发 `DeprecationWarning`。``__eq`` 和 ``__ne__`` 从未尝试比较子类。
     .. versionchanged:: 19.2.0
-       ``__lt__``, ``__le__``, ``__gt__``, and ``__ge__`` now do not consider
-       subclasses comparable anymore.
+       ``__lt__``, ``__le__``, ``__gt__``, 和 ``__ge__`` 现在不再认为子类可比较。
     .. versionadded:: 18.2.0 *kw_only*
     .. versionadded:: 18.2.0 *cache_hash*
     .. versionadded:: 19.1.0 *auto_exc*
-    .. deprecated:: 19.2.0 *cmp* Removal on or after 2021-06-01.
-    .. versionadded:: 19.2.0 *eq* and *order*
+    .. deprecated:: 19.2.0 *cmp* 在 2021-06-01 或之后将被移除。
+    .. versionadded:: 19.2.0 *eq* 和 *order*
     .. versionadded:: 20.1.0 *auto_detect*
     .. versionadded:: 20.1.0 *collect_by_mro*
     .. versionadded:: 20.1.0 *getstate_setstate*
     .. versionadded:: 20.1.0 *on_setattr*
     .. versionadded:: 20.3.0 *field_transformer*
     .. versionchanged:: 21.1.0
-       ``init=False`` injects ``__attrs_init__``
-    .. versionchanged:: 21.1.0 Support for ``__attrs_pre_init__``
-    .. versionchanged:: 21.1.0 *cmp* undeprecated
+       ``init=False`` 注入 ``__attrs_init__``
+    .. versionchanged:: 21.1.0 支持 ``__attrs_pre_init__``
+    .. versionchanged:: 21.1.0 *cmp* 重新引入
     .. versionadded:: 21.3.0 *match_args*
     .. versionadded:: 22.2.0
-       *unsafe_hash* as an alias for *hash* (for :pep:`681` compliance).
+       *unsafe_hash* 作为 *hash* 的别名(符合 :pep:`681`)。
     .. deprecated:: 24.1.0 *repr_ns*
     .. versionchanged:: 24.1.0
-       Instances are not compared as tuples of attributes anymore, but using a
-       big ``and`` condition. This is faster and has more correct behavior for
-       uncomparable values like `math.nan`.
+       实例不再作为属性的元组进行比较，而是使用一个大的 ``and`` 条件。这更快，并且对于不可比较的值(如 `math.nan`)具有更正确的行为。
     .. versionadded:: 24.1.0
-       If a class has an *inherited* classmethod called
-       ``__attrs_init_subclass__``, it is executed after the class is created.
-    .. deprecated:: 24.1.0 *hash* is deprecated in favor of *unsafe_hash*.
+       如果一个类有一个 *继承的* 类方法 ``__attrs_init_subclass__``，则在类创建后执行。
+    .. deprecated:: 24.1.0 *hash* 被弃用，取而代之的是 *unsafe_hash*。
     """
     if repr_ns is not None:
         import warnings
@@ -1692,26 +1676,24 @@ def _add_repr(cls, ns=None, attrs=None):
 
 def fields(cls):
     """
-    Return the tuple of *attrs* attributes for a class.
+    返回一个类的 *attrs* 属性的元组。
 
-    The tuple also allows accessing the fields by their names (see below for
-    examples).
+    该元组还允许通过名称访问字段(fields)(请参见下面的示例)。
 
     Args:
-        cls (type): Class to introspect.
+        cls (type): 要进行反射的类。
 
     Raises:
-        TypeError: If *cls* is not a class.
+        TypeError: 如果 *cls* 不是一个类。
 
         attrs.exceptions.NotAnAttrsClassError:
-            If *cls* is not an *attrs* class.
+            如果 *cls* 不是一个 *attrs* 类。
 
     Returns:
-        tuple (with name accessors) of `attrs.Attribute`
+        tuple (带名称访问器)的 `attrs.Attribute`
 
-    .. versionchanged:: 16.2.0 Returned tuple allows accessing the fields
-       by name.
-    .. versionchanged:: 23.1.0 Add support for generic classes.
+    .. versionchanged:: 16.2.0 返回的元组允许通过名称访问字段。
+    .. versionchanged:: 23.1.0 增加对泛型类的支持。
     """
     generic_base = get_generic_base(cls)
 
@@ -1738,20 +1720,19 @@ def fields(cls):
 
 def fields_dict(cls):
     """
-    Return an ordered dictionary of *attrs* attributes for a class, whose keys
-    are the attribute names.
+    返回一个有序字典，包含类的 *attrs* 属性，字典的键为属性名称。
 
     Args:
-        cls (type): Class to introspect.
+        cls (type): 要进行反射的类。
 
     Raises:
-        TypeError: If *cls* is not a class.
+        TypeError: 如果 *cls* 不是一个类。
 
         attrs.exceptions.NotAnAttrsClassError:
-            If *cls* is not an *attrs* class.
+            如果 *cls* 不是一个 *attrs* 类。
 
     Returns:
-        dict[str, attrs.Attribute]: Dict of attribute name to definition
+        dict[str, attrs.Attribute]: 属性名称到定义的字典
 
     .. versionadded:: 18.1.0
     """
@@ -1767,12 +1748,12 @@ def fields_dict(cls):
 
 def validate(inst):
     """
-    Validate all attributes on *inst* that have a validator.
+    验证 *inst* 上所有具有验证器的属性。
 
-    Leaves all exceptions through.
+    所有异常都将抛出。
 
     Args:
-        inst: Instance of a class with *attrs* attributes.
+        inst: 包含 *attrs* 属性的类的实例。
     """
     if _config._run_validators is False:
         return
@@ -2231,45 +2212,33 @@ def _default_init_alias_for(name: str) -> str:
 
 class Attribute:
     """
-    *Read-only* representation of an attribute.
+    *只读(Read-only)* 属性表示。
 
     .. warning::
 
-       You should never instantiate this class yourself.
+        你永远不应该自己实例化这个类。
 
-    The class has *all* arguments of `attr.ib` (except for ``factory`` which is
-    only syntactic sugar for ``default=Factory(...)`` plus the following:
+    该类具有 `attr.ib` 的 *所有* 参数(除了 ``factory`` ，它只是 ``default=Factory(...)`` 的语法糖)，以及以下内容：
 
-    - ``name`` (`str`): The name of the attribute.
-    - ``alias`` (`str`): The __init__ parameter name of the attribute, after
-      any explicit overrides and default private-attribute-name handling.
-    - ``inherited`` (`bool`): Whether or not that attribute has been inherited
-      from a base class.
-    - ``eq_key`` and ``order_key`` (`typing.Callable` or `None`): The
-      callables that are used for comparing and ordering objects by this
-      attribute, respectively. These are set by passing a callable to
-      `attr.ib`'s ``eq``, ``order``, or ``cmp`` arguments. See also
-      :ref:`comparison customization <custom-comparison>`.
+    - ``name`` (`str`): 属性的名称。
+    - ``alias`` (`str`): 属性的 __init__ 参数名称，在任何显式覆盖和默认私有属性名称处理之后。
+    - ``inherited`` (`bool`): 该属性是否从基类继承。
+    - ``eq_key`` 和 ``order_key`` (`typing.Callable` 或 `None`): 分别用于通过该属性比较和排序对象的可调用对象。这些是通过将可调用对象传递给 `attr.ib` 的 ``eq``、``order`` 或 ``cmp`` 参数设置的。另请参见 :ref:`comparison customization <custom-comparison>`。
 
-    Instances of this class are frequently used for introspection purposes
-    like:
+    这个类的实例经常用于反射目的，例如：
 
-    - `fields` returns a tuple of them.
-    - Validators get them passed as the first argument.
-    - The :ref:`field transformer <transform-fields>` hook receives a list of
-      them.
-    - The ``alias`` property exposes the __init__ parameter name of the field,
-      with any overrides and default private-attribute handling applied.
-
+    - `fields` 返回它们的元组。
+    - 验证器将它们作为第一个参数传递。
+    - :ref:`field transformer <transform-fields>` 钩子接收它们的列表。
+    - ``alias`` 属性暴露字段的 __init__ 参数名称，应用了任何覆盖和默认的私有属性处理。
 
     .. versionadded:: 20.1.0 *inherited*
     .. versionadded:: 20.1.0 *on_setattr*
-    .. versionchanged:: 20.2.0 *inherited* is not taken into account for
-        equality checks and hashing anymore.
-    .. versionadded:: 21.1.0 *eq_key* and *order_key*
+    .. versionchanged:: 20.2.0 *inherited* 不再考虑相等性检查和哈希。
+    .. versionadded:: 21.1.0 *eq_key* 和 *order_key*
     .. versionadded:: 22.2.0 *alias*
 
-    For the full version history of the fields, see `attr.ib`.
+    有关字段的完整版本历史，请参见 `attr.ib`。
     """
 
     __slots__ = (
@@ -2383,12 +2352,11 @@ class Attribute:
     # Don't use attrs.evolve since fields(Attribute) doesn't work
     def evolve(self, **changes):
         """
-        Copy *self* and apply *changes*.
+        拷贝 *self* 并应用 *更改(changes)*.
 
-        This works similarly to `attrs.evolve` but that function does not work
-        with {class}`Attribute`.
+        这与 `attrs.evolve` 的工作方式类似，但该函数不适用于 {class}`Attribute` 。
 
-        It is mainly meant to be used for `transform-fields`.
+        主要用于 `transform-fields` 。
 
         .. versionadded:: 20.3.0
         """
@@ -2609,19 +2577,16 @@ _CountingAttr = _add_eq(_add_repr(_CountingAttr))
 
 class Factory:
     """
-    Stores a factory callable.
+    存储一个工厂可调用对象(factory callable)。
 
-    If passed as the default value to `attrs.field`, the factory is used to
-    generate a new value.
+    如果作为默认值传递给 `attrs.field` ，则该工厂用于生成新值。
 
     Args:
         factory (typing.Callable):
-            A callable that takes either none or exactly one mandatory
-            positional argument depending on *takes_self*.
+            一个可调用对象，根据 *takes_self* 的值，可以不接受参数或只接受一个必需的位置参数。
 
         takes_self (bool):
-            Pass the partially initialized instance that is being initialized
-            as a positional argument.
+            将正在初始化的部分初始化实例作为位置参数传递。
 
     .. versionadded:: 17.1.0  *takes_self*
     """
@@ -2667,21 +2632,18 @@ Factory = _add_hash(_add_eq(_add_repr(Factory, attrs=_f), attrs=_f), attrs=_f)
 
 class Converter:
     """
-    Stores a converter callable.
+    存储一个转换器可调用对象。
 
-    Allows for the wrapped converter to take additional arguments. The
-    arguments are passed in the order they are documented.
+    允许包装的转换器接受额外的参数。参数按文档中的顺序传递。
 
     Args:
-        converter (Callable): A callable that converts the passed value.
+        converter (Callable): 用于转换传入值的可调用对象。
 
         takes_self (bool):
-            Pass the partially initialized instance that is being initialized
-            as a positional argument. (default: `False`)
+            将正在初始化的部分实例作为位置参数传递。 (默认值: `False`)
 
         takes_field (bool):
-            Pass the field definition (an :class:`Attribute`) into the
-            converter as a positional argument. (default: `False`)
+            将字段定义 (一个 :class:`Attribute`) 作为位置参数传递给转换器。 (默认值: `False`)
 
     .. versionadded:: 24.1.0
     """
@@ -2790,28 +2752,25 @@ def make_class(
     name, attrs, bases=(object,), class_body=None, **attributes_arguments
 ):
     r"""
-    A quick way to create a new class called *name* with *attrs*.
+    一种快速创建名为 *name* 的新类并使用 *attrs* 的方法。
 
     Args:
-        name (str): The name for the new class.
+        name (str): 新类的名称。
 
-        attrs( list | dict):
-            A list of names or a dictionary of mappings of names to `attr.ib`\
-            s / `attrs.field`\ s.
+        attrs (list | dict):
+            名称的列表或名称到 `attr.ib` / `attrs.field` 的映射字典。
 
-            The order is deduced from the order of the names or attributes
-            inside *attrs*.  Otherwise the order of the definition of the
-            attributes is used.
+            顺序从 *attrs* 内的名称或属性的顺序推断。否则，将使用属性定义的顺序。
 
-        bases (tuple[type, ...]): Classes that the new class will subclass.
+        bases (tuple[type, ...]): 新类将继承的类。
 
         class_body (dict):
-            An optional dictionary of class attributes for the new class.
+            新类的可选类属性字典。
 
-        attributes_arguments: Passed unmodified to `attr.s`.
+        attributes_arguments: 以未修改的方式传递给 `attr.s` 。
 
     Returns:
-        type: A new class with *attrs*.
+        type: 一个具有 *attrs* 的新类。
 
     .. versionadded:: 17.1.0 *bases*
     .. versionchanged:: 18.1.0 If *attrs* is ordered, the order is retained.
@@ -2889,13 +2848,13 @@ class _AndValidator:
 
 def and_(*validators):
     """
-    A validator that composes multiple validators into one.
+    一个将多个验证器组合成一个的验证器。
 
-    When called on a value, it runs all wrapped validators.
+    当在一个值上调用时，它会运行所有封装的验证器。
 
     Args:
         validators (~collections.abc.Iterable[typing.Callable]):
-            Arbitrary number of validators.
+            任意数量的验证器。
 
     .. versionadded:: 17.1.0
     """
@@ -2912,16 +2871,15 @@ def and_(*validators):
 
 def pipe(*converters):
     """
-    A converter that composes multiple converters into one.
+    一个将多个转换器组合成一个的转换器。
 
-    When called on a value, it runs all wrapped converters, returning the
-    *last* value.
+    当对一个值调用时，它会运行所有包装的转换器，并返回
+    *最后* 的值。
 
-    Type annotations will be inferred from the wrapped converters', if they
-    have any.
+    如果包装的转换器有类型注解，将会被推断出来。
 
         converters (~collections.abc.Iterable[typing.Callable]):
-            Arbitrary number of converters.
+            任意数量的转换器。
 
     .. versionadded:: 20.1.0
     """
@@ -2933,11 +2891,11 @@ def pipe(*converters):
         return val
 
     if not converters:
-        # If the converter list is empty, pipe_converter is the identity.
+        # 如果转换器列表为空，pipe_converter 是恒等函数。
         A = typing.TypeVar("A")
         pipe_converter.__annotations__.update({"val": A, "return": A})
     else:
-        # Get parameter type from first converter.
+        # 从第一个转换器获取参数类型。
         t = _AnnotationExtractor(converters[0]).get_first_param_type()
         if t:
             pipe_converter.__annotations__["val"] = t
@@ -2946,7 +2904,7 @@ def pipe(*converters):
         if not PY_3_11_PLUS and isinstance(last, Converter):
             last = last.__call__
 
-        # Get return type from last converter.
+        # 从最后一个转换器获取返回类型。
         rt = _AnnotationExtractor(last).get_return_type()
         if rt:
             pipe_converter.__annotations__["return"] = rt

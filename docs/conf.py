@@ -25,6 +25,8 @@ doctest_global_setup = """
 from attr import define, frozen, field, validators, Factory
 """
 
+language = "zh_CN"
+
 linkcheck_ignore = [
     # We run into GitHub's rate limits.
     r"https://github.com/.*/(issues|pull)/\d+",
@@ -180,7 +182,7 @@ texinfo_documents = [
 
 epub_description = "Python Classes Without Boilerplate"
 
-intersphinx_mapping = {"python": ("https://docs.python.org/3", None)}
+intersphinx_mapping = {"python": ("https://docs.python.org/zh-cn/3", None)}
 
 # Allow non-local URIs so we can have images in CHANGELOG etc.
 suppress_warnings = ["image.nonlocal_uri"]

@@ -1,8 +1,8 @@
-# *attrs* by Example
+# *attrs* 示例
 
-## Basics
+## 基础(Basics)
 
-The simplest possible usage is:
+最简单的用法是：
 
 ```{doctest}
 >>> from attrs import define, field
@@ -17,9 +17,9 @@ True
 False
 ```
 
-So in other words: *attrs* is useful even without actual {term}`fields <field>`!
+换句话说：即使没有实际的 {term}`fields <field>`，*attrs* 也有用！
 
-But you'll usually want some data on your classes, so let's add some:
+不过，你通常会希望在类中添加一些数据，所以让我们加上一些：
 
 ```{doctest}
 >>> @define
@@ -28,7 +28,7 @@ But you'll usually want some data on your classes, so let's add some:
 ...     y: int
 ```
 
-By default, all features are added, so you immediately have a fully functional data class with a nice `repr` string and comparison methods.
+默认情况下，所有特性都会被添加，因此你立即拥有一个功能齐全的数据类，包含一个简洁的 `repr` 字符串和比较方法。
 
 ```{doctest}
 >>> c1 = Coordinates(1, 2)
@@ -41,12 +41,11 @@ Coordinates(x=2, y=1)
 False
 ```
 
-As shown, the generated `__init__` method allows for both positional and keyword arguments.
+如上所示，生成的 `__init__` 方法支持位置参数和关键字参数。
 
 ---
 
-Unlike Data Classes, *attrs* doesn't force you to use type annotations.
-So, the previous example could also have been written as:
+与 Data Classes 不同，*attrs* 不强制要求使用类型注解。因此，前面的例子也可以写成：
 
 ```{doctest}
 >>> @define
@@ -58,12 +57,12 @@ Coordinates(x=1, y=2)
 ```
 
 :::{caution}
-If a class body contains a field that is defined using {func}`attrs.field` (or {func}`attr.ib`), but **lacks a type annotation**, *attrs* switches to a no-typing mode and ignores fields that have type annotations but are not defined using {func}`attrs.field` (or {func}`attr.ib`).
+如果类主体中包含一个使用 {func}`attrs.field`（或 {func}`attr.ib`）定义的字段，但**缺少类型注解**，*attrs* 将切换到无类型模式，并忽略那些具有类型注解但未使用 {func}`attrs.field`（或 {func}`attr.ib`）定义的字段。
 :::
 
 ---
 
-For private attributes, *attrs* will strip the leading underscores for keyword arguments:
+对于私有属性，*attrs* 会去掉关键字参数的前导下划线：
 
 ```{doctest}
 >>> @define
@@ -73,7 +72,7 @@ For private attributes, *attrs* will strip the leading underscores for keyword a
 C(_x=1)
 ```
 
-If you want to initialize your private attributes yourself, you can do that too:
+如果你想自行初始化私有属性，也可以这样做：
 
 ```{doctest}
 >>> @define
@@ -87,7 +86,7 @@ Traceback (most recent call last):
 TypeError: __init__() takes exactly 1 argument (2 given)
 ```
 
-If you prefer to expose your privates, you can use keyword argument aliases:
+如果你更愿意公开私有属性，你可以使用关键字参数别名：
 
 ```{doctest}
 >>> @define
@@ -97,8 +96,7 @@ If you prefer to expose your privates, you can use keyword argument aliases:
 C(_x=1)
 ```
 
-An additional way of defining attributes is supported too.
-This is useful in times when you want to enhance classes that are not yours (nice `__repr__` for Django models anyone?):
+还有另一种定义属性的方式，这在你想增强不是自己编写的类时非常有用（比如为 Django 模型增加一个简洁的 `__repr__` 方法）：
 
 ```{doctest}
 >>> class SomethingFromSomeoneElse:
@@ -112,7 +110,7 @@ This is useful in times when you want to enhance classes that are not yours (nic
 SomethingFromSomeoneElse(x=1)
 ```
 
-[Subclassing is bad for you](https://www.youtube.com/watch?v=3MNVP9-hglc) (except when doing [strict specialization](https://hynek.me/articles/python-subclassing-redux/)), but *attrs* will still do what you'd hope for:
+[继承对你不利](https://www.youtube.com/watch?v=3MNVP9-hglc)（除非进行[严格的专业化](https://hynek.me/articles/python-subclassing-redux/)），但 *attrs* 仍然会按照你期望的方式工作：
 
 ```{doctest}
 >>> @define(slots=False)
@@ -135,14 +133,14 @@ True
 1
 ```
 
-{term}`Slotted classes <slotted classes>`, which are the default for the new APIs, don't play well with multiple inheritance so we don't use them in the example.
+{term}`Slotted classes <slotted classes>` 是新 API 的默认设置，它们与多重继承不兼容，因此我们在示例中没有使用。
 
-The order of the attributes is defined by the [MRO](https://www.python.org/download/releases/2.3/mro/).
+属性的顺序由 [MRO](https://www.python.org/download/releases/2.3/mro/) 定义。
 
 
-### Keyword-only Attributes
+### 仅关键字属性(Keyword-only Attributes)
 
-You can also add [keyword-only](https://docs.python.org/3/glossary.html#keyword-only-parameter) attributes:
+你还可以添加 [仅关键字](https://docs.python.org/3/glossary.html#keyword-only-parameter) 属性：
 
 ```{doctest}
 >>> @define
@@ -156,7 +154,7 @@ TypeError: A() missing 1 required keyword-only argument: 'a'
 A(a=1)
 ```
 
-`kw_only` may also be specified at decorator level, and will apply to all attributes:
+`kw_only` 也可以在装饰器级别指定，并将应用于所有属性：
 
 ```{doctest}
 >>> @define(kw_only=True)
@@ -171,9 +169,9 @@ TypeError: __init__() takes 1 positional argument but 3 were given
 A(a=1, b=2)
 ```
 
-If you create an attribute with `init=False`, the `kw_only` argument is ignored.
+如果你创建的属性使用 `init=False`，则 `kw_only` 参数会被忽略。
 
-Keyword-only attributes allow subclasses to add attributes without default values, even if the base class defines attributes with default values:
+仅关键字属性允许子类添加没有默认值的属性，即使基类定义了带默认值的属性：
 
 ```{doctest}
 >>> @define
@@ -190,7 +188,7 @@ Traceback (most recent call last):
 TypeError: B() missing 1 required keyword-only argument: 'b'
 ```
 
-If you don't set `kw_only=True`, then there is no valid attribute ordering, and you'll get an error:
+如果你没有设置 `kw_only=True`，则没有有效的属性顺序，这会导致错误：
 
 ```{doctest}
 >>> @define
@@ -206,9 +204,9 @@ ValueError: No mandatory attributes allowed after an attribute with a default va
 
 (asdict)=
 
-## Converting to Collections Types
+## 转换为集合类型(Converting to Collections Types)
 
-When you have a class with data, it often is very convenient to transform that class into a {class}`dict` (for example if you want to serialize it to JSON):
+当你有一个包含数据的类时，将该类转换为一个 {class}`dict` 通常非常方便（例如，如果你想将其序列化为 JSON）：
 
 ```{doctest}
 >>> from attrs import asdict
@@ -216,8 +214,8 @@ When you have a class with data, it often is very convenient to transform that c
 {'x': 1, 'y': 2}
 ```
 
-Some fields cannot or should not be transformed.
-For that, {func}`attrs.asdict` offers a callback that decides whether an attribute should be included:
+有些字段不能或不应该被转换。
+为此，{func}`attrs.asdict` 提供了一个回调函数，用于决定一个属性是否应该被包含：
 
 ```{doctest}
 >>> @define
@@ -235,7 +233,7 @@ For that, {func}`attrs.asdict` offers a callback that decides whether an attribu
 {'users': [{'email': 'jane@doe.invalid'}, {'email': 'joe@doe.invalid'}]}
 ```
 
-For the common case where you want to [`include`](attrs.filters.include) or [`exclude`](attrs.filters.exclude) certain types, string name or attributes, *attrs* ships with a few helpers:
+对于你想要 [`包含`](attrs.filters.include) 或 [`排除`](attrs.filters.exclude) 某些类型、字符串名称或属性的常见情况，*attrs* 提供了一些辅助函数：
 
 ```{doctest}
 >>> from attrs import asdict, filters, fields
@@ -268,9 +266,9 @@ For the common case where you want to [`include`](attrs.filters.include) or [`ex
 ```
 
 :::{note}
-Though using string names directly is convenient, mistyping attribute names will silently do the wrong thing and neither Python nor your type checker can help you.
-{func}`attrs.fields()` will raise an `AttributeError` when the field doesn't exist while literal string names won't.
-Using {func}`attrs.fields()` to get attributes is worth being recommended in most cases.
+虽然直接使用字符串名称很方便，但拼写错误的属性名称将静默地导致错误，并且无论是 Python 还是你的类型检查器都无法帮助你。
+{func}`attrs.fields()` 会在字段不存在时引发 `AttributeError`，而字面字符串名称则不会。
+在大多数情况下，使用 {func}`attrs.fields()` 来获取属性是值得推荐的。
 
 ```{doctest}
 >>> asdict(
@@ -289,7 +287,7 @@ AttributeError: 'UserAttributes' object has no attribute 'passwd'. Did you mean:
 ```
 :::
 
-Other times, all you want is a tuple and *attrs* won't let you down:
+有时，你所需要的只是一个元组，而 *attrs* 不会让你失望：
 
 ```{doctest}
 >>> import sqlite3
@@ -312,14 +310,14 @@ Other times, all you want is a tuple and *attrs* won't let you down:
 True
 ```
 
-For more advanced transformations and conversions, we recommend you look at a companion library (such as [*cattrs*](https://catt.rs/)).
+对于更高级的转换和转化，我们建议你查看一个伴随库（例如 [*cattrs*](https://catt.rs/)）。
 
 
-## Defaults
+## 默认值(Defaults)
 
-Sometimes you want to have default values for your initializer.
-And sometimes you even want mutable objects as default values (ever accidentally used `def f(arg=[])`?).
-*attrs* has you covered in both cases:
+有时你希望为初始化函数提供默认值。
+而有时你甚至希望可变对象作为默认值（你是否曾经不小心使用过 `def f(arg=[])`？）。
+*attrs* 在这两种情况下都能满足你的需求：
 
 ```{doctest}
 >>> import collections
@@ -329,7 +327,7 @@ And sometimes you even want mutable objects as default values (ever accidentally
 ...     socket: int
 ...     @classmethod
 ...     def connect(cls, db_string):
-...        # ... connect somehow to db_string ...
+...        # ... 以某种方式连接到 db_string ...
 ...        return cls(socket=42)
 
 >>> @define
@@ -360,10 +358,10 @@ Connection(socket=42)
 ConnectionPool(db_string='postgres://localhost', pool=deque([Connection(socket=42)]), debug=False)
 ```
 
-More information on why class methods for constructing objects are awesome can be found in this insightful [blog post](https://web.archive.org/web/20210130220433/http://as.ynchrono.us/2014/12/asynchronous-object-initialization.html).
+关于为什么用于构造对象的类方法很棒的更多信息，可以在这篇有见地的 [博客文章](https://web.archive.org/web/20210130220433/http://as.ynchrono.us/2014/12/asynchronous-object-initialization.html) 中找到。
 
-Default factories can also be set using the `factory` argument to {func}`~attrs.field`, and using a decorator.
-The method receives the partially initialized instance which enables you to base a default value on other attributes:
+默认工厂也可以通过 `factory` 参数设置为 {func}`~attrs.field`，并使用装饰器。
+该方法接收部分初始化的实例，使你能够基于其他属性来设置默认值：
 
 ```{doctest}
 >>> @define
@@ -378,18 +376,18 @@ The method receives the partially initialized instance which enables you to base
 C(x=1, y=2, z=[])
 ```
 
-Please keep in mind that the decorator approach *only* works if the attribute in question has a {func}`~attrs.field` assigned to it.
-As a result, annotating an attribute with a type is *not* enough if you use `@default`.
+请注意，装饰器方法 *仅* 在相关属性被赋值为 {func}`~attrs.field` 时有效。
+因此，如果你使用 `@default`，单纯用类型注解并不足够。
 
 (examples-validators)=
 
-## Validators
+## 验证器(Validators)
 
-Although your initializers should do as little as possible (ideally: just initialize your instance according to the arguments!), it can come in handy to do some kind of validation on the arguments.
+尽管你的初始化函数应该尽量简洁（理想情况下：仅根据参数初始化实例！），但在参数上进行某种验证是很有用的。
 
-*attrs* offers two ways to define validators for each attribute and it's up to you to choose which one suits your style and project better.
+*attrs* 提供了两种方法来为每个属性定义验证器，选择哪种方法更适合你的风格和项目就看你自己了。
 
-You can use a decorator:
+你可以使用装饰器：
 
 ```{doctest}
 >>> @define
@@ -407,7 +405,7 @@ Traceback (most recent call last):
 ValueError: x must be smaller or equal to 42
 ```
 
-...or a callable...
+...或者使用可调用对象...
 
 ```{doctest}
 >>> from attrs import validators
@@ -428,7 +426,7 @@ Traceback (most recent call last):
 ValueError: 'x' has to be smaller than 'y'!
 ```
 
-...or both at once:
+...或者同时使用这两种方法：
 
 ```{doctest}
 >>> @define
@@ -450,10 +448,10 @@ Traceback (most recent call last):
 ValueError: value out of bounds
 ```
 
-Please note that the decorator approach only works if -- and only if! -- the attribute in question has a {func}`~attrs.field` assigned.
-Therefore if you use `@validator`, it is *not* enough to annotate said attribute with a type.
+请注意，装饰器方法仅在相关属性被赋值为 {func}`~attrs.field` 时有效。
+因此，如果你使用 `@validator`，仅用类型注解并不足够。
 
-*attrs* ships with a bunch of validators, make sure to [check them out](api-validators) before writing your own:
+*attrs* 附带了一些验证器，确保在编写自己的验证器之前先 [查看它们](api-validators)：
 
 ```{doctest}
 >>> @define
@@ -467,17 +465,17 @@ Traceback (most recent call last):
 TypeError: ("'x' must be <type 'int'> (got '42' that is a <type 'str'>).", Attribute(name='x', default=NOTHING, factory=NOTHING, validator=<instance_of validator for type <type 'int'>>, type=None, kw_only=False), <type 'int'>, '42')
 ```
 
-If using the old-school {func}`attr.s` decorator, validators only run on initialization by default.
-If using the newer {func}`attrs.define` and friends, validators run on initialization *and* on attribute setting.
-This behavior can be changed using the *on_setattr* argument.
+如果使用旧式的 {func}`attr.s` 装饰器，验证器默认仅在初始化时运行。
+如果使用较新的 {func}`attrs.define` 和其他相关方法，验证器在初始化时 *以及* 属性设置时都会运行。
+这种行为可以通过 *on_setattr* 参数进行更改。
 
-Check out {ref}`validators` for more details.
+有关更多详细信息，请查看 {ref}`validators`。
 
 
-## Conversion
+## 转换(Conversion)
 
-Attributes can have a `converter` function specified, which will be called with the attribute's passed-in value to get a new value to use.
-This can be useful for doing type-conversions on values that you don't want to force your callers to do.
+属性可以指定一个 `converter` 函数，该函数将被调用并传入属性的值，以获取要使用的新值。
+这在对值进行类型转换时非常有用，因为你不想强迫调用者自己进行转换。
 
 ```{doctest}
 >>> @define
@@ -491,17 +489,17 @@ This can be useful for doing type-conversions on values that you don't want to f
 2
 ```
 
-If using the old-school {func}`attr.s` decorator, converters only run on initialization by default.
-If using the newer {func}`attrs.define` and friends, converters run on initialization *and* on attribute setting.
-This behavior can be changed using the *on_setattr* argument.
+如果使用旧式的 {func}`attr.s` 装饰器，转换器默认仅在初始化时运行。
+如果使用较新的 {func}`attrs.define` 和其他相关方法，转换器在初始化时 *以及* 属性设置时都会运行。
+这种行为可以通过 *on_setattr* 参数进行更改。
 
-Check out {ref}`converters` for more details.
+有关更多详细信息，请查看 {ref}`converters`。
 
 (metadata)=
 
-## Metadata
+## 元数据(Metadata)
 
-All *attrs* attributes may include arbitrary metadata in the form of a read-only dictionary.
+所有 *attrs* 属性都可以包含任意的元数据，形式为只读字典。
 
 ```{doctest}
 >>> from attrs import fields
@@ -515,16 +513,15 @@ mappingproxy({'my_metadata': 1})
 1
 ```
 
-Metadata is not used by *attrs*, and is meant to enable rich functionality in third-party libraries.
-The metadata dictionary follows the normal dictionary rules:
-Keys need to be hashable, and both keys and values are recommended to be immutable.
+元数据不被 *attrs* 使用，旨在为第三方库提供丰富的功能。
+元数据字典遵循普通字典规则：
+键需要是可哈希的，建议键和值都是不可变的。
 
-If you're the author of a third-party library with *attrs* integration, please see [*Extending Metadata*](extending-metadata).
+如果您是具有 *attrs* 集成的第三方库的作者，请参阅 [*扩展元数据*](extending-metadata)。
 
+## 类型(Types)
 
-## Types
-
-*attrs* also allows you to associate a type with an attribute using either the *type* argument to using {pep}`526`-annotations or {func}`attrs.field`/{func}`attr.ib`:
+*attrs* 还允许您使用 *type* 参数或 {pep}`526` 注解或 {func}`attrs.field`/{func}`attr.ib` 来将类型与属性关联：
 
 ```{doctest}
 >>> @define
@@ -541,17 +538,17 @@ If you're the author of a third-party library with *attrs* integration, please s
 <class 'int'>
 ```
 
-If you don't mind annotating *all* attributes, you can even drop the `attrs.field` and assign default values instead:
+如果您不介意注解 *所有* 属性，您甚至可以省略 `attrs.field` 并分配默认值：
 
 ```{doctest}
 >>> import typing
 
 >>> @define
 ... class AutoC:
-...     cls_var: typing.ClassVar[int] = 5  # this one is ignored
+...     cls_var: typing.ClassVar[int] = 5  # 此项被忽略
 ...     l: list[int] = Factory(list)
 ...     x: int = 1
-...     foo: str = "every attrib needs a type if auto_attribs=True"
+...     foo: str = "每个属性在 auto_attribs=True 时都需要一个类型"
 ...     bar: typing.Any = None
 >>> fields(AutoC).l.type
 list[int]
@@ -562,16 +559,16 @@ list[int]
 >>> fields(AutoC).bar.type
 typing.Any
 >>> AutoC()
-AutoC(l=[], x=1, foo='every attrib needs a type if auto_attribs=True', bar=None)
+AutoC(l=[], x=1, foo='每个属性在 auto_attribs=True 时都需要一个类型', bar=None)
 >>> AutoC.cls_var
 5
 ```
 
-The generated `__init__` method will have an attribute called `__annotations__` that contains this type information.
+生成的 `__init__` 方法将具有一个名为 `__annotations__` 的属性，该属性包含此类型信息。
 
-If your annotations contain strings (for example, forward references),
-you can resolve these after all references have been defined by using {func}`attrs.resolve_types`.
-This will replace the *type* attribute in the respective fields.
+如果您的注解包含字符串（例如，前向引用），
+您可以通过使用 {func}`attrs.resolve_types` 在所有引用定义后解析这些字符串。
+这将替换相应字段中的 *type* 属性。
 
 ```{doctest}
 >>> from attrs import resolve_types
@@ -598,20 +595,20 @@ list[A]
 ```
 
 :::{note}
-If you find yourself using string type annotations to handle forward references, wrap the entire type annotation in quotes instead of only the type you need a forward reference to (so `'list[A]'` instead of `list['A']`).
-This is a limitation of the Python typing system.
+如果您发现自己使用字符串类型注解来处理前向引用，请将整个类型注解用引号包裹，而不仅仅是需要前向引用的类型（因此使用 `'list[A]'` 而不是 `list['A']`）。
+这是 Python 类型系统的一个限制。
 :::
 
 :::{warning}
-*attrs* itself doesn't have any features that work on top of type metadata.
-However it's useful for writing your own validators or serialization frameworks.
+*attrs* 本身没有任何功能可以在类型元数据之上工作。
+但是它对于编写自己的验证器或序列化框架很有用。
 :::
 
 
-## Slots
+## 槽(Slots)
 
-{term}`Slotted classes <slotted classes>` have several advantages on CPython.
-Defining `__slots__` by hand is tedious, in *attrs* it's just a matter of using {func}`attrs.define` or passing `slots=True` to {func}`attr.s`:
+{term}`槽类 <slotted classes>` 在 CPython 中有几个优势。
+手动定义 `__slots__` 是繁琐的，而在 *attrs* 中，只需使用 {func}`attrs.define` 或传递 `slots=True` 给 {func}`attr.s`：
 
 ```{doctest}
 >>> @define
@@ -627,14 +624,13 @@ Defining `__slots__` by hand is tedious, in *attrs* it's just a matter of using 
 ...     y: int
 ```
 
-{func}`~attrs.define` sets `slots=True` by default.
+{func}`~attrs.define` 默认设置 `slots=True`。
 
+## 不可变性(Immutability)
 
-## Immutability
-
-Sometimes you have instances that shouldn't be changed after instantiation.
-Immutability is especially popular in functional programming and is generally a very good thing.
-If you'd like to enforce it, *attrs* will try to help:
+有时候您会有一些在实例化后不应更改的实例。
+不可变性在函数式编程中特别流行，通常是非常好的事情。
+如果您想强制实现这一点，*attrs* 将尽力提供帮助：
 
 ```{doctest}
 >>> from attrs import frozen
@@ -651,11 +647,11 @@ attrs.exceptions.FrozenInstanceError: can't set attribute
 1
 ```
 
-Please note that true immutability is impossible in Python but it will [get](how-frozen) you 99% there.
-By themselves, immutable classes are useful for long-lived objects that should never change; like configurations for example.
+请注意，真正的不可变性在 Python 中是不可实现的，但它可以 [让你达到](how-frozen) 99% 的效果。
+不可变类本身对于应该永远不变的长生命周期对象非常有用；例如配置。
 
-In order to use them in regular program flow, you'll need a way to easily create new instances with changed attributes.
-In Clojure that function is called [*assoc*](https://clojuredocs.org/clojure.core/assoc) and *attrs* shamelessly imitates it: {func}`attrs.evolve`:
+为了在常规程序流程中使用它们，您需要一种轻松创建新实例以更改属性的方法。
+在 Clojure 中，该函数称为 [*assoc*](https://clojuredocs.org/clojure.core/assoc)，而 *attrs* 毫不掩饰地模仿它：{func}`attrs.evolve`：
 
 ```{doctest}
 >>> from attrs import evolve, frozen
@@ -674,14 +670,13 @@ C(x=1, y=3)
 False
 ```
 
+## 其他好东西
 
-## Other Goodies
-
-When building systems that have something resembling a plugin interface, you may want to have a registry of all classes that implement a certain interface:
+在构建具有类似插件接口的系统时，您可能希望有一个所有实现某个接口的类的注册表：
 
 ```{doctest}
 >>> REGISTRY = []
->>> class Base:  # does NOT have to be an attrs class!
+>>> class Base:  # 不一定要是 attrs 类！
 ...     @classmethod
 ...     def __attrs_init_subclass__(cls):
 ...         REGISTRY.append(cls)
@@ -692,8 +687,8 @@ When building systems that have something resembling a plugin interface, you may
 [<class 'Impl'>]
 ```
 
-Sometimes you may want to create a class programmatically.
-*attrs* gives you {func}`attrs.make_class` for that:
+有时您可能希望以编程方式创建一个类。
+*attrs* 为此提供了 {func}`attrs.make_class`：
 
 ```{doctest}
 >>> from attrs import make_class
@@ -708,14 +703,14 @@ True
 <class 'int'>
 ```
 
-You can still have power over the attributes if you pass a dictionary of name: {func}`~attrs.field` mappings and can pass the same arguments as you can to `@attrs.define`:
+如果您传递一个名称与 {func}`~attrs.field` 映射的字典，您仍然可以控制属性，并且可以传递与 `@attrs.define` 相同的参数：
 
 ```{doctest}
 >>> C = make_class("C", {"x": field(default=42),
 ...                      "y": field(default=Factory(list))},
 ...                repr=False)
 >>> i = C()
->>> i  # no repr added!
+>>> i  # 没有添加 repr！
 <__main__.C object at ...>
 >>> i.x
 42
@@ -723,22 +718,20 @@ You can still have power over the attributes if you pass a dictionary of name: {
 []
 ```
 
-If you need to dynamically make a class with {func}`~attrs.make_class` and it needs to be a subclass of something else than {class}`object`, use the `bases` argument:
+如果您需要动态创建一个类并且需要它是除 {class}`object` 之外的某个其他类的子类，请使用 `bases` 参数：
 
 ```{doctest}
 >>> class D:
 ...    def __eq__(self, other):
-...        return True  # arbitrary example
+...        return True  # 随意示例
 >>> C = make_class("C", {}, bases=(D,), cmp=False)
 >>> isinstance(C(), D)
 True
 ```
 
-Sometimes, you want to have your class's `__init__` method do more than just
-the initialization, validation, etc. that gets done for you automatically when
-using `@define`.
-To do this, just define a `__attrs_post_init__` method in your class.
-It will get called at the end of the generated `__init__` method.
+有时，您希望类的 `__init__` 方法不仅仅执行初始化、验证等自动完成的任务。
+为此，只需在类中定义一个 `__attrs_post_init__` 方法。
+它将在生成的 `__init__` 方法结束时被调用。
 
 ```{doctest}
 >>> @define
@@ -754,7 +747,7 @@ It will get called at the end of the generated `__init__` method.
 C(x=1, y=2, z=3)
 ```
 
-You can exclude single attributes from certain methods:
+您可以从某些方法中排除单个属性：
 
 ```{doctest}
 >>> @define
@@ -765,7 +758,7 @@ You can exclude single attributes from certain methods:
 C(user='me')
 ```
 
-Alternatively, to influence how the generated `__repr__()` method formats a specific attribute, specify a custom callable to be used instead of the `repr()` built-in function:
+或者，若要影响生成的 `__repr__()` 方法如何格式化特定属性，请指定一个自定义可调用对象以替代 `repr()` 内置函数：
 
 ```{doctest}
 >>> @define

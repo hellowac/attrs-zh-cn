@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 # SPDX-License-Identifier: MIT
 
 """
@@ -20,15 +21,14 @@ __all__ = [
 
 def optional(converter):
     """
-    A converter that allows an attribute to be optional. An optional attribute
-    is one which can be set to `None`.
+    一个允许属性可选的转换器。可选属性
+    可以设置为 `None`。
 
-    Type annotations will be inferred from the wrapped converter's, if it has
-    any.
+    如果包装的转换器有类型注解，将会被推断出来。
 
     Args:
         converter (typing.Callable):
-            the converter that is used for non-`None` values.
+            用于非 `None` 值的转换器。
 
     .. versionadded:: 17.1.0
     """
@@ -53,27 +53,24 @@ def optional(converter):
 
 def default_if_none(default=NOTHING, factory=None):
     """
-    A converter that allows to replace `None` values by *default* or the result
-    of *factory*.
+    一个允许将 `None` 值替换为 *default* 或 *factory* 结果的转换器。
 
     Args:
         default:
-            Value to be used if `None` is passed. Passing an instance of
-            `attrs.Factory` is supported, however the ``takes_self`` option is
-            *not*.
+            如果传入 `None`，将使用的值。支持传入 `attrs.Factory` 的实例，
+            但是不支持 ``takes_self`` 选项。
 
         factory (typing.Callable):
-            A callable that takes no parameters whose result is used if `None`
-            is passed.
+            一个不带参数的可调用，其结果将在传入 `None` 时使用。
 
     Raises:
-        TypeError: If **neither** *default* or *factory* is passed.
+        TypeError: 如果 **既没有** 传入 *default* 也没有 *factory*。
 
-        TypeError: If **both** *default* and *factory* are passed.
+        TypeError: 如果 **同时** 传入 *default* 和 *factory*。
 
         ValueError:
-            If an instance of `attrs.Factory` is passed with
-            ``takes_self=True``.
+            如果传入 `attrs.Factory` 的实例且
+            ``takes_self=True``。
 
     .. versionadded:: 18.2.0
     """
@@ -112,10 +109,9 @@ def default_if_none(default=NOTHING, factory=None):
 
 def to_bool(val):
     """
-    Convert "boolean" strings (for example, from environment variables) to real
-    booleans.
+    将“布尔”字符串（例如，来自环境变量）转换为真实的布尔值。
 
-    Values mapping to `True`:
+    映射为 `True` 的值：
 
     - ``True``
     - ``"true"`` / ``"t"``
@@ -124,7 +120,7 @@ def to_bool(val):
     - ``"1"``
     - ``1``
 
-    Values mapping to `False`:
+    映射为 `False` 的值：
 
     - ``False``
     - ``"false"`` / ``"f"``
@@ -134,7 +130,7 @@ def to_bool(val):
     - ``0``
 
     Raises:
-        ValueError: For any other value.
+        ValueError: 对于任何其他值。
 
     .. versionadded:: 21.3.0
     """
