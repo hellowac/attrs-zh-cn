@@ -1,0 +1,530 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="索引" href="genindex.html" /><link rel="search" title="搜索" href="search.html" /><link rel="next" title="概述" href="overview.html" />
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>attrs UNRELEASED 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=03575dff" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --font-stack: Inter,sans-serif;
+  --font-stack--monospace: BerkeleyMono, MonoLisa, ui-monospace, SFMono-Regular, Menlo, Consolas, Liberation Mono, monospace;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="#"><div class="brand">attrs UNRELEASED 文档</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/attrs_logo.svg" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/attrs_logo_white.svg" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="搜索" name="q" aria-label="搜索">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">入门</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="why.html">为什么不用……</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html"><em>attrs</em> 示例</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">解释说明</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="types.html">类型注解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="init.html">初始化(Initialization)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comparison.html">比较(Comparison)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hashing.html">哈希(Hashing)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-attr.html"><code class="docutils literal notranslate"><span class="pre">attr</span></code> 命名空间API参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">术语(Glossary)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">高级用法</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">扩展(Extending)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-does-it-work.html">它是如何工作的？(How Does It Work?)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="names.html">核心API中的名称(On The Core API Names)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">许可和信用(License and Credits)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">变更历史(Changelog)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/attrs/">PyPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs/wiki/Extensions-to-attrs">第三方扩展</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs/blob/main/.github/CONTRIBUTING.md">贡献</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://hynek.me/say-thanks/">基金</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="attrs-classes-without-boilerplate">
+<h1><em>attrs</em>: Classes Without Boilerplate<a class="headerlink" href="#attrs-classes-without-boilerplate" title="Link to this heading">¶</a></h1>
+<p>Release <strong>UNRELEASED</strong>  (<a class="reference internal" href="changelog.html"><span class="std std-doc">What’s new?</span></a>)</p>
+<p><em>attrs</em> 是一个 Python 包，它将通过免除你实现对象协议（即 <a class="reference external" href="https://www.attrs.org/en/latest/glossary.html#term-dunder-methods">双下方法</a>）的繁琐工作，重新带回<strong>编写类</strong>的<strong>乐趣</strong>。自 2020 年以来，它已被 <a class="reference external" href="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/personalizing-your-profile#list-of-qualifying-repositories-for-mars-2020-helicopter-contributor-achievement">NASA 信赖</a> 并用于火星任务！</p>
+<p>它的主要目标是帮助你编写<strong>简洁</strong>且<strong>正确</strong>的软件，同时不降低代码的执行效率。</p>
+<section id="id1">
+<h2>赞助商<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<p><em>attrs</em> 项目离不开我们 <a class="reference external" href="https://github.com/sponsors/hynek">优秀的赞助商</a> 的支持。
+特别是那些慷慨支持我们 <em>The Organization</em> 级别及更高级别的赞助商：</p>
+<!-- [[[cog
+# This is mainly called from RTD's pre_build job!
+
+import pathlib, tomllib
+
+for sponsor in tomllib.loads(pathlib.Path("pyproject.toml").read_text())["tool"]["sponcon"]["sponsors"]:
+      print(f'<a href="{sponsor["url"]}"><img title="{sponsor["title"]}" src="_static/sponsors/{sponsor["img"]}" width="190" /></a>')
+]]] -->
+<p><a href="https://www.variomedia.de/"><img title="Variomedia AG" src="_static/sponsors/Variomedia.svg" width="190" /></a>
+<a href="https://tidelift.com/?utm_source=lifter&utm_medium=referral&utm_campaign=hynek"><img title="Tidelift" src="_static/sponsors/Tidelift.svg" width="190" /></a>
+<a href="https://klaviyo.com/"><img title="Klaviyo" src="_static/sponsors/Klaviyo.svg" width="190" /></a>
+<a href="https://filepreviews.io/"><img title="FilePreviews" src="_static/sponsors/FilePreviews.svg" width="190" /></a>
+<a href="https://polar.sh/"><img title="Polar" src="_static/sponsors/Polar.svg" width="190" /></a></p>
+<!-- [[[end]]] -->
+<p align="center">
+   <strong>请考虑<a href="https://github.com/sponsors/hynek">加入他们</a>，帮助使 <em>attrs</em> 的维护更加可持续！</strong>
+</p>
+</section>
+<section id="id2">
+<h2>入门指南<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
+<p><em>attrs</em> 是一个仅适用于 Python 的包，<a class="reference external" href="https://pypi.org/project/attrs/">托管在 PyPI</a> 上。</p>
+<p>以下步骤将帮助你快速上手：</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="overview.html"><span class="doc">概述</span></a> 将展示一个简单的 <em>attrs</em> 示例，并介绍它的设计理念。之后，你可以开始编写自己的类，理解 <em>attrs</em> 的设计驱动。</p></li>
+<li><p><a class="reference internal" href="examples.html"><span class="doc">attrs 示例</span></a> 将带你全面了解 <em>attrs</em> 的功能。阅读后，你将掌握高级功能并知道如何使用它们。</p></li>
+<li><p><a class="reference internal" href="why.html"><span class="doc">为什么不用……</span></a> 会介绍一些可能的替代方案，以及为什么我们认为 <em>attrs</em> 仍然值得使用——甚至在某些情况下，依你的需求可能是更好的选择。</p></li>
+<li><p>如果你在任何时候对某些术语感到困惑，请查阅我们的 <a class="reference internal" href="glossary.html"><span class="doc">术语(Glossary)</span></a>。</p></li>
+</ul>
+<p>如果在入门时需要帮助，欢迎在 <a class="reference external" href="https://stackoverflow.com/questions/tagged/python-attrs">Stack Overflow</a> 上使用 <code class="docutils literal notranslate"><span class="pre">python-attrs</span></code> 标签寻求帮助，定会有人为你解答！</p>
+</section>
+<section id="id3">
+<h2>日常使用<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="types.html"><span class="doc">类型注解</span></a> 帮助你编写<em>正确</em>且<em>自文档化</em>的代码。<em>attrs</em> 对类型提供了一流的支持，但如果你不需要，也可以完全不使用它们！</p></li>
+<li><p>实例初始化是 <em>attrs</em> 的关键功能之一。我们的目标是尽可能减少你需要编写的代码。<a class="reference internal" href="init.html"><span class="doc">初始化(Initialization)</span></a> 提供了 <em>attrs</em> 所能提供的功能概述，并解释了我们所信奉的一些相关理念。</p></li>
+<li><p>比较和排序对象是常见任务。<a class="reference internal" href="comparison.html"><span class="doc">比较(Comparison)</span></a> 展示了 <em>attrs</em> 如何帮助你实现这些任务，以及如何对其进行自定义。</p></li>
+<li><p>如果你想将对象放入集合或作为字典的键，它们必须是可哈希的。最简单的方法是使用冻结类，但这个话题比看起来要复杂得多，<a class="reference internal" href="hashing.html"><span class="doc">哈希(Hashing)</span></a> 会为你提供一些基本提示，让你知道需要注意什么。</p></li>
+<li><p>一旦你熟悉了这些概念，我们的 <a class="reference internal" href="api.html"><span class="doc">API 参考</span></a> 包含了使用 <em>attrs</em> 的全部信息，帮助你充分利用它。</p></li>
+<li><p><em>attrs</em> 从设计之初就为了扩展性而构建。<a class="reference internal" href="extending.html"><span class="doc">扩展(Extending)</span></a> 将向你展示它的扩展功能，以及如何将它作为你自己项目的构建模块。</p></li>
+<li><p>最后，如果你对 <code class="docutils literal notranslate"><span class="pre">attr.s</span></code>、<code class="docutils literal notranslate"><span class="pre">attr.ib</span></code>、<code class="docutils literal notranslate"><span class="pre">attrs</span></code>、<code class="docutils literal notranslate"><span class="pre">attrib</span></code>、<code class="docutils literal notranslate"><span class="pre">define</span></code>、<code class="docutils literal notranslate"><span class="pre">frozen</span></code> 和 <code class="docutils literal notranslate"><span class="pre">field</span></code> 感到困惑，请前往 <a class="reference internal" href="names.html"><span class="doc">核心API中的名称(On The Core API Names)</span></a> 进行简短的解释，或者选择性地了解一下它们的历史。</p></li>
+</ul>
+</section>
+<section id="attrs">
+<h2>面向企业的 <em>attrs</em><a class="headerlink" href="#attrs" title="Link to this heading">¶</a></h2>
+<p>可作为 <a class="reference external" href="https://tidelift.com/?utm_source=lifter&amp;amp;utm_medium=referral&amp;amp;utm_campaign=hynek">Tidelift 订阅服务</a> 的一部分提供。</p>
+<p><em>attrs</em> 的维护者与数千个其他包的开发者正在与 Tidelift 合作，为你在构建应用程序时使用的开源包提供商业支持和维护。
+节省时间，降低风险，改善代码健康，同时为你实际使用的包的维护者提供报酬。</p>
+</section>
+<hr class="docutils" />
+<section id="id4">
+<h2>完整目录<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">入门</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">概述</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#id2">理念</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#attrs"><em>attrs</em> 不是什么</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="why.html">为什么不用……</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="why.html#id2">……数据类？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="why.html#pydantic">……Pydantic？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="why.html#namedtuple">……namedtuple？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="why.html#tuples">… tuples?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="why.html#id10">…… 字典？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="why.html#id11">…… 手写类？</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html"><em>attrs</em> 示例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#basics">基础(Basics)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#converting-to-collections-types">转换为集合类型(Converting to Collections Types)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#defaults">默认值(Defaults)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#validators">验证器(Validators)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#conversion">转换(Conversion)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#metadata">元数据(Metadata)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#types">类型(Types)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#slots">槽(Slots)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#immutability">不可变性(Immutability)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#id2">其他好东西</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">解释说明</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="types.html">类型注解</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="types.html#mypy">Mypy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#pyright">Pyright</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#id2">类变量和常量</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="init.html">初始化(Initialization)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="init.html#private-attributes-and-aliases">私有属性和别名(Private Attributes and Aliases)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="init.html#defaults">默认值(Defaults)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="init.html#validators">验证器(Validators)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="init.html#converters">转换器(Converters)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="init.html#hooking-yourself-into-initialization">将自己挂钩到初始化中(Hooking Yourself Into Initialization)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="init.html#order-of-execution">Order of Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="init.html#derived-attributes">派生属性(Derived Attributes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="init.html#attrs-init-subclass"><em>attrs</em> 和 <code class="docutils literal notranslate"><span class="pre">__init_subclass__</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="comparison.html">比较(Comparison)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="comparison.html#customization">自定义(Customization)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hashing.html">哈希(Hashing)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hashing.html#hash-method-generation">哈希方法生成(Hash Method Generation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hashing.html#hashing-and-mutability">哈希与可变性(Hashing and Mutability)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hashing.html#hash-code-caching">哈希代码缓存(Hash Code Caching)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API 参考</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#core">核心(Core)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-attrs.exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#helpers">Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-attrs.validators">Validators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#converters">Converters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-attrs.setters">Setters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api-attr.html"><code class="docutils literal notranslate"><span class="pre">attr</span></code> 命名空间API参考</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api-attr.html#core">核心(Core)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-attr.html#module-attr.exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-attr.html#helpers">Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-attr.html#module-attr.validators">Validators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-attr.html#module-attr.converters">Converters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-attr.html#module-attr.setters">Setters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-attr.html#deprecated-apis">Deprecated APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">术语(Glossary)</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">高级用法</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">扩展(Extending)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="extending.html#wrapping-wrapping-the-decorator">Wrapping装饰器(Wrapping the Decorator)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extending.html#types">类型(Types)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extending.html#metadata">元数据(Metadata)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extending.html#automatic-field-transformation-and-modification">自动生成字段的转换和修改(Automatic Field Transformation and Modification)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extending.html#asdict-customize-value-serialization-in-asdict">在 <code class="docutils literal notranslate"><span class="pre">asdict()</span></code> 中自定义字段的序列化(Customize Value Serialization in <code class="docutils literal notranslate"><span class="pre">asdict()</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="how-does-it-work.html">它是如何工作的？(How Does It Work?)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="how-does-it-work.html#boilerplate">样板(Boilerplate)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-does-it-work.html#immutability">不可变性(Immutability)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-does-it-work.html#cached-properties-on-slotted-classes">插槽类中被缓存的属性(Cached Properties on Slotted Classes)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="names.html">核心API中的名称(On The Core API Names)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">许可和信用(License and Credits)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">变更历史(Changelog)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/attrs/">PyPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs/wiki/Extensions-to-attrs">第三方扩展</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs/blob/main/.github/CONTRIBUTING.md">贡献</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://hynek.me/say-thanks/">基金</a></li>
+</ul>
+</div>
+<p><a class="reference internal" href="genindex.html"><span class="std std-ref">Full Index</span></a></p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="overview.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">概述</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2015, Hynek Schlawack
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#"><em>attrs</em>: Classes Without Boilerplate</a><ul>
+<li><a class="reference internal" href="#id1">赞助商</a></li>
+<li><a class="reference internal" href="#id2">入门指南</a></li>
+<li><a class="reference internal" href="#id3">日常使用</a></li>
+<li><a class="reference internal" href="#attrs">面向企业的 <em>attrs</em></a></li>
+<li><a class="reference internal" href="#id4">完整目录</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=3e342831"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="_static/translations.js?v=beaddf03"></script>
+    </body>
+</html>

@@ -1,0 +1,453 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="索引" href="genindex.html" /><link rel="search" title="搜索" href="search.html" /><link rel="next" title="初始化(Initialization)" href="init.html" /><link rel="prev" title="attrs 示例" href="examples.html" />
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>类型注解 - attrs UNRELEASED 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=03575dff" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --font-stack: Inter,sans-serif;
+  --font-stack--monospace: BerkeleyMono, MonoLisa, ui-monospace, SFMono-Regular, Menlo, Consolas, Liberation Mono, monospace;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">attrs UNRELEASED 文档</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/attrs_logo.svg" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/attrs_logo_white.svg" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="搜索" name="q" aria-label="搜索">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">入门</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="why.html">为什么不用……</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html"><em>attrs</em> 示例</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">解释说明</span></p>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">类型注解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="init.html">初始化(Initialization)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comparison.html">比较(Comparison)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hashing.html">哈希(Hashing)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-attr.html"><code class="docutils literal notranslate"><span class="pre">attr</span></code> 命名空间API参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">术语(Glossary)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">高级用法</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">扩展(Extending)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-does-it-work.html">它是如何工作的？(How Does It Work?)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="names.html">核心API中的名称(On The Core API Names)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">许可和信用(License and Credits)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">变更历史(Changelog)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/attrs/">PyPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs/wiki/Extensions-to-attrs">第三方扩展</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs/blob/main/.github/CONTRIBUTING.md">贡献</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://hynek.me/say-thanks/">基金</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="id1">
+<h1>类型注解<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h1>
+<p><em>attrs</em> 对 <span class="target" id="index-0"></span><a class="pep reference external" href="https://peps.python.org/pep-0526/"><strong>PEP 526</strong></a> 和旧语法的类型注解提供了第一类支持。</p>
+<p>然而，它们将永远保持 <em>可选(optional)</em>，因此来自 README 的示例也可以写成：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">attrs</span> <span class="kn">import</span> <span class="n">define</span><span class="p">,</span> <span class="n">field</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">SomeClass</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">a_number</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">list_of_numbers</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <span class="n">SomeClass</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span>
+<span class="go">SomeClass(a_number=1, list_of_numbers=[1, 2, 3])</span>
+</pre></div>
+</div>
+<p>您可以自由选择这两种方法，但请记住，如果您选择使用类型注解，您 <strong>必须</strong> 注解 <strong>所有</strong> 属性！</p>
+<div class="admonition caution">
+<p class="admonition-title">小心</p>
+<p>如果您定义一个 <a class="reference internal" href="api.html#attrs.field" title="attrs.field"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.field()</span></code></a> 但 <strong>缺少</strong> 类型注解的类，<em>attrs</em> 将 <strong>忽略</strong> 其他已经有类型注解但未使用 <a class="reference internal" href="api.html#attrs.field" title="attrs.field"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.field()</span></code></a> 定义的字段：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">SomeClass</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">a_number</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">another_number</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">23</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">SomeClass</span><span class="p">()</span>
+<span class="go">SomeClass(a_number=42)</span>
+</pre></div>
+</div>
+</div>
+<p>即使在全面使用类型注解的情况下，某些高级特性仍然需要 <a class="reference internal" href="api.html#attrs.field" title="attrs.field"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.field()</span></code></a>。</p>
+<p>这些特性之一是基于装饰器的功能，例如默认值。
+重要的是要记住，<em>attrs</em> 不会在您背后做任何魔法。
+所有装饰器都是使用对 <a class="reference internal" href="api.html#attrs.field" title="attrs.field"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.field()</span></code></a> 调用返回的对象实现的。</p>
+<p>仅携带类注解的属性没有该对象，因此尝试对其调用方法将不可避免地失败。</p>
+<hr class="docutils" />
+<p>请注意，无论如何添加，类型仅是可从类查询的 <em>元数据(metadata)</em>，并且在开箱即用的情况下不用于任何其他用途！</p>
+<p>由于 Python 不允许在类定义之前引用类对象，因此类型可以定义为字符串字面量，即所谓的 <em>前向引用</em> (<span class="target" id="index-1"></span><a class="pep reference external" href="https://peps.python.org/pep-0526/"><strong>PEP 526</strong></a>)。
+您可以通过使用 <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span> <span class="pre">annotations</span></code> (<span class="target" id="index-2"></span><a class="pep reference external" href="https://peps.python.org/pep-0563/"><strong>PEP 563</strong></a>) 自动为整个模块启用此功能。
+在这种情况下，<em>attrs</em> 只是将这些字符串字面量放入 <code class="docutils literal notranslate"><span class="pre">type</span></code> 属性中。
+如果您需要将它们解析为真实类型，可以调用 <a class="reference internal" href="api.html#attrs.resolve_types" title="attrs.resolve_types"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.resolve_types()</span></code></a>，该方法将就地更新属性。</p>
+<p>然而，在实践中，类型在与像 <a class="reference external" href="http://mypy-lang.org">Mypy</a>、<a class="reference external" href="https://google.github.io/pytype/"><em>pytype</em></a> 或 <a class="reference external" href="https://github.com/microsoft/pyright">Pyright</a> 这样的工具结合使用时显示出最大的实用性，这些工具对 <em>attrs</em> 类提供了专门支持。</p>
+<p>静态类型的增加无疑是 Python 生态系统中最令人兴奋的功能之一，并帮助您编写 <em>正确的(correct)</em> 和 <em>经过验证的自我文档(verified self-documenting)</em> 代码。</p>
+<section id="mypy">
+<h2>Mypy<a class="headerlink" href="#mypy" title="Link to this heading">¶</a></h2>
+<p>虽然有一个漂亮的类型元数据语法是很好的，但更棒的是 <a class="reference external" href="http://mypy-lang.org">Mypy</a> 提供了一个专门的 <em>attrs</em> 插件，可以让您静态检查代码。</p>
+<p>想象一下，您添加了一行代码，尝试使用 <code class="docutils literal notranslate"><span class="pre">SomeClass(&quot;23&quot;)</span></code> 实例化定义的类。
+Mypy 会为您捕获该错误：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mypy<span class="w"> </span>t.py
+<span class="go">t.py:12: error: Argument 1 to &quot;SomeClass&quot; has incompatible type &quot;str&quot;; expected &quot;int&quot;</span>
+</pre></div>
+</div>
+<p>这一切都发生在 <em>不运行</em> 您的代码的情况下！</p>
+<p>它还适用于 <em>两种</em> 旧的注解样式。
+对 Mypy 而言，这段代码与上面的代码等效：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span>
+<span class="k">class</span> <span class="nc">SomeClass</span><span class="p">:</span>
+    <span class="n">a_number</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>  <span class="c1"># type: int</span>
+    <span class="n">list_of_numbers</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">list_of_numbers</span></code> 的这种方法仅在我们的 <a class="reference internal" href="names.html"><span class="std std-doc">旧式 API</span></a> 中可用，这就是示例仍然使用它的原因。</p>
+</section>
+<section id="pyright">
+<h2>Pyright<a class="headerlink" href="#pyright" title="Link to this heading">¶</a></h2>
+<p><em>attrs</em> 通过 <code class="docutils literal notranslate"><span class="pre">dataclass_transform</span></code> / <span class="target" id="index-3"></span><a class="pep reference external" href="https://peps.python.org/pep-0681/"><strong>PEP 681</strong></a> 规范提供对 <a class="reference external" href="https://github.com/microsoft/pyright">Pyright</a> 的支持。
+这为一部分 <em>attrs</em> 提供了静态类型推断，相当于标准库中的 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/dataclasses.html#module-dataclasses" title="（在 Python v3.13）"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dataclasses</span></code></a>，
+并需要使用 <a class="reference internal" href="api.html#attrs.define" title="attrs.define"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.define()</span></code></a> 或 <code class="docutils literal notranslate"><span class="pre">&#64;attr.s(auto_attribs=True)</span></code> API 进行显式类型注解。</p>
+<p>给定以下定义，Pyright 将为 <code class="docutils literal notranslate"><span class="pre">SomeClass</span></code> 的属性访问、<code class="docutils literal notranslate"><span class="pre">__init__</span></code>、<code class="docutils literal notranslate"><span class="pre">__eq__</span></code> 和比较方法生成静态类型签名：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@attrs</span><span class="o">.</span><span class="n">define</span>
+<span class="k">class</span> <span class="nc">SomeClass</span><span class="p">:</span>
+    <span class="n">a_number</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">42</span>
+    <span class="n">list_of_numbers</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>Pyright 推断的类型是支持的类型的一个小子集，包括：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.frozen</span></code> 装饰器没有与冻结属性进行类型注解，而这些属性可以通过 <code class="docutils literal notranslate"><span class="pre">attrs.define(frozen=True)</span></code> 进行正确的类型注解。</p></li>
+</ul>
+<p>我们欢迎您对 <a class="reference external" href="https://github.com/python-attrs/attrs/issues/795">attrs#795</a> 和 <a class="reference external" href="https://github.com/microsoft/pyright/discussions/1782">pyright#1782</a> 提出建设性反馈。
+一般来说，改善 Pyright 中 <em>attrs</em> 支持的决定完全取决于微软，他们明确表示将仅添加经过 PEP 过程的功能支持。</p>
+</div>
+</section>
+<section id="id2">
+<h2>类变量和常量<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
+<p>如果您正在为所有代码添加类型注解，您可能会想知道如何定义类变量（与实例变量相对），因为在类作用域中赋值的值会成为该属性的默认值。
+然而，正确的方式是使用 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/typing.html#typing.ClassVar" title="（在 Python v3.13）"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.ClassVar</span></code></a> 来类型注解这样的类变量，这表明该变量应仅在类（或其子类）中进行赋值，而不是在类的实例中。
+<em>attrs</em> 将跳过注解为 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/typing.html#typing.ClassVar" title="（在 Python v3.13）"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.ClassVar</span></code></a> 的成员，允许您编写类型注解，而不会将该成员变成属性。
+类变量通常用于常量，但也可以用于在类的所有实例之间共享的可变单例数据。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@attrs</span><span class="o">.</span><span class="n">define</span>
+<span class="k">class</span> <span class="nc">PngHeader</span><span class="p">:</span>
+    <span class="n">SIGNATURE</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">ClassVar</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x89</span><span class="s1">PNG</span><span class="se">\r\n\x1a\n</span><span class="s1">&#39;</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">interlaced</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="init.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">初始化(Initialization)</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="examples.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title"><em>attrs</em> 示例</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2015, Hynek Schlawack
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">类型注解</a><ul>
+<li><a class="reference internal" href="#mypy">Mypy</a></li>
+<li><a class="reference internal" href="#pyright">Pyright</a></li>
+<li><a class="reference internal" href="#id2">类变量和常量</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=3e342831"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="_static/translations.js?v=beaddf03"></script>
+    </body>
+</html>

@@ -1,0 +1,1675 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="索引" href="genindex.html" /><link rel="search" title="搜索" href="search.html" /><link rel="prev" title="许可和信用(License and Credits)" href="license.html" />
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>变更历史(Changelog) - attrs UNRELEASED 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=03575dff" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --font-stack: Inter,sans-serif;
+  --font-stack--monospace: BerkeleyMono, MonoLisa, ui-monospace, SFMono-Regular, Menlo, Consolas, Liberation Mono, monospace;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">attrs UNRELEASED 文档</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/attrs_logo.svg" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/attrs_logo_white.svg" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="搜索" name="q" aria-label="搜索">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">入门</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="why.html">为什么不用……</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html"><em>attrs</em> 示例</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">解释说明</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="types.html">类型注解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="init.html">初始化(Initialization)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comparison.html">比较(Comparison)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hashing.html">哈希(Hashing)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-attr.html"><code class="docutils literal notranslate"><span class="pre">attr</span></code> 命名空间API参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">术语(Glossary)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">高级用法</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">扩展(Extending)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-does-it-work.html">它是如何工作的？(How Does It Work?)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="names.html">核心API中的名称(On The Core API Names)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">许可和信用(License and Credits)</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">变更历史(Changelog)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/attrs/">PyPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs/wiki/Extensions-to-attrs">第三方扩展</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs/blob/main/.github/CONTRIBUTING.md">贡献</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://hynek.me/say-thanks/">基金</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="changelog">
+<h1>变更历史(Changelog)<a class="headerlink" href="#changelog" title="Link to this heading">¶</a></h1>
+<p>版本遵循 <a class="reference external" href="https://calver.org">Calendar Versioning</a> 以及严格的向后兼容性政策。</p>
+<p><strong>版本的第一位数字</strong> 是年份。
+<strong>第二位数字</strong> 随每次发布递增，从每年的 1 开始。
+<strong>第三位数字</strong> 是我们需要开始为旧版本分支时的编号（仅用于紧急情况）。</p>
+<p>您可以在 <a class="reference external" href="https://github.com/python-attrs/attrs/blob/main/.github/SECURITY.md">这里</a> 找到我们的向后兼容性政策。</p>
+<section id="id1">
+<h2>即将发布的版本的变化<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>这些更改反映了当前的 <a class="reference external" href="https://github.com/python-attrs/attrs/tree/main">开发进展</a>，并且<strong>尚未</strong>成为 PyPI 发布的一部分。</p>
+</div>
+<section id="backwards-incompatible-changes">
+<h3>Backwards-incompatible Changes<a class="headerlink" href="#backwards-incompatible-changes" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Python 3.7 已被删除。
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1340">#1340</a></p></li>
+</ul>
+</section>
+</section>
+<section id="id2">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/24.2.0">24.2.0</a> - 2024-08-06<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
+<section id="deprecations">
+<h3>Deprecations<a class="headerlink" href="#deprecations" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Given the amount of warnings raised in the broader ecosystem, we’ve decided to only soft-deprecate the <em>hash</em> argument to <code class="docutils literal notranslate"><span class="pre">&#64;define</span></code> / <code class="docutils literal notranslate"><span class="pre">&#64;attr.s</span></code>.
+Please don’t use it in new code, but we don’t intend to remove it anymore.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1330">#1330</a></p></li>
+</ul>
+</section>
+<section id="changes">
+<h3>Changes<a class="headerlink" href="#changes" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.converters.pipe()</span></code> (and its syntactic sugar of passing a list for <code class="docutils literal notranslate"><span class="pre">attrs.field()</span></code>'s / <code class="docutils literal notranslate"><span class="pre">attr.ib()</span></code>'s <em>converter</em> argument) works again when passing <code class="docutils literal notranslate"><span class="pre">attrs.setters.convert</span></code> to <em>on_setattr</em> (which is default for <code class="docutils literal notranslate"><span class="pre">attrs.define</span></code>).
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1328">#1328</a></p></li>
+<li><p>Restored support for PEP <a class="reference external" href="https://peps.python.org/pep-0649/">649</a> / <a class="reference external" href="https://peps.python.org/pep-0749/">749</a>-implementing Pythons -- currently 3.14-dev.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1329">#1329</a></p></li>
+</ul>
+</section>
+</section>
+<section id="id3">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/24.1.0">24.1.0</a> - 2024-08-03<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
+<section id="id4">
+<h3>Backwards-incompatible Changes<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.evolve()</span></code> doesn’t accept the <em>inst</em> argument as a keyword argument anymore.
+Pass it as the first positional argument instead.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1264">#1264</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.validators.provides()</span></code> has been removed.
+The removed code is available as a <a class="reference external" href="https://gist.github.com/hynek/9eaaaeb659808f3519870dfa16d2b6b2">gist</a> for convenient copy and pasting.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1265">#1265</a></p></li>
+<li><p>All packaging metadata except from <code class="docutils literal notranslate"><span class="pre">__version__</span></code> and <code class="docutils literal notranslate"><span class="pre">__version_info__</span></code> has been removed from the <code class="docutils literal notranslate"><span class="pre">attr</span></code> and <code class="docutils literal notranslate"><span class="pre">attrs</span></code> modules (for example, <code class="docutils literal notranslate"><span class="pre">attrs.__url__</span></code>).</p>
+<p>Please use <a class="reference external" href="https://docs.python.org/3/library/importlib.metadata.html"><code class="docutils literal notranslate"><span class="pre">importlib.metadata</span></code></a> or <a class="reference external" href="https://pypi.org/project/importlib-metadata/"><em>importlib-metadata</em></a> instead.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1268">#1268</a></p>
+</li>
+<li><p>The generated <code class="docutils literal notranslate"><span class="pre">__eq__</span></code> methods have been sped up significantly by generating a chain of attribute comparisons instead of constructing and comparing tuples.
+This change arguably makes the behavior more correct,
+but changes it if an attribute compares equal by identity but not value, like <code class="docutils literal notranslate"><span class="pre">float('nan')</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1310">#1310</a></p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>Deprecations<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>The <em>repr_ns</em> argument to <code class="docutils literal notranslate"><span class="pre">attr.s</span></code> is now deprecated.
+It was a workaround for nested classes in Python 2 and is pointless in Python 3.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1263">#1263</a></p></li>
+<li><p>The <em>hash</em> argument to <code class="docutils literal notranslate"><span class="pre">&#64;attr.s</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;attrs.define</span></code>, and <code class="docutils literal notranslate"><span class="pre">make_class()</span></code> is now deprecated in favor of <em>unsafe_hash</em>, as defined by PEP 681.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1323">#1323</a></p></li>
+</ul>
+</section>
+<section id="id6">
+<h3>Changes<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Allow original slotted <code class="docutils literal notranslate"><span class="pre">functools.cached_property</span></code> classes to be cleaned by garbage collection.
+Allow <code class="docutils literal notranslate"><span class="pre">super()</span></code> calls in slotted cached properties.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1221">#1221</a></p></li>
+<li><p>Our type stubs now use modern type notation and are organized such that VS Code’s quick-fix prefers the <code class="docutils literal notranslate"><span class="pre">attrs</span></code> namespace.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1234">#1234</a></p></li>
+<li><p>Preserve <code class="docutils literal notranslate"><span class="pre">AttributeError</span></code> raised by properties of slotted classes with <code class="docutils literal notranslate"><span class="pre">functools.cached_properties</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1253">#1253</a></p></li>
+<li><p>It is now possible to wrap a converter into an <code class="docutils literal notranslate"><span class="pre">attrs.Converter</span></code> and get the current instance and/or the current field definition passed into the converter callable.</p>
+<p>Note that this is not supported by any type checker, yet.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1267">#1267</a></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.make_class()</span></code> now populates the <code class="docutils literal notranslate"><span class="pre">__annotations__</span></code> dict of the generated class, so that <code class="docutils literal notranslate"><span class="pre">attrs.resolve_types()</span></code> can resolve them.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1285">#1285</a></p></li>
+<li><p>Added the <code class="docutils literal notranslate"><span class="pre">attrs.validators.or_()</span></code> validator.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1303">#1303</a></p></li>
+<li><p>The combination of a <code class="docutils literal notranslate"><span class="pre">__attrs_pre_init__</span></code> that takes arguments, a kw-only field, and a default on that field does not crash anymore.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1319">#1319</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.validators.in_()</span></code> now transforms certain unhashable options to tuples to keep the field hashable.</p>
+<p>This allows fields that use this validator to be used with, for example, <code class="docutils literal notranslate"><span class="pre">attrs.filters.include()</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1320">#1320</a></p>
+</li>
+<li><p>If a class has an <em>inherited</em> method called <code class="docutils literal notranslate"><span class="pre">__attrs_init_subclass__</span></code>, it is now called once the class is done assembling.</p>
+<p>This is a replacement for Python’s <code class="docutils literal notranslate"><span class="pre">__init_subclass__</span></code> and useful for registering classes, and similar.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1321">#1321</a></p>
+</li>
+</ul>
+</section>
+</section>
+<section id="id7">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/23.2.0">23.2.0</a> - 2023-12-31<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h2>
+<section id="id8">
+<h3>Changes<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>The type annotation for <code class="docutils literal notranslate"><span class="pre">attrs.resolve_types()</span></code> is now correct.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1141">#1141</a></p></li>
+<li><p>Type stubs now use <code class="docutils literal notranslate"><span class="pre">typing.dataclass_transform</span></code> to decorate dataclass-like decorators, instead of the non-standard <code class="docutils literal notranslate"><span class="pre">__dataclass_transform__</span></code> special form, which is only supported by Pyright.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1158">#1158</a></p></li>
+<li><p>Fixed serialization of namedtuple fields using <code class="docutils literal notranslate"><span class="pre">attrs.asdict/astuple()</span></code> with <code class="docutils literal notranslate"><span class="pre">retain_collection_types=True</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1165">#1165</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.AttrsInstance</span></code> is now a <code class="docutils literal notranslate"><span class="pre">typing.Protocol</span></code> in both type hints and code.
+This allows you to subclass it along with another <code class="docutils literal notranslate"><span class="pre">Protocol</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1172">#1172</a></p></li>
+<li><p>If <em>attrs</em> detects that <code class="docutils literal notranslate"><span class="pre">__attrs_pre_init__</span></code> accepts more than just <code class="docutils literal notranslate"><span class="pre">self</span></code>, it will call it with the same arguments as <code class="docutils literal notranslate"><span class="pre">__init__</span></code> was called.
+This allows you to, for example, pass arguments to <code class="docutils literal notranslate"><span class="pre">super().__init__()</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1187">#1187</a></p></li>
+<li><p>Slotted classes now transform <code class="docutils literal notranslate"><span class="pre">functools.cached_property</span></code> decorated methods to support equivalent semantics.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1200">#1200</a></p></li>
+<li><p>Added <em>class_body</em> argument to <code class="docutils literal notranslate"><span class="pre">attrs.make_class()</span></code> to provide additional attributes for newly created classes.
+It is, for example, now possible to attach methods.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1203">#1203</a></p></li>
+</ul>
+</section>
+</section>
+<section id="id9">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/23.1.0">23.1.0</a> - 2023-04-16<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h2>
+<section id="id10">
+<h3>Backwards-incompatible Changes<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Python 3.6 has been dropped and packaging switched to static package data using <a class="reference external" href="https://hatch.pypa.io/latest/">Hatch</a>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/993">#993</a></p></li>
+</ul>
+</section>
+<section id="id11">
+<h3>Deprecations<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>The support for <em>zope-interface</em> via the <code class="docutils literal notranslate"><span class="pre">attrs.validators.provides</span></code> validator is now deprecated and will be removed in, or after, April 2024.</p>
+<p>The presence of a C-based package in our development dependencies has caused headaches and we’re not under the impression it’s used a lot.</p>
+<p>Let us know if you’re using it and we might publish it as a separate package.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1120">#1120</a></p>
+</li>
+</ul>
+</section>
+<section id="id12">
+<h3>Changes<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.filters.exclude()</span></code> and <code class="docutils literal notranslate"><span class="pre">attrs.filters.include()</span></code> now support the passing of attribute names as strings.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1068">#1068</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.has()</span></code> and <code class="docutils literal notranslate"><span class="pre">attrs.fields()</span></code> now handle generic classes correctly.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1079">#1079</a></p></li>
+<li><p>Fix frozen exception classes when raised within, for example, <code class="docutils literal notranslate"><span class="pre">contextlib.contextmanager</span></code>, which mutates their <code class="docutils literal notranslate"><span class="pre">__traceback__</span></code> attributes.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1081">#1081</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;frozen</span></code> now works with type checkers that implement <a class="reference external" href="https://peps.python.org/pep-0681/">PEP-681</a> (ex. <a class="reference external" href="https://github.com/microsoft/pyright/">pyright</a>).
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1084">#1084</a></p></li>
+<li><p>Restored ability to unpickle instances pickled before 22.2.0.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1085">#1085</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.asdict()</span></code>'s and <code class="docutils literal notranslate"><span class="pre">attrs.astuple()</span></code>'s type stubs now accept the <code class="docutils literal notranslate"><span class="pre">attrs.AttrsInstance</span></code> protocol.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1090">#1090</a></p></li>
+<li><p>Fix slots class cellvar updating closure in CPython 3.8+ even when <code class="docutils literal notranslate"><span class="pre">__code__</span></code> introspection is unavailable.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1092">#1092</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.resolve_types()</span></code> can now pass <code class="docutils literal notranslate"><span class="pre">include_extras</span></code> to <code class="docutils literal notranslate"><span class="pre">typing.get_type_hints()</span></code> on Python 3.9+, and does so by default.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1099">#1099</a></p></li>
+<li><p>Added instructions for pull request workflow to <code class="docutils literal notranslate"><span class="pre">CONTRIBUTING.md</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1105">#1105</a></p></li>
+<li><p>Added <em>type</em> parameter to <code class="docutils literal notranslate"><span class="pre">attrs.field()</span></code> function for use with <code class="docutils literal notranslate"><span class="pre">attrs.make_class()</span></code>.</p>
+<p>Please note that type checkers ignore type metadata passed into <code class="docutils literal notranslate"><span class="pre">make_class()</span></code>, but it can be useful if you’re wrapping <em>attrs</em>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1107">#1107</a></p>
+</li>
+<li><p>It is now possible for <code class="docutils literal notranslate"><span class="pre">attrs.evolve()</span></code> (and <code class="docutils literal notranslate"><span class="pre">attr.evolve()</span></code>) to change fields named <code class="docutils literal notranslate"><span class="pre">inst</span></code> if the instance is passed as a positional argument.</p>
+<p>Passing the instance using the <code class="docutils literal notranslate"><span class="pre">inst</span></code> keyword argument is now deprecated and will be removed in, or after, April 2024.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1117">#1117</a></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.validators.optional()</span></code> now also accepts a tuple of validators (in addition to lists of validators).
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1122">#1122</a></p></li>
+</ul>
+</section>
+</section>
+<section id="id13">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/22.2.0">22.2.0</a> - 2022-12-21<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h2>
+<section id="id14">
+<h3>Backwards-incompatible Changes<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Python 3.5 is not supported anymore.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/988">#988</a></p></li>
+</ul>
+</section>
+<section id="id15">
+<h3>Deprecations<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Python 3.6 is now deprecated and support will be removed in the next release.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1017">#1017</a></p></li>
+</ul>
+</section>
+<section id="id16">
+<h3>Changes<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.field()</span></code> now supports an <em>alias</em> option for explicit <code class="docutils literal notranslate"><span class="pre">__init__</span></code> argument names.</p>
+<p>Get <code class="docutils literal notranslate"><span class="pre">__init__</span></code> signatures matching any taste, peculiar or plain!
+The <a class="reference external" href="https://peps.python.org/pep-0681/#field-specifier-parameters">PEP 681 compatible</a> <em>alias</em> option can be use to override private attribute name mangling, or add other arbitrary field argument name overrides.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/950">#950</a></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.NOTHING</span></code> is now an enum value, making it possible to use with, for example, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal"><code class="docutils literal notranslate"><span class="pre">typing.Literal</span></code></a>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/983">#983</a></p></li>
+<li><p>Added missing re-import of <code class="docutils literal notranslate"><span class="pre">attr.AttrsInstance</span></code> to the <code class="docutils literal notranslate"><span class="pre">attrs</span></code> namespace.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/987">#987</a></p></li>
+<li><p>Fix slight performance regression in classes with custom <code class="docutils literal notranslate"><span class="pre">__setattr__</span></code> and speedup even more.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/991">#991</a></p></li>
+<li><p>Class-creation performance improvements by switching performance-sensitive templating operations to f-strings.</p>
+<p>You can expect an improvement of about 5% -- even for very simple classes.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/995">#995</a></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.has()</span></code> is now a <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeGuard"><code class="docutils literal notranslate"><span class="pre">TypeGuard</span></code></a> for <code class="docutils literal notranslate"><span class="pre">AttrsInstance</span></code>.
+That means that type checkers know a class is an instance of an <code class="docutils literal notranslate"><span class="pre">attrs</span></code> class if you check it using <code class="docutils literal notranslate"><span class="pre">attrs.has()</span></code> (or <code class="docutils literal notranslate"><span class="pre">attr.has()</span></code>) first.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/997">#997</a></p></li>
+<li><p>Made <code class="docutils literal notranslate"><span class="pre">attrs.AttrsInstance</span></code> stub available at runtime and fixed type errors related to the usage of <code class="docutils literal notranslate"><span class="pre">attrs.AttrsInstance</span></code> in Pyright.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/999">#999</a></p></li>
+<li><p>On Python 3.10 and later, call <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.update_abstractmethods"><code class="docutils literal notranslate"><span class="pre">abc.update_abstractmethods()</span></code></a> on dict classes after creation.
+This improves the detection of abstractness.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1001">#1001</a></p></li>
+<li><p><em>attrs</em>’s pickling methods now use dicts instead of tuples.
+That is safer and more robust across different versions of a class.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1009">#1009</a></p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">attrs.validators.not_(wrapped_validator)</span></code> to logically invert <em>wrapped_validator</em> by accepting only values where <em>wrapped_validator</em> rejects the value with a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> or <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> (by default, exception types configurable).
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1010">#1010</a></p></li>
+<li><p>The type stubs for <code class="docutils literal notranslate"><span class="pre">attrs.cmp_using()</span></code> now have default values.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1027">#1027</a></p></li>
+<li><p>To conform with <a class="reference external" href="https://peps.python.org/pep-0681/">PEP 681</a>, <code class="docutils literal notranslate"><span class="pre">attr.s()</span></code> and <code class="docutils literal notranslate"><span class="pre">attrs.define()</span></code> now accept <em>unsafe_hash</em> in addition to <em>hash</em>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/1065">#1065</a></p></li>
+</ul>
+</section>
+</section>
+<section id="id17">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/22.1.0">22.1.0</a> - 2022-07-28<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h2>
+<section id="id18">
+<h3>Backwards-incompatible Changes<a class="headerlink" href="#id18" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Python 2.7 is not supported anymore.</p>
+<p>Dealing with Python 2.7 tooling has become too difficult for a volunteer-run project.</p>
+<p>We have supported Python 2 more than 2 years after it was officially discontinued and feel that we have paid our dues.
+All version up to 21.4.0 from December 2021 remain fully functional, of course.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/936">#936</a></p>
+</li>
+<li><p>The deprecated <code class="docutils literal notranslate"><span class="pre">cmp</span></code> attribute of <code class="docutils literal notranslate"><span class="pre">attrs.Attribute</span></code> has been removed.
+This does not affect the <em>cmp</em> argument to <code class="docutils literal notranslate"><span class="pre">attr.s</span></code> that can be used as a shortcut to set <em>eq</em> and <em>order</em> at the same time.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/939">#939</a></p></li>
+</ul>
+</section>
+<section id="id19">
+<h3>Changes<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Instantiation of frozen slotted classes is now faster.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/898">#898</a></p></li>
+<li><p>If an <code class="docutils literal notranslate"><span class="pre">eq</span></code> key is defined, it is also used before hashing the attribute.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/909">#909</a></p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">attrs.validators.min_len()</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/916">#916</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.validators.deep_iterable()</span></code>'s <em>member_validator</em> argument now also accepts a list of validators and wraps them in an <code class="docutils literal notranslate"><span class="pre">attrs.validators.and_()</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/925">#925</a></p></li>
+<li><p>Added missing type stub re-imports for <code class="docutils literal notranslate"><span class="pre">attrs.converters</span></code> and <code class="docutils literal notranslate"><span class="pre">attrs.filters</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/931">#931</a></p></li>
+<li><p>Added missing stub for <code class="docutils literal notranslate"><span class="pre">attr(s).cmp_using()</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/949">#949</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.validators._in()</span></code>'s <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> is not missing the attribute, expected options, and the value it got anymore.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/951">#951</a></p></li>
+<li><p>Python 3.11 is now officially supported.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/969">#969</a></p></li>
+</ul>
+</section>
+</section>
+<section id="id20">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/21.4.0">21.4.0</a> - 2021-12-29<a class="headerlink" href="#id20" title="Link to this heading">¶</a></h2>
+<section id="id21">
+<h3>Changes<a class="headerlink" href="#id21" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Fixed the test suite on PyPy3.8 where <code class="docutils literal notranslate"><span class="pre">cloudpickle</span></code> does not work.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/892">#892</a></p></li>
+<li><p>Fixed <code class="docutils literal notranslate"><span class="pre">coverage</span> <span class="pre">report</span></code> for projects that use <code class="docutils literal notranslate"><span class="pre">attrs</span></code> and don’t set a <code class="docutils literal notranslate"><span class="pre">--source</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/895">#895</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/896">#896</a></p></li>
+</ul>
+</section>
+</section>
+<section id="id22">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/21.3.0">21.3.0</a> - 2021-12-28<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h2>
+<section id="backward-incompatible-changes">
+<h3>Backward-incompatible Changes<a class="headerlink" href="#backward-incompatible-changes" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>When using <code class="docutils literal notranslate"><span class="pre">&#64;define</span></code>, converters are now run by default when setting an attribute on an instance -- additionally to validators.
+Meaning: the new default is <code class="docutils literal notranslate"><span class="pre">on_setattr=[attrs.setters.convert,</span> <span class="pre">attrs.setters.validate]</span></code>.</p>
+<p>This is unfortunately a breaking change, but it was an oversight, impossible to raise a <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code> about, and it’s better to fix it now while the APIs are very fresh with few users.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/835">#835</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/886">#886</a></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">attrs</span></code> has finally landed!
+As of this release, you can finally import <code class="docutils literal notranslate"><span class="pre">attrs</span></code> using its proper name.</p>
+<p>Not all names from the <code class="docutils literal notranslate"><span class="pre">attr</span></code> namespace have been transferred; most notably <code class="docutils literal notranslate"><span class="pre">attr.s</span></code> and <code class="docutils literal notranslate"><span class="pre">attr.ib</span></code> are missing.
+See <code class="docutils literal notranslate"><span class="pre">attrs.define</span></code> and <code class="docutils literal notranslate"><span class="pre">attrs.field</span></code> if you haven’t seen our next-generation APIs yet.
+A more elaborate explanation can be found <a class="reference external" href="https://www.attrs.org/en/latest/names.html">On The Core API Names</a></p>
+<p>This feature is at least for one release <strong>provisional</strong>.
+We don’t <em>plan</em> on changing anything, but such a big change is unlikely to go perfectly on the first strike.</p>
+<p>The API docs have been mostly updated, but it will be an ongoing effort to change everything to the new APIs.
+Please note that we have <strong>not</strong> moved -- or even removed -- anything from <code class="docutils literal notranslate"><span class="pre">attr</span></code>!</p>
+<p>Please do report any bugs or documentation inconsistencies!
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/887">#887</a></p>
+</li>
+</ul>
+</section>
+<section id="id23">
+<h3>Changes<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.asdict(retain_collection_types=False)</span></code> (default) dumps collection-esque keys as tuples.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/646">#646</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/888">#888</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__match_args__</span></code> are now generated to support Python 3.10’s
+<a class="reference external" href="https://docs.python.org/3.10/whatsnew/3.10.html#pep-634-structural-pattern-matching">Structural Pattern Matching</a>.
+This can be controlled by the <code class="docutils literal notranslate"><span class="pre">match_args</span></code> argument to the class decorators on Python 3.10 and later.
+On older versions, it is never added and the argument is ignored.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/815">#815</a></p></li>
+<li><p>If the class-level <em>on_setattr</em> is set to <code class="docutils literal notranslate"><span class="pre">attrs.setters.validate</span></code> (default in <code class="docutils literal notranslate"><span class="pre">&#64;define</span></code> and <code class="docutils literal notranslate"><span class="pre">&#64;mutable</span></code>) but no field defines a validator, pretend that it’s not set.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/817">#817</a></p></li>
+<li><p>The generated <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> is significantly faster on Pythons with f-strings.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/819">#819</a></p></li>
+<li><p>Attributes transformed via <code class="docutils literal notranslate"><span class="pre">field_transformer</span></code> are wrapped with <code class="docutils literal notranslate"><span class="pre">AttrsClass</span></code> again.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/824">#824</a></p></li>
+<li><p>Generated source code is now cached more efficiently for identical classes.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/828">#828</a></p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">attrs.converters.to_bool()</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/830">#830</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.resolve_types()</span></code> now resolves types of subclasses after the parents are resolved.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/842">#842</a>
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/843">#843</a></p></li>
+<li><p>Added new validators: <code class="docutils literal notranslate"><span class="pre">lt(val)</span></code> (&lt; val), <code class="docutils literal notranslate"><span class="pre">le(va)</span></code> (≤ val), <code class="docutils literal notranslate"><span class="pre">ge(val)</span></code> (≥ val), <code class="docutils literal notranslate"><span class="pre">gt(val)</span></code> (&gt; val), and <code class="docutils literal notranslate"><span class="pre">maxlen(n)</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/845">#845</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs</span></code> classes are now fully compatible with <a class="reference external" href="https://github.com/cloudpipe/cloudpickle">cloudpickle</a> (no need to disable <code class="docutils literal notranslate"><span class="pre">repr</span></code> anymore).
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/857">#857</a></p></li>
+<li><p>Added new context manager <code class="docutils literal notranslate"><span class="pre">attrs.validators.disabled()</span></code> and functions <code class="docutils literal notranslate"><span class="pre">attrs.validators.(set|get)_disabled()</span></code>.
+They deprecate <code class="docutils literal notranslate"><span class="pre">attrs.(set|get)_run_validators()</span></code>.
+All functions are interoperable and modify the same internal state.
+They are not – and never were – thread-safe, though.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/859">#859</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.validators.matches_re()</span></code> now accepts pre-compiled regular expressions in addition to pattern strings.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/877">#877</a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id24">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/21.2.0">21.2.0</a> - 2021-05-07<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h2>
+<section id="id25">
+<h3>Backward-incompatible Changes<a class="headerlink" href="#id25" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>We had to revert the recursive feature for <code class="docutils literal notranslate"><span class="pre">attr.evolve()</span></code> because it broke some use-cases -- sorry!
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/806">#806</a></p></li>
+<li><p>Python 3.4 is now blocked using packaging metadata because <code class="docutils literal notranslate"><span class="pre">attrs</span></code> can’t be imported on it anymore.
+To ensure that 3.4 users can keep installing  <code class="docutils literal notranslate"><span class="pre">attrs</span></code> easily, we will <a class="reference external" href="https://pypi.org/help/#yanked">yank</a> 21.1.0 from PyPI.
+This has <strong>no</strong> consequences if you pin <code class="docutils literal notranslate"><span class="pre">attrs</span></code> to 21.1.0.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/807">#807</a></p></li>
+</ul>
+</section>
+</section>
+<section id="id26">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/21.1.0">21.1.0</a> - 2021-05-06<a class="headerlink" href="#id26" title="Link to this heading">¶</a></h2>
+<section id="id27">
+<h3>Deprecations<a class="headerlink" href="#id27" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>The long-awaited, much-talked-about, little-delivered <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">attrs</span></code> is finally upon us!</p>
+<p>Since the NG APIs have now been proclaimed stable, the <strong>next</strong> release of <code class="docutils literal notranslate"><span class="pre">attrs</span></code> will allow you to actually <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">attrs</span></code>.
+We’re taking this opportunity to replace some defaults in our APIs that made sense in 2015, but don’t in 2021.</p>
+<p>So please, if you have any pet peeves about defaults in <code class="docutils literal notranslate"><span class="pre">attrs</span></code>’s APIs, <em>now</em> is the time to air your grievances in #487!
+We’re not gonna get such a chance for a second time, without breaking our backward-compatibility guarantees, or long deprecation cycles.
+Therefore, speak now or forever hold you peace!
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/487">#487</a></p>
+</li>
+<li><p>The <em>cmp</em> argument to <code class="docutils literal notranslate"><span class="pre">attr.s()</span></code> and <code class="docutils literal notranslate"><span class="pre">attr.ib()</span></code> has been <strong>undeprecated</strong>
+It will continue to be supported as syntactic sugar to set <em>eq</em> and <em>order</em> in one go.</p>
+<p>I’m terribly sorry for the hassle around this argument!
+The reason we’re bringing it back is it’s usefulness regarding customization of equality/ordering.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">cmp</span></code> attribute and argument on <code class="docutils literal notranslate"><span class="pre">attr.Attribute</span></code> remains deprecated and will be removed later this year.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/773">#773</a></p>
+</li>
+</ul>
+</section>
+<section id="id28">
+<h3>Changes<a class="headerlink" href="#id28" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>It’s now possible to customize the behavior of <code class="docutils literal notranslate"><span class="pre">eq</span></code> and <code class="docutils literal notranslate"><span class="pre">order</span></code> by passing in a callable.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/435">#435</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/627">#627</a></p></li>
+<li><p>The instant favorite next-generation APIs are not provisional anymore!</p>
+<p>They are also officially supported by Mypy as of their <a class="reference external" href="https://mypy-lang.blogspot.com/2021/01/mypy-0800-released.html">0.800 release</a>.</p>
+<p>We hope the next release will already contain an (additional) importable package called <code class="docutils literal notranslate"><span class="pre">attrs</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/668">#668</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/786">#786</a></p>
+</li>
+<li><p>If an attribute defines a converter, the type of its parameter is used as type annotation for its corresponding <code class="docutils literal notranslate"><span class="pre">__init__</span></code> parameter.</p>
+<p>If an <code class="docutils literal notranslate"><span class="pre">attr.converters.pipe</span></code> is used, the first one’s is used.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/710">#710</a></p>
+</li>
+<li><p>Fixed the creation of an extra slot for an <code class="docutils literal notranslate"><span class="pre">attr.ib</span></code> when the parent class already has a slot with the same name.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/718">#718</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__attrs__init__()</span></code> will now be injected if <code class="docutils literal notranslate"><span class="pre">init=False</span></code>, or if <code class="docutils literal notranslate"><span class="pre">auto_detect=True</span></code> and a user-defined <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> exists.</p>
+<p>This enables users to do “pre-init” work in their <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> (such as <code class="docutils literal notranslate"><span class="pre">super().__init__()</span></code>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">__init__()</span></code> can then delegate constructor argument processing to <code class="docutils literal notranslate"><span class="pre">self.__attrs_init__(*args,</span> <span class="pre">**kwargs)</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/731">#731</a></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bool(attr.NOTHING)</span></code> is now <code class="docutils literal notranslate"><span class="pre">False</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/732">#732</a></p></li>
+<li><p>It’s now possible to use <code class="docutils literal notranslate"><span class="pre">super()</span></code> inside of properties of slotted classes.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/747">#747</a></p></li>
+<li><p>Allow for a <code class="docutils literal notranslate"><span class="pre">__attrs_pre_init__()</span></code> method that -- if defined -- will get called at the beginning of the <code class="docutils literal notranslate"><span class="pre">attrs</span></code>-generated <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> method.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/750">#750</a></p></li>
+<li><p>Added forgotten <code class="docutils literal notranslate"><span class="pre">attr.Attribute.evolve()</span></code> to type stubs.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/752">#752</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs.evolve()</span></code> now works recursively with nested <code class="docutils literal notranslate"><span class="pre">attrs</span></code> classes.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/759">#759</a></p></li>
+<li><p>Python 3.10 is now officially supported.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/763">#763</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.resolve_types()</span></code> now takes an optional <em>attrib</em> argument to work inside a <code class="docutils literal notranslate"><span class="pre">field_transformer</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/774">#774</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ClassVar</span></code>s are now also detected if they come from <a class="reference external" href="https://pypi.org/project/typing-extensions/">typing-extensions</a>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/782">#782</a></p></li>
+<li><p>To make it easier to customize attribute comparison (#435), we have added the <code class="docutils literal notranslate"><span class="pre">attr.cmp_with()</span></code> helper.</p>
+<p>See the <a class="reference external" href="https://www.attrs.org/en/stable/comparison.html">new docs on comparison</a> for more details.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/787">#787</a></p>
+</li>
+<li><p>Added <strong>provisional</strong> support for static typing in <code class="docutils literal notranslate"><span class="pre">pyright</span></code> via <a class="reference external" href="https://peps.python.org/pep-0681/">PEP 681</a>.
+Both the <code class="docutils literal notranslate"><span class="pre">pyright</span></code> specification and <code class="docutils literal notranslate"><span class="pre">attrs</span></code> implementation may change in future versions of both projects.</p>
+<p>Your constructive feedback is welcome in both <a class="reference external" href="https://github.com/python-attrs/attrs/issues/795">attrs#795</a> and <a class="reference external" href="https://github.com/microsoft/pyright/discussions/1782">pyright#1782</a>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/796">#796</a></p>
+</li>
+</ul>
+</section>
+</section>
+<section id="id29">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/20.3.0">20.3.0</a> - 2020-11-05<a class="headerlink" href="#id29" title="Link to this heading">¶</a></h2>
+<section id="id30">
+<h3>Backward-incompatible Changes<a class="headerlink" href="#id30" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.define()</span></code>, <code class="docutils literal notranslate"><span class="pre">attr.frozen()</span></code>, <code class="docutils literal notranslate"><span class="pre">attr.mutable()</span></code>, and <code class="docutils literal notranslate"><span class="pre">attr.field()</span></code> remain <strong>provisional</strong>.</p>
+<p>This release does <strong>not</strong> change anything about them and they are already used widely in production though.</p>
+<p>If you wish to use them together with mypy, you can simply drop <a class="reference external" href="https://gist.github.com/hynek/1e3844d0c99e479e716169034b5fa963#file-attrs_ng_plugin-py">this plugin</a> into your project.</p>
+<p>Feel free to provide feedback to them in the linked issue #668.</p>
+<p>We will release the <code class="docutils literal notranslate"><span class="pre">attrs</span></code> namespace once we have the feeling that the APIs have properly settled.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/668">#668</a></p>
+</li>
+</ul>
+</section>
+<section id="id31">
+<h3>Changes<a class="headerlink" href="#id31" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.s()</span></code> now has a <em>field_transformer</em> hook that is called for all <code class="docutils literal notranslate"><span class="pre">Attribute</span></code>s and returns a (modified or updated) list of <code class="docutils literal notranslate"><span class="pre">Attribute</span></code> instances.
+<code class="docutils literal notranslate"><span class="pre">attr.asdict()</span></code> has a <em>value_serializer</em> hook that can change the way values are converted.
+Both hooks are meant to help with data (de-)serialization workflows.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/653">#653</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kw_only=True</span></code> now works on Python 2.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/700">#700</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">raise</span> <span class="pre">from</span></code> now works on frozen classes on PyPy.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/703">#703</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/712">#712</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.asdict()</span></code> and <code class="docutils literal notranslate"><span class="pre">attr.astuple()</span></code> now treat <code class="docutils literal notranslate"><span class="pre">frozenset</span></code>s like <code class="docutils literal notranslate"><span class="pre">set</span></code>s with regards to the <em>retain_collection_types</em> argument.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/704">#704</a></p></li>
+<li><p>The type stubs for <code class="docutils literal notranslate"><span class="pre">attr.s()</span></code> and <code class="docutils literal notranslate"><span class="pre">attr.make_class()</span></code> are not missing the <em>collect_by_mro</em> argument anymore.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/711">#711</a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id32">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/20.2.0">20.2.0</a> - 2020-09-05<a class="headerlink" href="#id32" title="Link to this heading">¶</a></h2>
+<section id="id33">
+<h3>Backward-incompatible Changes<a class="headerlink" href="#id33" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.define()</span></code>, <code class="docutils literal notranslate"><span class="pre">attr.frozen()</span></code>, <code class="docutils literal notranslate"><span class="pre">attr.mutable()</span></code>, and <code class="docutils literal notranslate"><span class="pre">attr.field()</span></code> remain <strong>provisional</strong>.</p>
+<p>This release fixes a bunch of bugs and ergonomics but they remain mostly unchanged.</p>
+<p>If you wish to use them together with mypy, you can simply drop <a class="reference external" href="https://gist.github.com/hynek/1e3844d0c99e479e716169034b5fa963#file-attrs_ng_plugin-py">this plugin</a> into your project.</p>
+<p>Feel free to provide feedback to them in the linked issue #668.</p>
+<p>We will release the <code class="docutils literal notranslate"><span class="pre">attrs</span></code> namespace once we have the feeling that the APIs have properly settled.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/668">#668</a></p>
+</li>
+</ul>
+</section>
+<section id="id34">
+<h3>Changes<a class="headerlink" href="#id34" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.define()</span></code> et al now correctly detect <code class="docutils literal notranslate"><span class="pre">__eq__</span></code> and <code class="docutils literal notranslate"><span class="pre">__ne__</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/671">#671</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.define()</span></code> et al’s hybrid behavior now also works correctly when arguments are passed.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/675">#675</a></p></li>
+<li><p>It’s possible to define custom <code class="docutils literal notranslate"><span class="pre">__setattr__</span></code> methods on slotted classes again.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/681">#681</a></p></li>
+<li><p>In 20.1.0 we introduced the <code class="docutils literal notranslate"><span class="pre">inherited</span></code> attribute on the <code class="docutils literal notranslate"><span class="pre">attr.Attribute</span></code> class to differentiate attributes that have been inherited and those that have been defined directly on the class.</p>
+<p>It has shown to be problematic to involve that attribute when comparing instances of <code class="docutils literal notranslate"><span class="pre">attr.Attribute</span></code> though, because when sub-classing, attributes from base classes are suddenly not equal to themselves in a super class.</p>
+<p>Therefore the <code class="docutils literal notranslate"><span class="pre">inherited</span></code> attribute will now be ignored when hashing and comparing instances of <code class="docutils literal notranslate"><span class="pre">attr.Attribute</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/684">#684</a></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">zope.interface</span></code> is now a “soft dependency” when running the test suite; if <code class="docutils literal notranslate"><span class="pre">zope.interface</span></code> is not installed when running the test suite, the interface-related tests will be automatically skipped.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/685">#685</a></p></li>
+<li><p>The ergonomics of creating frozen classes using <code class="docutils literal notranslate"><span class="pre">&#64;define(frozen=True)</span></code> and sub-classing frozen classes has been improved:
+you don’t have to set <code class="docutils literal notranslate"><span class="pre">on_setattr=None</span></code> anymore.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/687">#687</a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id35">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/20.1.0">20.1.0</a> - 2020-08-20<a class="headerlink" href="#id35" title="Link to this heading">¶</a></h2>
+<section id="id36">
+<h3>Backward-incompatible Changes<a class="headerlink" href="#id36" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Python 3.4 is not supported anymore.
+It has been unsupported by the Python core team for a while now, its PyPI downloads are negligible, and our CI provider removed it as a supported option.</p>
+<p>It’s very unlikely that <code class="docutils literal notranslate"><span class="pre">attrs</span></code> will break under 3.4 anytime soon, which is why we do <em>not</em> block its installation on Python 3.4.
+But we don’t test it anymore and will block it once someone reports breakage.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/608">#608</a></p>
+</li>
+</ul>
+</section>
+<section id="id37">
+<h3>Deprecations<a class="headerlink" href="#id37" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Less of a deprecation and more of a heads up: the next release of <code class="docutils literal notranslate"><span class="pre">attrs</span></code> will introduce an <code class="docutils literal notranslate"><span class="pre">attrs</span></code> namespace.
+That means that you’ll finally be able to run <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">attrs</span></code> with new functions that aren’t cute abbreviations and that will carry better defaults.</p>
+<p>This should not break any of your code, because project-local packages have priority before installed ones.
+If this is a problem for you for some reason, please report it to our bug tracker and we’ll figure something out.</p>
+<p>The old <code class="docutils literal notranslate"><span class="pre">attr</span></code> namespace isn’t going anywhere and its defaults are not changing – this is a purely additive measure.
+Please check out the linked issue for more details.</p>
+<p>These new APIs have been added <em>provisionally</em> as part of #666 so you can try them out today and provide feedback.
+Learn more in the <a class="reference external" href="https://www.attrs.org/en/stable/api.html">API docs</a>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/408">#408</a></p>
+</li>
+</ul>
+</section>
+<section id="id38">
+<h3>Changes<a class="headerlink" href="#id38" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">attr.resolve_types()</span></code>.
+It ensures that all forward-references and types in string form are resolved into concrete types.</p>
+<p>You need this only if you need concrete types at runtime.
+That means that if you only use types for static type checking, you do <strong>not</strong> need this function.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/288">#288</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/302">#302</a></p>
+</li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">&#64;attr.s(collect_by_mro=False)</span></code> argument that if set to <code class="docutils literal notranslate"><span class="pre">True</span></code> fixes the collection of attributes from base classes.</p>
+<p>It’s only necessary for certain cases of multiple-inheritance but is kept off for now for backward-compatibility reasons.
+It will be turned on by default in the future.</p>
+<p>As a side-effect, <code class="docutils literal notranslate"><span class="pre">attr.Attribute</span></code> now <em>always</em> has an <code class="docutils literal notranslate"><span class="pre">inherited</span></code> attribute indicating whether an attribute on a class was directly defined or inherited.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/428">#428</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/635">#635</a></p>
+</li>
+<li><p>On Python 3, all generated methods now have a docstring explaining that they have been created by <code class="docutils literal notranslate"><span class="pre">attrs</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/506">#506</a></p></li>
+<li><p>It is now possible to prevent <code class="docutils literal notranslate"><span class="pre">attrs</span></code> from auto-generating the <code class="docutils literal notranslate"><span class="pre">__setstate__</span></code> and <code class="docutils literal notranslate"><span class="pre">__getstate__</span></code> methods that are required for pickling of slotted classes.</p>
+<p>Either pass <code class="docutils literal notranslate"><span class="pre">&#64;attr.s(getstate_setstate=False)</span></code> or pass <code class="docutils literal notranslate"><span class="pre">&#64;attr.s(auto_detect=True)</span></code> and implement them yourself:
+if <code class="docutils literal notranslate"><span class="pre">attrs</span></code> finds either of the two methods directly on the decorated class, it assumes implicitly <code class="docutils literal notranslate"><span class="pre">getstate_setstate=False</span></code> (and implements neither).</p>
+<p>This option works with dict classes but should never be necessary.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/512">#512</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/513">#513</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/642">#642</a></p>
+</li>
+<li><p>Fixed a <code class="docutils literal notranslate"><span class="pre">ValueError:</span> <span class="pre">Cell</span> <span class="pre">is</span> <span class="pre">empty</span></code> bug that could happen in some rare edge cases.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/590">#590</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs</span></code> can now automatically detect your own implementations and infer <code class="docutils literal notranslate"><span class="pre">init=False</span></code>, <code class="docutils literal notranslate"><span class="pre">repr=False</span></code>, <code class="docutils literal notranslate"><span class="pre">eq=False</span></code>, <code class="docutils literal notranslate"><span class="pre">order=False</span></code>, and <code class="docutils literal notranslate"><span class="pre">hash=False</span></code> if you set <code class="docutils literal notranslate"><span class="pre">&#64;attr.s(auto_detect=True)</span></code>.
+<code class="docutils literal notranslate"><span class="pre">attrs</span></code> will ignore inherited methods.
+If the argument implies more than one method (for example, <code class="docutils literal notranslate"><span class="pre">eq=True</span></code> creates both <code class="docutils literal notranslate"><span class="pre">__eq__</span></code> and <code class="docutils literal notranslate"><span class="pre">__ne__</span></code>), it’s enough for <em>one</em> of them to exist and <code class="docutils literal notranslate"><span class="pre">attrs</span></code> will create <em>neither</em>.</p>
+<p>This feature requires Python 3.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/607">#607</a></p>
+</li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">attr.converters.pipe()</span></code>.
+The feature allows combining multiple conversion callbacks into one by piping the value through all of them, and retuning the last result.</p>
+<p>As part of this feature, we had to relax the type information for converter callables.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/618">#618</a></p>
+</li>
+<li><p>Fixed serialization behavior of non-slots classes with <code class="docutils literal notranslate"><span class="pre">cache_hash=True</span></code>.
+The hash cache will be cleared on operations which make “deep copies” of instances of classes with hash caching,
+though the cache will not be cleared with shallow copies like those made by <code class="docutils literal notranslate"><span class="pre">copy.copy()</span></code>.</p>
+<p>Previously, <code class="docutils literal notranslate"><span class="pre">copy.deepcopy()</span></code> or serialization and deserialization with <code class="docutils literal notranslate"><span class="pre">pickle</span></code> would result in an un-initialized object.</p>
+<p>This change also allows the creation of <code class="docutils literal notranslate"><span class="pre">cache_hash=True</span></code> classes with a custom <code class="docutils literal notranslate"><span class="pre">__setstate__</span></code>,
+which was previously forbidden (<a class="reference external" href="https://github.com/python-attrs/attrs/issues/494">#494</a>).
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/620">#620</a></p>
+</li>
+<li><p>It is now possible to specify hooks that are called whenever an attribute is set <strong>after</strong> a class has been instantiated.</p>
+<p>You can pass <code class="docutils literal notranslate"><span class="pre">on_setattr</span></code> both to <code class="docutils literal notranslate"><span class="pre">&#64;attr.s()</span></code> to set the default for all attributes on a class, and to <code class="docutils literal notranslate"><span class="pre">&#64;attr.ib()</span></code> to overwrite it for individual attributes.</p>
+<p><code class="docutils literal notranslate"><span class="pre">attrs</span></code> also comes with a new module <code class="docutils literal notranslate"><span class="pre">attr.setters</span></code> that brings helpers that run validators, converters, or allow to freeze a subset of attributes.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/645">#645</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/660">#660</a></p>
+</li>
+<li><p><strong>Provisional</strong> APIs called <code class="docutils literal notranslate"><span class="pre">attr.define()</span></code>, <code class="docutils literal notranslate"><span class="pre">attr.mutable()</span></code>, and <code class="docutils literal notranslate"><span class="pre">attr.frozen()</span></code> have been added.</p>
+<p>They are only available on Python 3.6 and later, and call <code class="docutils literal notranslate"><span class="pre">attr.s()</span></code> with different default values.</p>
+<p>If nothing comes up, they will become the official way for creating classes in 20.2.0 (see above).</p>
+<p><strong>Please note</strong> that it may take some time until mypy – and other tools that have dedicated support for <code class="docutils literal notranslate"><span class="pre">attrs</span></code> – recognize these new APIs.
+Please <strong>do not</strong> open issues on our bug tracker, there is nothing we can do about it.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/666">#666</a></p>
+</li>
+<li><p>We have also provisionally added <code class="docutils literal notranslate"><span class="pre">attr.field()</span></code> that supplants <code class="docutils literal notranslate"><span class="pre">attr.ib()</span></code>.
+It also requires at least Python 3.6 and is keyword-only.
+Other than that, it only dropped a few arguments, but changed no defaults.</p>
+<p>As with <code class="docutils literal notranslate"><span class="pre">attr.s()</span></code>: <code class="docutils literal notranslate"><span class="pre">attr.ib()</span></code> is not going anywhere.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/669">#669</a></p>
+</li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id39">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/19.3.0">19.3.0</a> - 2019-10-15<a class="headerlink" href="#id39" title="Link to this heading">¶</a></h2>
+<section id="id40">
+<h3>Changes<a class="headerlink" href="#id40" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Fixed <code class="docutils literal notranslate"><span class="pre">auto_attribs</span></code> usage when default values cannot be compared directly with <code class="docutils literal notranslate"><span class="pre">==</span></code>, such as <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/585">#585</a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id41">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/19.2.0">19.2.0</a> - 2019-10-01<a class="headerlink" href="#id41" title="Link to this heading">¶</a></h2>
+<section id="id42">
+<h3>Backward-incompatible Changes<a class="headerlink" href="#id42" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Removed deprecated <code class="docutils literal notranslate"><span class="pre">Attribute</span></code> attribute <code class="docutils literal notranslate"><span class="pre">convert</span></code> per scheduled removal on 2019/1.
+This planned deprecation is tracked in issue <a class="reference external" href="https://github.com/python-attrs/attrs/issues/307">#307</a>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/504">#504</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__lt__</span></code>, <code class="docutils literal notranslate"><span class="pre">__le__</span></code>, <code class="docutils literal notranslate"><span class="pre">__gt__</span></code>, and <code class="docutils literal notranslate"><span class="pre">__ge__</span></code> do not consider subclasses comparable anymore.</p>
+<p>This has been deprecated since 18.2.0 and was raising a <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code> for over a year.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/570">#570</a></p>
+</li>
+</ul>
+</section>
+<section id="id43">
+<h3>Deprecations<a class="headerlink" href="#id43" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">cmp</span></code> argument to <code class="docutils literal notranslate"><span class="pre">attr.s()</span></code> and <code class="docutils literal notranslate"><span class="pre">attr.ib()</span></code> is now deprecated.</p>
+<p>Please use <code class="docutils literal notranslate"><span class="pre">eq</span></code> to add equality methods (<code class="docutils literal notranslate"><span class="pre">__eq__</span></code> and <code class="docutils literal notranslate"><span class="pre">__ne__</span></code>) and <code class="docutils literal notranslate"><span class="pre">order</span></code> to add ordering methods (<code class="docutils literal notranslate"><span class="pre">__lt__</span></code>, <code class="docutils literal notranslate"><span class="pre">__le__</span></code>, <code class="docutils literal notranslate"><span class="pre">__gt__</span></code>, and <code class="docutils literal notranslate"><span class="pre">__ge__</span></code>) instead – just like with <a class="reference external" href="https://docs.python.org/3/library/dataclasses.html">dataclasses</a>.</p>
+<p>Both are effectively <code class="docutils literal notranslate"><span class="pre">True</span></code> by default but it’s enough to set <code class="docutils literal notranslate"><span class="pre">eq=False</span></code> to disable both at once.
+Passing <code class="docutils literal notranslate"><span class="pre">eq=False,</span> <span class="pre">order=True</span></code> explicitly will raise a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> though.</p>
+<p>Since this is arguably a deeper backward-compatibility break, it will have an extended deprecation period until 2021-06-01.
+After that day, the <code class="docutils literal notranslate"><span class="pre">cmp</span></code> argument will be removed.</p>
+<p><code class="docutils literal notranslate"><span class="pre">attr.Attribute</span></code> also isn’t orderable anymore.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/574">#574</a></p>
+</li>
+</ul>
+</section>
+<section id="id44">
+<h3>Changes<a class="headerlink" href="#id44" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Updated <code class="docutils literal notranslate"><span class="pre">attr.validators.__all__</span></code> to include new validators added in <a class="reference external" href="https://github.com/python-attrs/attrs/issues/425">#425</a>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/517">#517</a></p></li>
+<li><p>Slotted classes now use a pure Python mechanism to rewrite the <code class="docutils literal notranslate"><span class="pre">__class__</span></code> cell when rebuilding the class, so <code class="docutils literal notranslate"><span class="pre">super()</span></code> works even on environments where <code class="docutils literal notranslate"><span class="pre">ctypes</span></code> is not installed.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/522">#522</a></p></li>
+<li><p>When collecting attributes using <code class="docutils literal notranslate"><span class="pre">&#64;attr.s(auto_attribs=True)</span></code>, attributes with a default of <code class="docutils literal notranslate"><span class="pre">None</span></code> are now deleted too.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/523">#523</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/556">#556</a></p></li>
+<li><p>Fixed <code class="docutils literal notranslate"><span class="pre">attr.validators.deep_iterable()</span></code> and <code class="docutils literal notranslate"><span class="pre">attr.validators.deep_mapping()</span></code> type stubs.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/533">#533</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.validators.is_callable()</span></code> validator now raises an exception <code class="docutils literal notranslate"><span class="pre">attr.exceptions.NotCallableError</span></code>, a subclass of <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>, informing the received value.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/536">#536</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;attr.s(auto_exc=True)</span></code> now generates classes that are hashable by ID, as the documentation always claimed it would.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/543">#543</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/563">#563</a></p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">attr.validators.matches_re()</span></code> that checks string attributes whether they match a regular expression.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/552">#552</a></p></li>
+<li><p>Keyword-only attributes (<code class="docutils literal notranslate"><span class="pre">kw_only=True</span></code>) and attributes that are excluded from the <code class="docutils literal notranslate"><span class="pre">attrs</span></code>’s <code class="docutils literal notranslate"><span class="pre">__init__</span></code> (<code class="docutils literal notranslate"><span class="pre">init=False</span></code>) now can appear before mandatory attributes.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/559">#559</a></p></li>
+<li><p>The fake filename for generated methods is now more stable.
+It won’t change when you restart the process.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/560">#560</a></p></li>
+<li><p>The value passed to <code class="docutils literal notranslate"><span class="pre">&#64;attr.ib(repr=…)</span></code> can now be either a boolean (as before) or a callable.
+That callable must return a string and is then used for formatting the attribute by the generated <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/568">#568</a></p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">attr.__version_info__</span></code> that can be used to reliably check the version of <code class="docutils literal notranslate"><span class="pre">attrs</span></code> and write forward- and backward-compatible code.
+Please check out the <a class="reference external" href="https://www.attrs.org/en/stable/api-attr.html#deprecated-apis">section on deprecated APIs</a> on how to use it.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/580">#580</a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id45">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/19.1.0">19.1.0</a> - 2019-03-03<a class="headerlink" href="#id45" title="Link to this heading">¶</a></h2>
+<section id="id46">
+<h3>Backward-incompatible Changes<a class="headerlink" href="#id46" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Fixed a bug where deserialized objects with <code class="docutils literal notranslate"><span class="pre">cache_hash=True</span></code> could have incorrect hash code values.
+This change breaks classes with <code class="docutils literal notranslate"><span class="pre">cache_hash=True</span></code> when a custom <code class="docutils literal notranslate"><span class="pre">__setstate__</span></code> is present.
+An exception will be thrown when applying the <code class="docutils literal notranslate"><span class="pre">attrs</span></code> annotation to such a class.
+This limitation is tracked in issue <a class="reference external" href="https://github.com/python-attrs/attrs/issues/494">#494</a>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/482">#482</a></p></li>
+</ul>
+</section>
+<section id="id47">
+<h3>Changes<a class="headerlink" href="#id47" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">is_callable</span></code>, <code class="docutils literal notranslate"><span class="pre">deep_iterable</span></code>, and <code class="docutils literal notranslate"><span class="pre">deep_mapping</span></code> validators.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">is_callable</span></code>: validates that a value is callable</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">deep_iterable</span></code>: Allows recursion down into an iterable,
+applying another validator to every member in the iterable
+as well as applying an optional validator to the iterable itself.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">deep_mapping</span></code>: Allows recursion down into the items in a mapping object,
+applying a key validator and a value validator to the key and value in every item.
+Also applies an optional validator to the mapping object itself.</p></li>
+</ul>
+<p>You can find them in the <code class="docutils literal notranslate"><span class="pre">attr.validators</span></code> package.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/425">#425</a></p>
+</li>
+<li><p>Fixed stub files to prevent errors raised by mypy’s <code class="docutils literal notranslate"><span class="pre">disallow_any_generics</span> <span class="pre">=</span> <span class="pre">True</span></code> option.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/443">#443</a></p></li>
+<li><p>Attributes with <code class="docutils literal notranslate"><span class="pre">init=False</span></code> now can follow after <code class="docutils literal notranslate"><span class="pre">kw_only=True</span></code> attributes.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/450">#450</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs</span></code> now has first class support for defining exception classes.</p>
+<p>If you define a class using <code class="docutils literal notranslate"><span class="pre">&#64;attr.s(auto_exc=True)</span></code> and subclass an exception, the class will behave like a well-behaved exception class including an appropriate <code class="docutils literal notranslate"><span class="pre">__str__</span></code> method, and all attributes additionally available in an <code class="docutils literal notranslate"><span class="pre">args</span></code> attribute.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/500">#500</a></p>
+</li>
+<li><p>Clarified documentation for hashing to warn that hashable objects should be deeply immutable (in their usage, even if this is not enforced).
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/503">#503</a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id48">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/18.2.0">18.2.0</a> - 2018-09-01<a class="headerlink" href="#id48" title="Link to this heading">¶</a></h2>
+<section id="id49">
+<h3>Deprecations<a class="headerlink" href="#id49" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Comparing subclasses using <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>, and <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> is now deprecated.
+The docs always claimed that instances are only compared if the types are identical, so this is a first step to conform to the docs.</p>
+<p>Equality operators (<code class="docutils literal notranslate"><span class="pre">==</span></code> and <code class="docutils literal notranslate"><span class="pre">!=</span></code>) were always strict in this regard.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/394">#394</a></p>
+</li>
+</ul>
+</section>
+<section id="id50">
+<h3>Changes<a class="headerlink" href="#id50" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs</span></code> now ships its own <a class="reference external" href="https://peps.python.org/pep-0484/">PEP 484</a> type hints.
+Together with <a class="reference external" href="http://mypy-lang.org">mypy</a>’s <code class="docutils literal notranslate"><span class="pre">attrs</span></code> plugin, you’ve got all you need for writing statically typed code in both Python 2 and 3!</p>
+<p>At that occasion, we’ve also added <a class="reference external" href="https://www.attrs.org/en/stable/types.html">narrative docs</a> about type annotations in <code class="docutils literal notranslate"><span class="pre">attrs</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/238">#238</a></p>
+</li>
+<li><p>Added <em>kw_only</em> arguments to <code class="docutils literal notranslate"><span class="pre">attr.ib</span></code> and <code class="docutils literal notranslate"><span class="pre">attr.s</span></code>, and a corresponding <em>kw_only</em> attribute to <code class="docutils literal notranslate"><span class="pre">attr.Attribute</span></code>.
+This change makes it possible to have a generated <code class="docutils literal notranslate"><span class="pre">__init__</span></code> with keyword-only arguments on Python 3, relaxing the required ordering of default and non-default valued attributes.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/281">#281</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/411">#411</a></p></li>
+<li><p>The test suite now runs with <code class="docutils literal notranslate"><span class="pre">hypothesis.HealthCheck.too_slow</span></code> disabled to prevent CI breakage on slower computers.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/364">#364</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/396">#396</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.validators.in_()</span></code> now raises a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> with a useful message even if the options are a string and the value is not a string.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/383">#383</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.asdict()</span></code> now properly handles deeply nested lists and dictionaries.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/395">#395</a></p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">attr.converters.default_if_none()</span></code> that allows to replace <code class="docutils literal notranslate"><span class="pre">None</span></code> values in attributes.
+For example <code class="docutils literal notranslate"><span class="pre">attr.ib(converter=default_if_none(&quot;&quot;))</span></code> replaces <code class="docutils literal notranslate"><span class="pre">None</span></code> by empty strings.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/400">#400</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/414">#414</a></p></li>
+<li><p>Fixed a reference leak where the original class would remain live after being replaced when <code class="docutils literal notranslate"><span class="pre">slots=True</span></code> is set.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/407">#407</a></p></li>
+<li><p>Slotted classes can now be made weakly referenceable by passing <code class="docutils literal notranslate"><span class="pre">&#64;attr.s(weakref_slot=True)</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/420">#420</a></p></li>
+<li><p>Added <em>cache_hash</em> option to <code class="docutils literal notranslate"><span class="pre">&#64;attr.s</span></code> which causes the hash code to be computed once and stored on the object.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/426">#426</a></p></li>
+<li><p>Attributes can be named <code class="docutils literal notranslate"><span class="pre">property</span></code> and <code class="docutils literal notranslate"><span class="pre">itemgetter</span></code> now.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/430">#430</a></p></li>
+<li><p>It is now possible to override a base class’ class variable using only class annotations.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/431">#431</a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id51">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/18.1.0">18.1.0</a> - 2018-05-03<a class="headerlink" href="#id51" title="Link to this heading">¶</a></h2>
+<section id="id52">
+<h3>Changes<a class="headerlink" href="#id52" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">x=X();</span> <span class="pre">x.cycle</span> <span class="pre">=</span> <span class="pre">x;</span> <span class="pre">repr(x)</span></code> will no longer raise a <code class="docutils literal notranslate"><span class="pre">RecursionError</span></code>, and will instead show as <code class="docutils literal notranslate"><span class="pre">X(x=...)</span></code>.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/95">#95</a></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.ib(factory=f)</span></code> is now syntactic sugar for the common case of <code class="docutils literal notranslate"><span class="pre">attr.ib(default=attr.Factory(f))</span></code>.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/178">#178</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/356">#356</a></p>
+</li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">attr.field_dict()</span></code> to return an ordered dictionary of <code class="docutils literal notranslate"><span class="pre">attrs</span></code> attributes for a class, whose keys are the attribute names.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/290">#290</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/349">#349</a></p>
+</li>
+<li><p>The order of attributes that are passed into <code class="docutils literal notranslate"><span class="pre">attr.make_class()</span></code> or the <em>these</em> argument of <code class="docutils literal notranslate"><span class="pre">&#64;attr.s()</span></code> is now retained if the dictionary is ordered (in other words: <code class="docutils literal notranslate"><span class="pre">dict</span></code> on Python 3.6 and later, <code class="docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code> otherwise).</p>
+<p>Before, the order was always determined by the order in which the attributes have been defined which may not be desirable when creating classes programmatically.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/300">#300</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/339">#339</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/343">#343</a></p>
+</li>
+<li><p>In slotted classes, <code class="docutils literal notranslate"><span class="pre">__getstate__</span></code> and <code class="docutils literal notranslate"><span class="pre">__setstate__</span></code> now ignore the <code class="docutils literal notranslate"><span class="pre">__weakref__</span></code> attribute.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/311">#311</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/326">#326</a></p>
+</li>
+<li><p>Setting the cell type is now completely best effort.
+This fixes <code class="docutils literal notranslate"><span class="pre">attrs</span></code> on Jython.</p>
+<p>We cannot make any guarantees regarding Jython though, because our test suite cannot run due to dependency incompatibilities.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/321">#321</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/334">#334</a></p>
+</li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">attr.s</span></code> is passed a <em>these</em> argument, it will no longer attempt to remove attributes with the same name from the class body.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/322">#322</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/323">#323</a></p>
+</li>
+<li><p>The hash of <code class="docutils literal notranslate"><span class="pre">attr.NOTHING</span></code> is now vegan and faster on 32bit Python builds.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/331">#331</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/332">#332</a></p>
+</li>
+<li><p>The overhead of instantiating frozen dict classes is virtually eliminated.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/336">#336</a></p></li>
+<li><p>Generated <code class="docutils literal notranslate"><span class="pre">__init__</span></code> methods now have an <code class="docutils literal notranslate"><span class="pre">__annotations__</span></code> attribute derived from the types of the fields.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/363">#363</a></p>
+</li>
+<li><p>We have restructured the documentation a bit to account for <code class="docutils literal notranslate"><span class="pre">attrs</span></code>’ growth in scope.
+Instead of putting everything into the <a class="reference external" href="https://www.attrs.org/en/stable/examples.html">examples</a> page, we have started to extract narrative chapters.</p>
+<p>So far, we’ve added chapters on <a class="reference external" href="https://www.attrs.org/en/stable/init.html">initialization</a> and <a class="reference external" href="https://www.attrs.org/en/stable/hashing.html">hashing</a>.</p>
+<p>Expect more to come!</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/369">#369</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/370">#370</a></p>
+</li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id53">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/17.4.0">17.4.0</a> - 2017-12-30<a class="headerlink" href="#id53" title="Link to this heading">¶</a></h2>
+<section id="id54">
+<h3>Backward-incompatible Changes<a class="headerlink" href="#id54" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>The traversal of MROs when using multiple inheritance was backward:
+If you defined a class <code class="docutils literal notranslate"><span class="pre">C</span></code> that subclasses <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> like <code class="docutils literal notranslate"><span class="pre">C(A,</span> <span class="pre">B)</span></code>, <code class="docutils literal notranslate"><span class="pre">attrs</span></code> would have collected the attributes from <code class="docutils literal notranslate"><span class="pre">B</span></code> <em>before</em> those of <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
+<p>This is now fixed and means that in classes that employ multiple inheritance, the output of <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> and the order of positional arguments in <code class="docutils literal notranslate"><span class="pre">__init__</span></code> changes.
+Because of the nature of this bug, a proper deprecation cycle was unfortunately impossible.</p>
+<p>Generally speaking, it’s advisable to prefer <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>-based initialization anyways – <em>especially</em> if you employ multiple inheritance and diamond-shaped hierarchies.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/298">#298</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/299">#299</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/304">#304</a></p>
+</li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> set by <code class="docutils literal notranslate"><span class="pre">attrs</span></code> no longer produces an <code class="docutils literal notranslate"><span class="pre">AttributeError</span></code> when the instance is missing some of the specified attributes (either through deleting or after using <code class="docutils literal notranslate"><span class="pre">init=False</span></code> on some attributes).</p>
+<p>This can break code that relied on <code class="docutils literal notranslate"><span class="pre">repr(attr_cls_instance)</span></code> raising <code class="docutils literal notranslate"><span class="pre">AttributeError</span></code> to check if any <code class="docutils literal notranslate"><span class="pre">attrs</span></code>-specified members were unset.</p>
+<p>If you were using this, you can implement a custom method for checking this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">has_unset_members</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">attr</span><span class="o">.</span><span class="n">fields</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/308">#308</a></p>
+</li>
+</ul>
+</section>
+<section id="id55">
+<h3>Deprecations<a class="headerlink" href="#id55" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">attr.ib(convert=callable)</span></code> option is now deprecated in favor of <code class="docutils literal notranslate"><span class="pre">attr.ib(converter=callable)</span></code>.</p>
+<p>This is done to achieve consistency with other noun-based arguments like <em>validator</em>.</p>
+<p><em>convert</em> will keep working until at least January 2019 while raising a <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code>.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/307">#307</a></p>
+</li>
+</ul>
+</section>
+<section id="id56">
+<h3>Changes<a class="headerlink" href="#id56" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Generated <code class="docutils literal notranslate"><span class="pre">__hash__</span></code> methods now hash the class type along with the attribute values.
+Until now the hashes of two classes with the same values were identical which was a bug.</p>
+<p>The generated method is also <em>much</em> faster now.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/261">#261</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/295">#295</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/296">#296</a></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.ib</span></code>’s <em>metadata</em> argument now defaults to a unique empty <code class="docutils literal notranslate"><span class="pre">dict</span></code> instance instead of sharing a common empty <code class="docutils literal notranslate"><span class="pre">dict</span></code> for all.
+The singleton empty <code class="docutils literal notranslate"><span class="pre">dict</span></code> is still enforced.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/280">#280</a></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ctypes</span></code> is optional now however if it’s missing, a bare <code class="docutils literal notranslate"><span class="pre">super()</span></code> will not work in slotted classes.
+This should only happen in special environments like Google App Engine.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/284">#284</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/286">#286</a></p>
+</li>
+<li><p>The attribute redefinition feature introduced in 17.3.0 now takes into account if an attribute is redefined via multiple inheritance.
+In that case, the definition that is closer to the base of the class hierarchy wins.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/285">#285</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/287">#287</a></p>
+</li>
+<li><p>Subclasses of <code class="docutils literal notranslate"><span class="pre">auto_attribs=True</span></code> can be empty now.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/291">#291</a>,
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/292">#292</a></p>
+</li>
+<li><p>Equality tests are <em>much</em> faster now.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/306">#306</a></p>
+</li>
+<li><p>All generated methods now have correct <code class="docutils literal notranslate"><span class="pre">__module__</span></code>, <code class="docutils literal notranslate"><span class="pre">__name__</span></code>, and (on Python 3) <code class="docutils literal notranslate"><span class="pre">__qualname__</span></code> attributes.</p>
+<p><a class="reference external" href="https://github.com/python-attrs/attrs/issues/309">#309</a></p>
+</li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id57">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/17.3.0">17.3.0</a> - 2017-11-08<a class="headerlink" href="#id57" title="Link to this heading">¶</a></h2>
+<section id="id58">
+<h3>Backward-incompatible Changes<a class="headerlink" href="#id58" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Attributes are no longer defined on the class body.</p>
+<p>This means that if you define a class <code class="docutils literal notranslate"><span class="pre">C</span></code> with an attribute <code class="docutils literal notranslate"><span class="pre">x</span></code>, the class will <em>not</em> have an attribute <code class="docutils literal notranslate"><span class="pre">x</span></code> for introspection.
+Instead of <code class="docutils literal notranslate"><span class="pre">C.x</span></code>, use <code class="docutils literal notranslate"><span class="pre">attr.fields(C).x</span></code> or look at <code class="docutils literal notranslate"><span class="pre">C.__attrs_attrs__</span></code>.
+The old behavior has been deprecated since version 16.1.
+(<a class="reference external" href="https://github.com/python-attrs/attrs/issues/253">#253</a>)</p>
+</li>
+</ul>
+</section>
+<section id="id59">
+<h3>Changes<a class="headerlink" href="#id59" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">super()</span></code> and <code class="docutils literal notranslate"><span class="pre">__class__</span></code> now work with slotted classes on Python 3.
+(<a class="reference external" href="https://github.com/python-attrs/attrs/issues/102">#102</a>, <a class="reference external" href="https://github.com/python-attrs/attrs/issues/226">#226</a>, <a class="reference external" href="https://github.com/python-attrs/attrs/issues/269">#269</a>, <a class="reference external" href="https://github.com/python-attrs/attrs/issues/270">#270</a>, <a class="reference external" href="https://github.com/python-attrs/attrs/issues/272">#272</a>)</p></li>
+<li><p>Added <em>type</em> argument to <code class="docutils literal notranslate"><span class="pre">attr.ib()</span></code> and corresponding <code class="docutils literal notranslate"><span class="pre">type</span></code> attribute to <code class="docutils literal notranslate"><span class="pre">attr.Attribute</span></code>.</p>
+<p>This change paves the way for automatic type checking and serialization (though as of this release <code class="docutils literal notranslate"><span class="pre">attrs</span></code> does not make use of it).
+In Python 3.6 or higher, the value of <code class="docutils literal notranslate"><span class="pre">attr.Attribute.type</span></code> can alternately be set using variable type annotations
+(see <a class="reference external" href="https://peps.python.org/pep-0526/">PEP 526</a>).
+(<a class="reference external" href="https://github.com/python-attrs/attrs/issues/151">#151</a>, <a class="reference external" href="https://github.com/python-attrs/attrs/issues/214">#214</a>, <a class="reference external" href="https://github.com/python-attrs/attrs/issues/215">#215</a>, <a class="reference external" href="https://github.com/python-attrs/attrs/issues/239">#239</a>)</p>
+</li>
+<li><p>The combination of <code class="docutils literal notranslate"><span class="pre">str=True</span></code> and <code class="docutils literal notranslate"><span class="pre">slots=True</span></code> now works on Python 2.
+(<a class="reference external" href="https://github.com/python-attrs/attrs/issues/198">#198</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.Factory</span></code> is hashable again.
+(<a class="reference external" href="https://github.com/python-attrs/attrs/issues/204">#204</a>)</p></li>
+<li><p>Subclasses now can overwrite attribute definitions of their base classes.</p>
+<p>That means that you can -- for example -- change the default value for an attribute by redefining it.
+(<a class="reference external" href="https://github.com/python-attrs/attrs/issues/221">#221</a>, <a class="reference external" href="https://github.com/python-attrs/attrs/issues/229">#229</a>)</p>
+</li>
+<li><p>Added new option <em>auto_attribs</em> to <code class="docutils literal notranslate"><span class="pre">&#64;attr.s</span></code> that allows to collect annotated fields without setting them to <code class="docutils literal notranslate"><span class="pre">attr.ib()</span></code>.</p>
+<p>Setting a field to an <code class="docutils literal notranslate"><span class="pre">attr.ib()</span></code> is still possible to supply options like validators.
+Setting it to any other value is treated like it was passed as <code class="docutils literal notranslate"><span class="pre">attr.ib(default=value)</span></code> -- passing an instance of <code class="docutils literal notranslate"><span class="pre">attr.Factory</span></code> also works as expected.
+(<a class="reference external" href="https://github.com/python-attrs/attrs/issues/262">#262</a>, <a class="reference external" href="https://github.com/python-attrs/attrs/issues/277">#277</a>)</p>
+</li>
+<li><p>Instances of classes created using <code class="docutils literal notranslate"><span class="pre">attr.make_class()</span></code> can now be pickled.
+(<a class="reference external" href="https://github.com/python-attrs/attrs/issues/282">#282</a>)</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id60">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/17.2.0">17.2.0</a> - 2017-05-24<a class="headerlink" href="#id60" title="Link to this heading">¶</a></h2>
+<section id="id61">
+<h3>Changes:<a class="headerlink" href="#id61" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Validators are hashable again.
+Note that validators may become frozen in the future, pending availability of no-overhead frozen classes.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/192">#192</a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id62">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/17.1.0">17.1.0</a> - 2017-05-16<a class="headerlink" href="#id62" title="Link to this heading">¶</a></h2>
+<p>To encourage more participation, the project has also been moved into a <a class="reference external" href="https://github.com/python-attrs/">dedicated GitHub organization</a> and everyone is most welcome to join!</p>
+<p><code class="docutils literal notranslate"><span class="pre">attrs</span></code> also has a logo now!</p>
+<img alt="attrs logo" src="https://www.attrs.org/en/latest/_static/attrs_logo.png" />
+<section id="id63">
+<h3>Backward-incompatible Changes:<a class="headerlink" href="#id63" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs</span></code> will set the <code class="docutils literal notranslate"><span class="pre">__hash__()</span></code> method to <code class="docutils literal notranslate"><span class="pre">None</span></code> by default now.
+The way hashes were handled before was in conflict with <a class="reference external" href="https://docs.python.org/3/reference/datamodel.html#object.__hash__">Python’s specification</a>.
+This <em>may</em> break some software although this breakage is most likely just surfacing of latent bugs.
+You can always make <code class="docutils literal notranslate"><span class="pre">attrs</span></code> create the <code class="docutils literal notranslate"><span class="pre">__hash__()</span></code> method using <code class="docutils literal notranslate"><span class="pre">&#64;attr.s(hash=True)</span></code>.
+See <a class="reference external" href="https://github.com/python-attrs/attrs/issues/136">#136</a> for the rationale of this change.</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>Please <em>do not</em> upgrade blindly and <em>do</em> test your software!
+<em>Especially</em> if you use instances as dict keys or put them into sets!</p>
+</div>
+</li>
+<li><p>Correspondingly, <code class="docutils literal notranslate"><span class="pre">attr.ib</span></code>’s <em>hash</em> argument is <code class="docutils literal notranslate"><span class="pre">None</span></code> by default too and mirrors the <em>cmp</em> argument as it should.</p></li>
+</ul>
+</section>
+<section id="id64">
+<h3>Deprecations:<a class="headerlink" href="#id64" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.assoc()</span></code> is now deprecated in favor of <code class="docutils literal notranslate"><span class="pre">attr.evolve()</span></code> and will stop working in 2018.</p></li>
+</ul>
+</section>
+<section id="id65">
+<h3>Changes:<a class="headerlink" href="#id65" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Fix default hashing behavior.
+Now <em>hash</em> mirrors the value of <em>cmp</em> and classes are unhashable by default.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/136">#136</a>
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/142">#142</a></p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">attr.evolve()</span></code> that, given an instance of an <code class="docutils literal notranslate"><span class="pre">attrs</span></code> class and field changes as keyword arguments, will instantiate a copy of the given instance with the changes applied.
+<code class="docutils literal notranslate"><span class="pre">evolve()</span></code> replaces <code class="docutils literal notranslate"><span class="pre">assoc()</span></code>, which is now deprecated.
+<code class="docutils literal notranslate"><span class="pre">evolve()</span></code> is significantly faster than <code class="docutils literal notranslate"><span class="pre">assoc()</span></code>, and requires the class have an initializer that can take the field values as keyword arguments (like <code class="docutils literal notranslate"><span class="pre">attrs</span></code> itself can generate).
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/116">#116</a>
+<a class="reference external" href="https://github.com/python-attrs/attrs/pull/124">#124</a>
+<a class="reference external" href="https://github.com/python-attrs/attrs/pull/135">#135</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FrozenInstanceError</span></code> is now raised when trying to delete an attribute from a frozen class.
+<a class="reference external" href="https://github.com/python-attrs/attrs/pull/118">#118</a></p></li>
+<li><p>Frozen-ness of classes is now inherited.
+<a class="reference external" href="https://github.com/python-attrs/attrs/pull/128">#128</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__attrs_post_init__()</span></code> is now run if validation is disabled.
+<a class="reference external" href="https://github.com/python-attrs/attrs/pull/130">#130</a></p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">attr.validators.in_(options)</span></code> that, given the allowed <code class="docutils literal notranslate"><span class="pre">options</span></code>, checks whether the attribute value is in it.
+This can be used to check constants, enums, mappings, etc.
+<a class="reference external" href="https://github.com/python-attrs/attrs/pull/181">#181</a></p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">attr.validators.and_()</span></code> that composes multiple validators into one.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/161">#161</a></p></li>
+<li><p>For convenience, the <em>validator</em> argument of <code class="docutils literal notranslate"><span class="pre">&#64;attr.s</span></code> now can take a list of validators that are wrapped using <code class="docutils literal notranslate"><span class="pre">and_()</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/138">#138</a></p></li>
+<li><p>Accordingly, <code class="docutils literal notranslate"><span class="pre">attr.validators.optional()</span></code> now can take a list of validators too.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/161">#161</a></p></li>
+<li><p>Validators can now be defined conveniently inline by using the attribute as a decorator.
+Check out the <a class="reference external" href="https://www.attrs.org/en/stable/init.html#decorator">validator examples</a> to see it in action!
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/143">#143</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.Factory()</span></code> now has a <em>takes_self</em> argument that makes the initializer to pass the partially initialized instance into the factory.
+In other words you can define attribute defaults based on other attributes.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/165">#165</a>
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/189">#189</a></p></li>
+<li><p>Default factories can now also be defined inline using decorators.
+They are <em>always</em> passed the partially initialized instance.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/165">#165</a></p></li>
+<li><p>Conversion can now be made optional using <code class="docutils literal notranslate"><span class="pre">attr.converters.optional()</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/105">#105</a>
+<a class="reference external" href="https://github.com/python-attrs/attrs/pull/173">#173</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.make_class()</span></code> now accepts the keyword argument <code class="docutils literal notranslate"><span class="pre">bases</span></code> which allows for subclassing.
+<a class="reference external" href="https://github.com/python-attrs/attrs/pull/152">#152</a></p></li>
+<li><p>Metaclasses are now preserved with <code class="docutils literal notranslate"><span class="pre">slots=True</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/pull/155">#155</a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id66">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/16.3.0">16.3.0</a> - 2016-11-24<a class="headerlink" href="#id66" title="Link to this heading">¶</a></h2>
+<section id="id67">
+<h3>Changes:<a class="headerlink" href="#id67" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Attributes now can have user-defined metadata which greatly improves <code class="docutils literal notranslate"><span class="pre">attrs</span></code>’s extensibility.
+<a class="reference external" href="https://github.com/python-attrs/attrs/pull/96">#96</a></p></li>
+<li><p>Allow for a <code class="docutils literal notranslate"><span class="pre">__attrs_post_init__()</span></code> method that -- if defined -- will get called at the end of the <code class="docutils literal notranslate"><span class="pre">attrs</span></code>-generated <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> method.
+<a class="reference external" href="https://github.com/python-attrs/attrs/pull/111">#111</a></p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">&#64;attr.s(str=True)</span></code> that will optionally create a <code class="docutils literal notranslate"><span class="pre">__str__()</span></code> method that is identical to <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code>.
+This is mainly useful with <code class="docutils literal notranslate"><span class="pre">Exception</span></code>s and other classes that rely on a useful <code class="docutils literal notranslate"><span class="pre">__str__()</span></code> implementation but overwrite the default one through a poor own one.
+Default Python class behavior is to use <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> as <code class="docutils literal notranslate"><span class="pre">__str__()</span></code> anyways.</p>
+<p>If you tried using <code class="docutils literal notranslate"><span class="pre">attrs</span></code> with <code class="docutils literal notranslate"><span class="pre">Exception</span></code>s and were puzzled by the tracebacks: this option is for you.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__name__</span></code> is no longer overwritten with <code class="docutils literal notranslate"><span class="pre">__qualname__</span></code> for <code class="docutils literal notranslate"><span class="pre">attr.s(slots=True)</span></code> classes.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/99">#99</a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id68">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/16.2.0">16.2.0</a> - 2016-09-17<a class="headerlink" href="#id68" title="Link to this heading">¶</a></h2>
+<section id="id69">
+<h3>Changes:<a class="headerlink" href="#id69" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">attr.astuple()</span></code> that -- similarly to <code class="docutils literal notranslate"><span class="pre">attr.asdict()</span></code> -- returns the instance as a tuple.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/77">#77</a></p></li>
+<li><p>Converters now work with frozen classes.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/76">#76</a></p></li>
+<li><p>Instantiation of <code class="docutils literal notranslate"><span class="pre">attrs</span></code> classes with converters is now significantly faster.
+<a class="reference external" href="https://github.com/python-attrs/attrs/pull/80">#80</a></p></li>
+<li><p>Pickling now works with slotted classes.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/81">#81</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.assoc()</span></code> now works with slotted classes.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/84">#84</a></p></li>
+<li><p>The tuple returned by <code class="docutils literal notranslate"><span class="pre">attr.fields()</span></code> now also allows to access the <code class="docutils literal notranslate"><span class="pre">Attribute</span></code> instances by name.
+Yes, we’ve subclassed <code class="docutils literal notranslate"><span class="pre">tuple</span></code> so you don’t have to!
+Therefore <code class="docutils literal notranslate"><span class="pre">attr.fields(C).x</span></code> is equivalent to the deprecated <code class="docutils literal notranslate"><span class="pre">C.x</span></code> and works with slotted classes.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/88">#88</a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id70">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/16.1.0">16.1.0</a> - 2016-08-30<a class="headerlink" href="#id70" title="Link to this heading">¶</a></h2>
+<section id="id71">
+<h3>Backward-incompatible Changes:<a class="headerlink" href="#id71" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>All instances where function arguments were called <code class="docutils literal notranslate"><span class="pre">cl</span></code> have been changed to the more Pythonic <code class="docutils literal notranslate"><span class="pre">cls</span></code>.
+Since it was always the first argument, it’s doubtful anyone ever called those function with in the keyword form.
+If so, sorry for any breakage but there’s no practical deprecation path to solve this ugly wart.</p></li>
+</ul>
+</section>
+<section id="id72">
+<h3>Deprecations:<a class="headerlink" href="#id72" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Accessing <code class="docutils literal notranslate"><span class="pre">Attribute</span></code> instances on class objects is now deprecated and will stop working in 2017.
+If you need introspection please use the <code class="docutils literal notranslate"><span class="pre">__attrs_attrs__</span></code> attribute or the <code class="docutils literal notranslate"><span class="pre">attr.fields()</span></code> function that carry them too.
+In the future, the attributes that are defined on the class body and are usually overwritten in your <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method are simply removed after <code class="docutils literal notranslate"><span class="pre">&#64;attr.s</span></code> has been applied.</p>
+<p>This will remove the confusing error message if you write your own <code class="docutils literal notranslate"><span class="pre">__init__</span></code> and forget to initialize some attribute.
+Instead you will get a straightforward <code class="docutils literal notranslate"><span class="pre">AttributeError</span></code>.
+In other words: decorated classes will work more like plain Python classes which was always <code class="docutils literal notranslate"><span class="pre">attrs</span></code>’s goal.</p>
+</li>
+<li><p>The serious-business aliases <code class="docutils literal notranslate"><span class="pre">attr.attributes</span></code> and <code class="docutils literal notranslate"><span class="pre">attr.attr</span></code> have been deprecated in favor of <code class="docutils literal notranslate"><span class="pre">attr.attrs</span></code> and <code class="docutils literal notranslate"><span class="pre">attr.attrib</span></code> which are much more consistent and frankly obvious in hindsight.
+They will be purged from documentation immediately but there are no plans to actually remove them.</p></li>
+</ul>
+</section>
+<section id="id73">
+<h3>Changes:<a class="headerlink" href="#id73" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.asdict()</span></code>'s <code class="docutils literal notranslate"><span class="pre">dict_factory</span></code> arguments is now propagated on recursion.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/45">#45</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.asdict()</span></code>, <code class="docutils literal notranslate"><span class="pre">attr.has()</span></code> and <code class="docutils literal notranslate"><span class="pre">attr.fields()</span></code> are significantly faster.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/48">#48</a>
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/51">#51</a></p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">attr.attrs</span></code> and <code class="docutils literal notranslate"><span class="pre">attr.attrib</span></code> as a more consistent aliases for <code class="docutils literal notranslate"><span class="pre">attr.s</span></code> and <code class="docutils literal notranslate"><span class="pre">attr.ib</span></code>.</p></li>
+<li><p>Add <em>frozen</em> option to <code class="docutils literal notranslate"><span class="pre">attr.s</span></code> that will make instances best-effort immutable.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/60">#60</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.asdict()</span></code> now takes <code class="docutils literal notranslate"><span class="pre">retain_collection_types</span></code> as an argument.
+If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it does not convert attributes of type <code class="docutils literal notranslate"><span class="pre">tuple</span></code> or <code class="docutils literal notranslate"><span class="pre">set</span></code> to <code class="docutils literal notranslate"><span class="pre">list</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/69">#69</a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id74">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/16.0.0">16.0.0</a> - 2016-05-23<a class="headerlink" href="#id74" title="Link to this heading">¶</a></h2>
+<section id="id75">
+<h3>Backward-incompatible Changes:<a class="headerlink" href="#id75" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Python 3.3 and 2.6 are no longer supported.
+They may work by chance but any effort to keep them working has ceased.</p>
+<p>The last Python 2.6 release was on October 29, 2013 and is no longer supported by the CPython core team.
+Major Python packages like Django and Twisted dropped Python 2.6 a while ago already.</p>
+<p>Python 3.3 never had a significant user base and wasn’t part of any distribution’s LTS release.</p>
+</li>
+</ul>
+</section>
+<section id="id76">
+<h3>Changes:<a class="headerlink" href="#id76" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">__slots__</span></code> have arrived!
+Classes now can automatically be <a class="reference external" href="https://docs.python.org/3/reference/datamodel.html#slots">slotted</a>-style (and save your precious memory) just by passing <code class="docutils literal notranslate"><span class="pre">slots=True</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/35">#35</a></p></li>
+<li><p>Allow the case of initializing attributes that are set to <code class="docutils literal notranslate"><span class="pre">init=False</span></code>.
+This allows for clean initializer parameter lists while being able to initialize attributes to default values.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/32">#32</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr.asdict()</span></code> can now produce arbitrary mappings instead of Python <code class="docutils literal notranslate"><span class="pre">dict</span></code>s when provided with a <code class="docutils literal notranslate"><span class="pre">dict_factory</span></code> argument.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/40">#40</a></p></li>
+<li><p>Multiple performance improvements.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id77">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/15.2.0">15.2.0</a> - 2015-12-08<a class="headerlink" href="#id77" title="Link to this heading">¶</a></h2>
+<section id="id78">
+<h3>Changes:<a class="headerlink" href="#id78" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">convert</span></code> argument to <code class="docutils literal notranslate"><span class="pre">attr.ib</span></code>, which allows specifying a function to run on arguments.
+This allows for simple type conversions, for example, with <code class="docutils literal notranslate"><span class="pre">attr.ib(convert=int)</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/26">#26</a></p></li>
+<li><p>Speed up object creation when attribute validators are used.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/28">#28</a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id79">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/15.1.0">15.1.0</a> - 2015-08-20<a class="headerlink" href="#id79" title="Link to this heading">¶</a></h2>
+<section id="id80">
+<h3>Changes:<a class="headerlink" href="#id80" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">attr.validators.optional()</span></code> that wraps other validators allowing attributes to be <code class="docutils literal notranslate"><span class="pre">None</span></code>.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/16">#16</a></p></li>
+<li><p>Multi-level inheritance now works.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/24">#24</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> now works with non-redecorated subclasses.
+<a class="reference external" href="https://github.com/python-attrs/attrs/issues/20">#20</a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id81">
+<h2><a class="reference external" href="https://github.com/python-attrs/attrs/tree/15.0.0">15.0.0</a> - 2015-04-15<a class="headerlink" href="#id81" title="Link to this heading">¶</a></h2>
+<section id="id82">
+<h3>Changes:<a class="headerlink" href="#id82" title="Link to this heading">¶</a></h3>
+<p>Initial release.</p>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          <a class="prev-page" href="license.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">许可和信用(License and Credits)</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2015, Hynek Schlawack
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">变更历史(Changelog)</a><ul>
+<li><a class="reference internal" href="#id1">即将发布的版本的变化</a><ul>
+<li><a class="reference internal" href="#backwards-incompatible-changes">Backwards-incompatible Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id2">24.2.0 - 2024-08-06</a><ul>
+<li><a class="reference internal" href="#deprecations">Deprecations</a></li>
+<li><a class="reference internal" href="#changes">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">24.1.0 - 2024-08-03</a><ul>
+<li><a class="reference internal" href="#id4">Backwards-incompatible Changes</a></li>
+<li><a class="reference internal" href="#id5">Deprecations</a></li>
+<li><a class="reference internal" href="#id6">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">23.2.0 - 2023-12-31</a><ul>
+<li><a class="reference internal" href="#id8">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9">23.1.0 - 2023-04-16</a><ul>
+<li><a class="reference internal" href="#id10">Backwards-incompatible Changes</a></li>
+<li><a class="reference internal" href="#id11">Deprecations</a></li>
+<li><a class="reference internal" href="#id12">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id13">22.2.0 - 2022-12-21</a><ul>
+<li><a class="reference internal" href="#id14">Backwards-incompatible Changes</a></li>
+<li><a class="reference internal" href="#id15">Deprecations</a></li>
+<li><a class="reference internal" href="#id16">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id17">22.1.0 - 2022-07-28</a><ul>
+<li><a class="reference internal" href="#id18">Backwards-incompatible Changes</a></li>
+<li><a class="reference internal" href="#id19">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id20">21.4.0 - 2021-12-29</a><ul>
+<li><a class="reference internal" href="#id21">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id22">21.3.0 - 2021-12-28</a><ul>
+<li><a class="reference internal" href="#backward-incompatible-changes">Backward-incompatible Changes</a></li>
+<li><a class="reference internal" href="#id23">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id24">21.2.0 - 2021-05-07</a><ul>
+<li><a class="reference internal" href="#id25">Backward-incompatible Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id26">21.1.0 - 2021-05-06</a><ul>
+<li><a class="reference internal" href="#id27">Deprecations</a></li>
+<li><a class="reference internal" href="#id28">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id29">20.3.0 - 2020-11-05</a><ul>
+<li><a class="reference internal" href="#id30">Backward-incompatible Changes</a></li>
+<li><a class="reference internal" href="#id31">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id32">20.2.0 - 2020-09-05</a><ul>
+<li><a class="reference internal" href="#id33">Backward-incompatible Changes</a></li>
+<li><a class="reference internal" href="#id34">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id35">20.1.0 - 2020-08-20</a><ul>
+<li><a class="reference internal" href="#id36">Backward-incompatible Changes</a></li>
+<li><a class="reference internal" href="#id37">Deprecations</a></li>
+<li><a class="reference internal" href="#id38">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id39">19.3.0 - 2019-10-15</a><ul>
+<li><a class="reference internal" href="#id40">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id41">19.2.0 - 2019-10-01</a><ul>
+<li><a class="reference internal" href="#id42">Backward-incompatible Changes</a></li>
+<li><a class="reference internal" href="#id43">Deprecations</a></li>
+<li><a class="reference internal" href="#id44">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id45">19.1.0 - 2019-03-03</a><ul>
+<li><a class="reference internal" href="#id46">Backward-incompatible Changes</a></li>
+<li><a class="reference internal" href="#id47">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id48">18.2.0 - 2018-09-01</a><ul>
+<li><a class="reference internal" href="#id49">Deprecations</a></li>
+<li><a class="reference internal" href="#id50">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id51">18.1.0 - 2018-05-03</a><ul>
+<li><a class="reference internal" href="#id52">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id53">17.4.0 - 2017-12-30</a><ul>
+<li><a class="reference internal" href="#id54">Backward-incompatible Changes</a></li>
+<li><a class="reference internal" href="#id55">Deprecations</a></li>
+<li><a class="reference internal" href="#id56">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id57">17.3.0 - 2017-11-08</a><ul>
+<li><a class="reference internal" href="#id58">Backward-incompatible Changes</a></li>
+<li><a class="reference internal" href="#id59">Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id60">17.2.0 - 2017-05-24</a><ul>
+<li><a class="reference internal" href="#id61">Changes:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id62">17.1.0 - 2017-05-16</a><ul>
+<li><a class="reference internal" href="#id63">Backward-incompatible Changes:</a></li>
+<li><a class="reference internal" href="#id64">Deprecations:</a></li>
+<li><a class="reference internal" href="#id65">Changes:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id66">16.3.0 - 2016-11-24</a><ul>
+<li><a class="reference internal" href="#id67">Changes:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id68">16.2.0 - 2016-09-17</a><ul>
+<li><a class="reference internal" href="#id69">Changes:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id70">16.1.0 - 2016-08-30</a><ul>
+<li><a class="reference internal" href="#id71">Backward-incompatible Changes:</a></li>
+<li><a class="reference internal" href="#id72">Deprecations:</a></li>
+<li><a class="reference internal" href="#id73">Changes:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id74">16.0.0 - 2016-05-23</a><ul>
+<li><a class="reference internal" href="#id75">Backward-incompatible Changes:</a></li>
+<li><a class="reference internal" href="#id76">Changes:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id77">15.2.0 - 2015-12-08</a><ul>
+<li><a class="reference internal" href="#id78">Changes:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id79">15.1.0 - 2015-08-20</a><ul>
+<li><a class="reference internal" href="#id80">Changes:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id81">15.0.0 - 2015-04-15</a><ul>
+<li><a class="reference internal" href="#id82">Changes:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=3e342831"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="_static/translations.js?v=beaddf03"></script>
+    </body>
+</html>

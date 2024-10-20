@@ -1,0 +1,929 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="索引" href="genindex.html" /><link rel="search" title="搜索" href="search.html" /><link rel="next" title="术语(Glossary)" href="glossary.html" /><link rel="prev" title="API 参考" href="api.html" />
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>attr 命名空间API参考 - attrs UNRELEASED 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=03575dff" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --font-stack: Inter,sans-serif;
+  --font-stack--monospace: BerkeleyMono, MonoLisa, ui-monospace, SFMono-Regular, Menlo, Consolas, Liberation Mono, monospace;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">attrs UNRELEASED 文档</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/attrs_logo.svg" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/attrs_logo_white.svg" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="搜索" name="q" aria-label="搜索">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">入门</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="why.html">为什么不用……</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html"><em>attrs</em> 示例</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">解释说明</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="types.html">类型注解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="init.html">初始化(Initialization)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comparison.html">比较(Comparison)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hashing.html">哈希(Hashing)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">API 参考</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">attr</span></code> 命名空间API参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">术语(Glossary)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">高级用法</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">扩展(Extending)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-does-it-work.html">它是如何工作的？(How Does It Work?)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="names.html">核心API中的名称(On The Core API Names)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">许可和信用(License and Credits)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">变更历史(Changelog)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/attrs/">PyPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs/wiki/Extensions-to-attrs">第三方扩展</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs/blob/main/.github/CONTRIBUTING.md">贡献</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://hynek.me/say-thanks/">基金</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="attr-api">
+<h1><code class="docutils literal notranslate"><span class="pre">attr</span></code> 命名空间API参考<a class="headerlink" href="#attr-api" title="Link to this heading">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>这些是传统的 API，其创建早于类型注解。它们 <strong>不是</strong> 被弃用，但我们建议在新代码中使用 <a class="reference internal" href="api.html#module-attrs" title="attrs"><code class="xref py py-mod docutils literal notranslate"><span class="pre">attrs</span></code></a> 命名空间，因为它们看起来更美观，且具有更好的默认值。</p>
+<p>同样参见 <a class="reference internal" href="names.html"><span class="doc">核心API中的名称(On The Core API Names)</span></a>.</p>
+</div>
+<section id="core">
+<span id="module-attr"></span><h2>核心(Core)<a class="headerlink" href="#core" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.s">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">these</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repr_ns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frozen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weakref_slot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_attribs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kw_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_hash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_exc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_detect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collect_by_mro</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">getstate_setstate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_setattr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_transformer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsafe_hash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#attr.s" title="Link to this definition">¶</a></dt>
+<dd><p>一个类装饰器，根据指定的属性使用 <a class="reference internal" href="#attr.ib" title="attr.ib"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attr.ib</span></code></a> 或 <em>these</em> 参数添加 <a class="reference internal" href="glossary.html#term-dunder-methods"><span class="xref std std-term">双下划线方法</span></a>。</p>
+<p>考虑在新代码中使用 <a class="reference internal" href="api.html#attrs.define" title="attrs.define"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.define</span></code></a> / <a class="reference internal" href="api.html#attrs.frozen" title="attrs.frozen"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.frozen</span></code></a> ( <code class="docutils literal notranslate"><span class="pre">attr.s</span></code> 将 <em>永远</em> 不会消失)。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>repr_ns</strong> (<a class="reference external" href="https://docs.python.org/zh-cn/3/library/stdtypes.html#str" title="（在 Python v3.13）"><em>str</em></a>) -- 在使用嵌套类时，Python 2 中没有办法自动检测这一点。此参数允许设置一个自定义名称以获得更有意义的 <code class="docutils literal notranslate"><span class="pre">repr</span></code> 输出。此参数在 Python 3 中是无用的，因此被弃用。</p>
+</dd>
+</dl>
+<div class="admonition caution">
+<p class="admonition-title">小心</p>
+<p>请参考 <a class="reference internal" href="api.html#attrs.define" title="attrs.define"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.define</span></code></a> 的其余参数，但请注意它们可能有不同的默认值。</p>
+<p>特别是，<em>on_setattr</em> 保持为 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/constants.html#None" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">None</span></code></a> 将 <strong>不会</strong> 添加任何钩子。</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 16.0.0: </span><em>slots</em></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 16.1.0: </span><em>frozen</em></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 16.3.0: </span><em>str</em></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 16.3.0: </span>支持 <code class="docutils literal notranslate"><span class="pre">__attrs_post_init__</span></code>。</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 17.1.0 版本发生变更: </span><em>hash</em> 现在支持 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/constants.html#None" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">None</span></code></a> 作为值，这也是默认值。</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 17.3.0: </span><em>auto_attribs</em></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 18.1.0 版本发生变更: </span>如果传递了 <em>these</em> ，则不会从类体中删除任何属性。</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 18.1.0 版本发生变更: </span>如果 <em>these</em> 是有序的，则保留顺序。</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 18.2.0: </span><em>weakref_slot</em></p>
+</div>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">自 18.2.0 版本弃用: </span><code class="docutils literal notranslate"><span class="pre">__lt__</span></code>, <code class="docutils literal notranslate"><span class="pre">__le__</span></code>, <code class="docutils literal notranslate"><span class="pre">__gt__</span></code>, 和 <code class="docutils literal notranslate"><span class="pre">__ge__</span></code> 现在如果被比较的类是彼此的子类，将引发 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/exceptions.html#DeprecationWarning" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">DeprecationWarning</span></code></a>。<code class="docutils literal notranslate"><span class="pre">__eq</span></code> 和 <code class="docutils literal notranslate"><span class="pre">__ne__</span></code> 从未尝试比较子类。</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 19.2.0 版本发生变更: </span><code class="docutils literal notranslate"><span class="pre">__lt__</span></code>, <code class="docutils literal notranslate"><span class="pre">__le__</span></code>, <code class="docutils literal notranslate"><span class="pre">__gt__</span></code>, 和 <code class="docutils literal notranslate"><span class="pre">__ge__</span></code> 现在不再认为子类可比较。</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 18.2.0: </span><em>kw_only</em></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 18.2.0: </span><em>cache_hash</em></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 19.1.0: </span><em>auto_exc</em></p>
+</div>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">自 19.2.0 版本弃用: </span><em>cmp</em> 在 2021-06-01 或之后将被移除。</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 19.2.0: </span><em>eq</em> 和 <em>order</em></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 20.1.0: </span><em>auto_detect</em></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 20.1.0: </span><em>collect_by_mro</em></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 20.1.0: </span><em>getstate_setstate</em></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 20.1.0: </span><em>on_setattr</em></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 20.3.0: </span><em>field_transformer</em></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 21.1.0 版本发生变更: </span><code class="docutils literal notranslate"><span class="pre">init=False</span></code> 注入 <code class="docutils literal notranslate"><span class="pre">__attrs_init__</span></code></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 21.1.0 版本发生变更: </span>支持 <code class="docutils literal notranslate"><span class="pre">__attrs_pre_init__</span></code></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 21.1.0 版本发生变更: </span><em>cmp</em> 重新引入</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 21.3.0: </span><em>match_args</em></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 22.2.0: </span><em>unsafe_hash</em> 作为 <em>hash</em> 的别名(符合 <span class="target" id="index-0"></span><a class="pep reference external" href="https://peps.python.org/pep-0681/"><strong>PEP 681</strong></a>)。</p>
+</div>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">自 24.1.0 版本弃用: </span><em>repr_ns</em></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 24.1.0 版本发生变更: </span>实例不再作为属性的元组进行比较，而是使用一个大的 <code class="docutils literal notranslate"><span class="pre">and</span></code> 条件。这更快，并且对于不可比较的值(如 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/math.html#math.nan" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">math.nan</span></code></a>)具有更正确的行为。</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 24.1.0: </span>如果一个类有一个 <em>继承的</em> 类方法 <code class="docutils literal notranslate"><span class="pre">__attrs_init_subclass__</span></code>，则在类创建后执行。</p>
+</div>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">自 24.1.0 版本弃用: </span><em>hash</em> 被弃用，取而代之的是 <em>unsafe_hash</em>。</p>
+</div>
+<p>例如:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">attr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">_private</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">(</span><span class="n">private</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="go">C(_private=42)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">D</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">D</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">&lt;D object at ...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">D</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">these</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()},</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)(</span><span class="n">D</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">D</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">D(x=1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_exc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">Error</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">x</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">y</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Error</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
+<span class="go">Error(x=&#39;foo&#39;, y=42)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">   </span><span class="c">...</span>
+<span class="gr">Error</span>: <span class="n">(&#39;foo&#39;, 42)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>   <span class="c1"># for comparison</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">   </span><span class="c">...</span>
+<span class="gr">ValueError</span>: <span class="n">(&#39;foo&#39;, 42)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.ib">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">ib</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">NOTHING</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kw_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_setattr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#attr.ib" title="Link to this definition">¶</a></dt>
+<dd><p>在类上创建一个新的字段 / 属性。</p>
+<p>与 <a class="reference internal" href="api.html#attrs.field" title="attrs.field"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.field</span></code></a> 相同，只是它不是仅限关键字。</p>
+<p>考虑在新代码中使用 <a class="reference internal" href="api.html#attrs.field" title="attrs.field"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.field</span></code></a> ( <code class="docutils literal notranslate"><span class="pre">attr.ib</span></code> 将 <em>永远</em> 不会消失)。</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>除非类也被装饰为 <a class="reference internal" href="#attr.s" title="attr.s"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attr.s</span></code></a> (或类似的)，否则 <strong>不执行任何操作</strong>!</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 15.2.0: </span><em>convert</em></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 16.3.0: </span><em>metadata</em></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 17.1.0 版本发生变更: </span><em>validator</em> 现在可以是 <code class="docutils literal notranslate"><span class="pre">list</span></code>。</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 17.1.0 版本发生变更: </span><em>hash</em> 为 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/constants.html#None" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">None</span></code></a>，因此默认与 <em>eq</em> 镜像。</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 17.3.0: </span><em>type</em></p>
+</div>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">自 17.4.0 版本弃用: </span><em>convert</em></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 17.4.0: </span><em>converter</em> 作为弃用的 <em>convert</em> 的替代，以实现与其他基于名词的参数的一致性。</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 18.1.0: </span><code class="docutils literal notranslate"><span class="pre">factory=f</span></code> 是 <code class="docutils literal notranslate"><span class="pre">default=attr.Factory(f)</span></code> 的语法糖。</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 18.2.0: </span><em>kw_only</em></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 19.2.0 版本发生变更: </span>移除了 <em>convert</em> 关键字参数。</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 19.2.0 版本发生变更: </span><em>repr</em> 现在也接受自定义可调用对象。</p>
+</div>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">自 19.2.0 版本弃用: </span><em>cmp</em> 在 2021-06-01 或之后将被移除。</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 19.2.0: </span><em>eq</em> 和 <em>order</em></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 20.1.0: </span><em>on_setattr</em></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 20.3.0 版本发生变更: </span><em>kw_only</em> 回溯到 Python 2</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 21.1.0 版本发生变更: </span><em>eq</em>, <em>order</em>, 和 <em>cmp</em> 现在也接受自定义可调用对象</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 21.1.0 版本发生变更: </span><em>cmp</em> 重新引入</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 22.2.0: </span><em>alias</em></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p><em>attrs</em> 还附带一个重要别名 <code class="docutils literal notranslate"><span class="pre">attr.attrib</span></code> 。</p>
+</div>
+<p><a class="reference internal" href="#attr.ib" title="attr.ib"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attr.ib</span></code></a> 返回的对象还允许使用装饰器设置默认值和验证器：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">y</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="nd">@x</span><span class="o">.</span><span class="n">validator</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">_any_name_except_a_name_of_an_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;x must be positive&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nd">@y</span><span class="o">.</span><span class="n">default</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">_any_name_except_a_name_of_an_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">C(x=1, y=2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">x must be positive</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.attrs">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">attrs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#attr.attrs" title="Link to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#attr.s" title="attr.s"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attr.s</span></code></a> 的严肃业务别名。</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.define">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">define</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#attr.define" title="Link to this definition">¶</a></dt>
+<dd><p>与 <a class="reference internal" href="api.html#attrs.define" title="attrs.define"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.define</span></code></a> 一样.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.mutable">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">mutable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#attr.mutable" title="Link to this definition">¶</a></dt>
+<dd><p>与 <a class="reference internal" href="api.html#attrs.mutable" title="attrs.mutable"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.mutable</span></code></a> 一样.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.frozen">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">frozen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#attr.frozen" title="Link to this definition">¶</a></dt>
+<dd><p>与 <a class="reference internal" href="api.html#attrs.frozen" title="attrs.frozen"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.frozen</span></code></a> 一样.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.field">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">field</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#attr.field" title="Link to this definition">¶</a></dt>
+<dd><p>与 <a class="reference internal" href="api.html#attrs.field" title="attrs.field"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.field</span></code></a> 一样.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="attr.Attribute">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">Attribute</span></span><a class="headerlink" href="#attr.Attribute" title="Link to this definition">¶</a></dt>
+<dd><p>与 <a class="reference internal" href="api.html#attrs.Attribute" title="attrs.Attribute"><code class="xref any py py-class docutils literal notranslate"><span class="pre">attrs.Attribute</span></code></a> 一样.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.make_class">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">make_class</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#attr.make_class" title="Link to this definition">¶</a></dt>
+<dd><p>与 <a class="reference internal" href="api.html#attrs.make_class" title="attrs.make_class"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.make_class</span></code></a> 一样.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">Factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">takes_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>存储一个工厂可调用对象(factory callable)。</p>
+<p>如果作为默认值传递给 <a class="reference internal" href="api.html#attrs.field" title="attrs.field"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.field</span></code></a> ，则该工厂用于生成新值。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>factory</strong> (<a class="reference external" href="https://docs.python.org/zh-cn/3/library/typing.html#typing.Callable" title="（在 Python v3.13）"><em>Callable</em></a>) -- 一个可调用对象，根据 <em>takes_self</em> 的值，可以不接受参数或只接受一个必需的位置参数。</p></li>
+<li><p><strong>takes_self</strong> (<a class="reference external" href="https://docs.python.org/zh-cn/3/library/functions.html#bool" title="（在 Python v3.13）"><em>bool</em></a>) -- 将正在初始化的部分初始化实例作为位置参数传递。</p></li>
+</ul>
+</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 17.1.0: </span><em>takes_self</em></p>
+</div>
+<p>与 <a class="reference internal" href="api.html#attrs.Factory" title="attrs.Factory"><code class="xref any py py-class docutils literal notranslate"><span class="pre">attrs.Factory</span></code></a> 一样.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="attr.NOTHING">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">NOTHING</span></span><a class="headerlink" href="#attr.NOTHING" title="Link to this definition">¶</a></dt>
+<dd><p>与 <a class="reference internal" href="api.html#attrs.NOTHING" title="attrs.NOTHING"><code class="xref any py py-data docutils literal notranslate"><span class="pre">attrs.NOTHING</span></code></a> 一样.</p>
+</dd></dl>
+
+</section>
+<section id="module-attr.exceptions">
+<span id="exceptions"></span><h2>Exceptions<a class="headerlink" href="#module-attr.exceptions" title="Link to this heading">¶</a></h2>
+<p>所有异常都可以从 <code class="docutils literal notranslate"><span class="pre">attr.exceptions</span></code> 和 <a class="reference internal" href="api.html#module-attrs.exceptions" title="attrs.exceptions"><code class="xref any py py-mod docutils literal notranslate"><span class="pre">attrs.exceptions</span></code></a> 获得（它们是不同命名空间中的相同模块）。</p>
+<p>请参阅 <a class="reference internal" href="api.html#module-attrs.exceptions" title="attrs.exceptions"><code class="xref any py py-mod docutils literal notranslate"><span class="pre">attrs.exceptions</span></code></a> 了解详情。</p>
+</section>
+<section id="helpers">
+<h2>Helpers<a class="headerlink" href="#helpers" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.cmp_using">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">cmp_using</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#attr.cmp_using" title="Link to this definition">¶</a></dt>
+<dd><p>与 <a class="reference internal" href="api.html#attrs.cmp_using" title="attrs.cmp_using"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.cmp_using</span></code></a> 一样.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.fields">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#attr.fields" title="Link to this definition">¶</a></dt>
+<dd><p>与 <a class="reference internal" href="api.html#attrs.fields" title="attrs.fields"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.fields</span></code></a> 一样.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.fields_dict">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">fields_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#attr.fields_dict" title="Link to this definition">¶</a></dt>
+<dd><p>与 <a class="reference internal" href="api.html#attrs.fields_dict" title="attrs.fields_dict"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.fields_dict</span></code></a> 一样.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.has">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">has</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#attr.has" title="Link to this definition">¶</a></dt>
+<dd><p>与 <a class="reference internal" href="api.html#attrs.has" title="attrs.has"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.has</span></code></a> 一样.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.resolve_types">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">resolve_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#attr.resolve_types" title="Link to this definition">¶</a></dt>
+<dd><p>与 <a class="reference internal" href="api.html#attrs.resolve_types" title="attrs.resolve_types"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.resolve_types</span></code></a> 一样.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.asdict">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">asdict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_factory=&lt;class</span> <span class="pre">'dict'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retain_collection_types=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_serializer=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#attr.asdict" title="Link to this definition">¶</a></dt>
+<dd><p>返回 <em>inst</em> 的 <em>attrs</em> 属性值作为字典。</p>
+<p>可选择递归进入其他 <em>attrs</em> 装饰的类。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inst</strong> -- 一个 <em>attrs</em> 装饰类的实例。</p></li>
+<li><p><strong>recurse</strong> (<a class="reference external" href="https://docs.python.org/zh-cn/3/library/functions.html#bool" title="（在 Python v3.13）"><em>bool</em></a>) -- 递归进入也被 <em>attrs</em> 装饰的类。</p></li>
+<li><p><strong>filter</strong> (<a class="reference external" href="https://docs.python.org/zh-cn/3/library/typing.html#typing.Callable" title="（在 Python v3.13）"><em>Callable</em></a>) -- 一个可调用对象，其返回值决定一个属性或元素是否包含（<a class="reference external" href="https://docs.python.org/zh-cn/3/library/constants.html#True" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a>）或被丢弃（<a class="reference external" href="https://docs.python.org/zh-cn/3/library/constants.html#False" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">False</span></code></a>）。作为第一个参数调用 <a class="reference internal" href="api.html#attrs.Attribute" title="attrs.Attribute"><code class="xref any py py-class docutils literal notranslate"><span class="pre">attrs.Attribute</span></code></a>，第二个参数为值。</p></li>
+<li><p><strong>dict_factory</strong> (<a class="reference external" href="https://docs.python.org/zh-cn/3/library/typing.html#typing.Callable" title="（在 Python v3.13）"><em>Callable</em></a>) -- 用于生成字典的可调用对象。例如，为了生成有序字典而不是普通的 Python 字典，可以传入 <code class="docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code>。</p></li>
+<li><p><strong>retain_collection_types</strong> (<a class="reference external" href="https://docs.python.org/zh-cn/3/library/functions.html#bool" title="（在 Python v3.13）"><em>bool</em></a>) -- 遇到类型为 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/stdtypes.html#tuple" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">tuple</span></code></a> 或 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/stdtypes.html#set" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">set</span></code></a> 的属性时，不转换为 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/stdtypes.html#list" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">list</span></code></a>。仅在 <em>recurse</em> 为 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/constants.html#True" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a> 时有意义。</p></li>
+<li><p><strong>value_serializer</strong> (<a class="reference external" href="https://docs.python.org/zh-cn/3/library/typing.html#typing.Callable" title="（在 Python v3.13）"><em>Callable</em></a><em> | </em><em>None</em>) -- 针对每个属性或字典键/值调用的钩子。它接收当前实例、字段和值，并必须返回（更新后的）值。该钩子在应用可选的 <em>filter</em> 后运行。</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>返回类型为 <em>dict_factory</em>。</p>
+</dd>
+<dt class="field-odd">抛出<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="api.html#attrs.exceptions.NotAnAttrsClassError" title="attrs.exceptions.NotAnAttrsClassError"><strong>attrs.exceptions.NotAnAttrsClassError</strong></a> -- 如果 <em>cls</em> 不是一个 <em>attrs</em> 类。</p>
+</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 16.0.0: </span><em>dict_factory</em></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 16.1.0: </span><em>retain_collection_types</em></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 20.3.0: </span><em>value_serializer</em></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 21.3.0: </span>如果字典中有一个键的集合，则将其序列化为元组。</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.astuple">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">astuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tuple_factory=&lt;class</span> <span class="pre">'tuple'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retain_collection_types=False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#attr.astuple" title="Link to this definition">¶</a></dt>
+<dd><p>返回 <em>inst</em> 的 <em>attrs</em> 属性值作为元组。</p>
+<p>可选择递归进入其他 <em>attrs</em> 装饰的类。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inst</strong> -- <em>attrs</em> 装饰类的实例。</p></li>
+<li><p><strong>recurse</strong> (<a class="reference external" href="https://docs.python.org/zh-cn/3/library/functions.html#bool" title="（在 Python v3.13）"><em>bool</em></a>) -- 是否递归进入同样被 <em>attrs</em> 装饰的类。</p></li>
+<li><p><strong>filter</strong> (<a class="reference external" href="https://docs.python.org/zh-cn/3/library/typing.html#typing.Callable" title="（在 Python v3.13）"><em>Callable</em></a>) -- 一个可调用对象，其返回值决定了属性或元素是被包含（<a class="reference external" href="https://docs.python.org/zh-cn/3/library/constants.html#True" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a>）还是被丢弃（<a class="reference external" href="https://docs.python.org/zh-cn/3/library/constants.html#False" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">False</span></code></a>）。该函数的第一个参数为 <a class="reference internal" href="api.html#attrs.Attribute" title="attrs.Attribute"><code class="xref any py py-class docutils literal notranslate"><span class="pre">attrs.Attribute</span></code></a>，第二个参数为值。</p></li>
+<li><p><strong>tuple_factory</strong> (<a class="reference external" href="https://docs.python.org/zh-cn/3/library/typing.html#typing.Callable" title="（在 Python v3.13）"><em>Callable</em></a>) -- 用于生成元组的可调用对象。例如，可以生成列表而不是元组。</p></li>
+<li><p><strong>retain_collection_types</strong> (<a class="reference external" href="https://docs.python.org/zh-cn/3/library/functions.html#bool" title="（在 Python v3.13）"><em>bool</em></a>) -- 遇到类型为 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/stdtypes.html#tuple" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">tuple</span></code></a>、<a class="reference external" href="https://docs.python.org/zh-cn/3/library/stdtypes.html#dict" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a> 或 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/stdtypes.html#set" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">set</span></code></a> 的属性时，不进行转换为 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/stdtypes.html#list" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">list</span></code></a> 或 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/stdtypes.html#dict" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a>。只有在 <em>recurse</em> 为 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/constants.html#True" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a> 时才有意义。</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>返回 <em>tuple_factory</em> 的类型。</p>
+</dd>
+<dt class="field-odd">抛出<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="api.html#attrs.exceptions.NotAnAttrsClassError" title="attrs.exceptions.NotAnAttrsClassError"><strong>attrs.exceptions.NotAnAttrsClassError</strong></a> -- 如果 <em>cls</em> 不是一个 <em>attrs</em> 类。</p>
+</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 16.2.0.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py function" id="module-attr.filters">
+<dt class="sig sig-object py" id="attr.filters.include">
+<span class="sig-prename descclassname"><span class="pre">attr.filters.</span></span><span class="sig-name descname"><span class="pre">include</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#attr.filters.include" title="Link to this definition">¶</a></dt>
+<dd><p>与 <a class="reference internal" href="api.html#attrs.filters.include" title="attrs.filters.include"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.filters.include</span></code></a> 一样.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.filters.exclude">
+<span class="sig-prename descclassname"><span class="pre">attr.filters.</span></span><span class="sig-name descname"><span class="pre">exclude</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#attr.filters.exclude" title="Link to this definition">¶</a></dt>
+<dd><p>与 <a class="reference internal" href="api.html#attrs.filters.exclude" title="attrs.filters.exclude"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.filters.exclude</span></code></a> 一样.</p>
+</dd></dl>
+
+<p>参见 <a class="reference internal" href="api.html#attrs.asdict" title="attrs.asdict"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.asdict()</span></code></a> 查看更多示例.</p>
+<p><code class="docutils literal notranslate"><span class="pre">attr.filters</span></code> 中的所有对象也可在 <a class="reference internal" href="api.html#module-attrs.filters" title="attrs.filters"><code class="xref any py py-mod docutils literal notranslate"><span class="pre">attrs.filters</span></code></a> 中使用。</p>
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.evolve">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">evolve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#attr.evolve" title="Link to this definition">¶</a></dt>
+<dd><p>与 <a class="reference internal" href="api.html#attrs.evolve" title="attrs.evolve"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.evolve</span></code></a> 一样.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.validate">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#attr.validate" title="Link to this definition">¶</a></dt>
+<dd><p>与 <a class="reference internal" href="api.html#attrs.validate" title="attrs.validate"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.validate</span></code></a> 一样.</p>
+</dd></dl>
+
+</section>
+<section id="module-attr.validators">
+<span id="validators"></span><h2>Validators<a class="headerlink" href="#module-attr.validators" title="Link to this heading">¶</a></h2>
+<p>所有来自 <a class="reference internal" href="api.html#module-attrs.validators" title="attrs.validators"><code class="xref any py py-mod docutils literal notranslate"><span class="pre">attrs.validators</span></code></a> 的对象也可以在 <code class="docutils literal notranslate"><span class="pre">attr.validators</span></code> 中找到。详情请参阅前者。</p>
+</section>
+<section id="module-attr.converters">
+<span id="converters"></span><h2>Converters<a class="headerlink" href="#module-attr.converters" title="Link to this heading">¶</a></h2>
+<p>所有来自 <a class="reference internal" href="api.html#module-attrs.converters" title="attrs.converters"><code class="xref any py py-mod docutils literal notranslate"><span class="pre">attrs.converters</span></code></a> 的对象也可以从 <code class="docutils literal notranslate"><span class="pre">attr.converters</span></code> 获得。请参阅前者了解详情。</p>
+</section>
+<section id="module-attr.setters">
+<span id="setters"></span><h2>Setters<a class="headerlink" href="#module-attr.setters" title="Link to this heading">¶</a></h2>
+<p>所有来自 <a class="reference internal" href="api.html#module-attrs.setters" title="attrs.setters"><code class="xref any py py-mod docutils literal notranslate"><span class="pre">attrs.setters</span></code></a> 的对象也可以在 <code class="docutils literal notranslate"><span class="pre">attr.setters</span></code> 中使用。请参阅前者以了解详情。</p>
+</section>
+<section id="deprecated-apis">
+<h2>Deprecated APIs<a class="headerlink" href="#deprecated-apis" title="Link to this heading">¶</a></h2>
+<p>为了帮助您编写向后兼容的代码，在现代版本中不会引发警告， <code class="docutils literal notranslate"><span class="pre">attr</span></code> 模块自 19.2.0 版本起提供了一个 <code class="docutils literal notranslate"><span class="pre">__version_info__</span></code> 属性。
+它的行为类似于 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/sys.html#sys.version_info" title="（在 Python v3.13）"><code class="xref any docutils literal notranslate"><span class="pre">sys.version_info</span></code></a> ，并且是 <a class="reference internal" href="#attr.VersionInfo" title="attr.VersionInfo"><code class="xref any py py-class docutils literal notranslate"><span class="pre">attr.VersionInfo</span></code></a> 的一个实例：</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="attr.VersionInfo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">VersionInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/zh-cn/3/library/functions.html#int" title="（在 Python v3.13）"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">minor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/zh-cn/3/library/functions.html#int" title="（在 Python v3.13）"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">micro</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/zh-cn/3/library/functions.html#int" title="（在 Python v3.13）"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">releaselevel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/zh-cn/3/library/stdtypes.html#str" title="（在 Python v3.13）"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#attr.VersionInfo" title="Link to this definition">¶</a></dt>
+<dd><p>可以与长度为 1--4 的元组进行比较的版本对象:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">attr</span><span class="o">.</span><span class="n">VersionInfo</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;final&quot;</span><span class="p">)</span>  <span class="o">&lt;=</span> <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">attr</span><span class="o">.</span><span class="n">VersionInfo</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;final&quot;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vi</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">VersionInfo</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;final&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vi</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vi</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">19</span><span class="p">,)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vi</span> <span class="o">==</span> <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">2</span><span class="p">,)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vi</span> <span class="o">==</span> <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 19.2.</span></p>
+</div>
+<p>在它的帮助下，您可以编写如下代码：</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="s2">&quot;__version_info__&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,))</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">cmp_off</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;eq&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+<span class="gp">... </span><span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">cmp_off</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;cmp&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cmp_off</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;eq&quot;</span><span class="p">:</span>  <span class="kc">False</span><span class="p">}</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="o">**</span><span class="n">cmp_off</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.assoc">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">assoc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inst</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">changes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#attr.assoc" title="Link to this definition">¶</a></dt>
+<dd><p>复制 <em>inst</em> 并应用 <em>changes</em>。</p>
+<p>这与 <a class="reference internal" href="#attr.evolve" title="attr.evolve"><code class="xref any py py-func docutils literal notranslate"><span class="pre">evolve</span></code></a> 不同，后者将更改应用于创建新实例的参数。</p>
+<p><a class="reference internal" href="#attr.evolve" title="attr.evolve"><code class="xref any py py-func docutils literal notranslate"><span class="pre">evolve</span></code></a> 的行为是更可取的，但存在一些 <a class="reference external" href="https://github.com/python-attrs/attrs/issues/251">边缘情况</a> ，在这些情况下它不起作用。因此 <a class="reference internal" href="#attr.assoc" title="attr.assoc"><code class="xref any py py-func docutils literal notranslate"><span class="pre">assoc</span></code></a> 被弃用，但不会被移除。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inst</strong> -- 带有 <em>attrs</em> 属性的类的实例。</p></li>
+<li><p><strong>changes</strong> -- 新副本中的关键字更改。</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>一个包含 <em>changes</em> 的 <em>inst</em> 的副本。</p>
+</dd>
+<dt class="field-odd">抛出<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="api.html#attrs.exceptions.AttrsAttributeNotFoundError" title="attrs.exceptions.AttrsAttributeNotFoundError"><strong>attrs.exceptions.AttrsAttributeNotFoundError</strong></a> -- 如果在 <em>cls</em> 上找不到 <em>attr_name</em>。</p></li>
+<li><p><a class="reference internal" href="api.html#attrs.exceptions.NotAnAttrsClassError" title="attrs.exceptions.NotAnAttrsClassError"><strong>attrs.exceptions.NotAnAttrsClassError</strong></a> -- 如果 <em>cls</em> 不是一个 <em>attrs</em> 类。</p></li>
+</ul>
+</dd>
+</dl>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">自 17.1.0 版本弃用: </span>如果可以，请改用 <a class="reference internal" href="api.html#attrs.evolve" title="attrs.evolve"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.evolve</span></code></a>。由于与 <a class="reference internal" href="api.html#attrs.evolve" title="attrs.evolve"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.evolve</span></code></a> 的略微不同的方法，这个函数不会被移除。</p>
+</div>
+</dd></dl>
+
+<p>在 <em>attrs</em> 获得 <a class="reference internal" href="api.html#attrs.validators.set_disabled" title="attrs.validators.set_disabled"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.validators.set_disabled</span></code></a> 和 <a class="reference internal" href="api.html#attrs.validators.get_disabled" title="attrs.validators.get_disabled"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.validators.get_disabled</span></code></a> 之前，它有以下 API 用于全局启用和禁用验证器。
+这些 API 不会被移除，但不推荐使用：</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.set_run_validators">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">set_run_validators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">run</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#attr.set_run_validators" title="Link to this definition">¶</a></dt>
+<dd><p>设置是否运行验证器。默认情况下，它们是运行的。</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">自 21.3.0 版本弃用: </span>不会被移除，但也不会迁移到新的 <code class="docutils literal notranslate"><span class="pre">attrs</span></code> 命名空间。请改用 <a class="reference internal" href="api.html#attrs.validators.set_disabled" title="attrs.validators.set_disabled"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.validators.set_disabled()</span></code></a>
+。</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="attr.get_run_validators">
+<span class="sig-prename descclassname"><span class="pre">attr.</span></span><span class="sig-name descname"><span class="pre">get_run_validators</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#attr.get_run_validators" title="Link to this definition">¶</a></dt>
+<dd><p>返回验证器是否运行。</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">自 21.3.0 版本弃用: </span>不会被移除，但也不会迁移到新的 <code class="docutils literal notranslate"><span class="pre">attrs</span></code> 命名空间。请改用 <a class="reference internal" href="api.html#attrs.validators.get_disabled" title="attrs.validators.get_disabled"><code class="xref any py py-func docutils literal notranslate"><span class="pre">attrs.validators.get_disabled()</span></code></a>
+。</p>
+</div>
+</dd></dl>
+
+<hr class="docutils" />
+<p>以前，严肃的别名被称为 <code class="docutils literal notranslate"><span class="pre">attr.attributes</span></code> 和 <code class="docutils literal notranslate"><span class="pre">attr.attr</span></code>。
+虽然没有计划移除它们，但不应在新代码中使用。</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="glossary.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">术语(Glossary)</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="api.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">API 参考</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2015, Hynek Schlawack
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">attr</span></code> 命名空间API参考</a><ul>
+<li><a class="reference internal" href="#core">核心(Core)</a><ul>
+<li><a class="reference internal" href="#attr.s"><code class="docutils literal notranslate"><span class="pre">s()</span></code></a></li>
+<li><a class="reference internal" href="#attr.ib"><code class="docutils literal notranslate"><span class="pre">ib()</span></code></a></li>
+<li><a class="reference internal" href="#attr.attrs"><code class="docutils literal notranslate"><span class="pre">attrs()</span></code></a></li>
+<li><a class="reference internal" href="#attr.define"><code class="docutils literal notranslate"><span class="pre">define()</span></code></a></li>
+<li><a class="reference internal" href="#attr.mutable"><code class="docutils literal notranslate"><span class="pre">mutable()</span></code></a></li>
+<li><a class="reference internal" href="#attr.frozen"><code class="docutils literal notranslate"><span class="pre">frozen()</span></code></a></li>
+<li><a class="reference internal" href="#attr.field"><code class="docutils literal notranslate"><span class="pre">field()</span></code></a></li>
+<li><a class="reference internal" href="#attr.Attribute"><code class="docutils literal notranslate"><span class="pre">Attribute</span></code></a></li>
+<li><a class="reference internal" href="#attr.make_class"><code class="docutils literal notranslate"><span class="pre">make_class()</span></code></a></li>
+<li><a class="reference internal" href="#attr.NOTHING"><code class="docutils literal notranslate"><span class="pre">NOTHING</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-attr.exceptions">Exceptions</a></li>
+<li><a class="reference internal" href="#helpers">Helpers</a><ul>
+<li><a class="reference internal" href="#attr.cmp_using"><code class="docutils literal notranslate"><span class="pre">cmp_using()</span></code></a></li>
+<li><a class="reference internal" href="#attr.fields"><code class="docutils literal notranslate"><span class="pre">fields()</span></code></a></li>
+<li><a class="reference internal" href="#attr.fields_dict"><code class="docutils literal notranslate"><span class="pre">fields_dict()</span></code></a></li>
+<li><a class="reference internal" href="#attr.has"><code class="docutils literal notranslate"><span class="pre">has()</span></code></a></li>
+<li><a class="reference internal" href="#attr.resolve_types"><code class="docutils literal notranslate"><span class="pre">resolve_types()</span></code></a></li>
+<li><a class="reference internal" href="#attr.asdict"><code class="docutils literal notranslate"><span class="pre">asdict()</span></code></a></li>
+<li><a class="reference internal" href="#attr.astuple"><code class="docutils literal notranslate"><span class="pre">astuple()</span></code></a></li>
+<li><a class="reference internal" href="#attr.filters.include"><code class="docutils literal notranslate"><span class="pre">include()</span></code></a></li>
+<li><a class="reference internal" href="#attr.filters.exclude"><code class="docutils literal notranslate"><span class="pre">exclude()</span></code></a></li>
+<li><a class="reference internal" href="#attr.evolve"><code class="docutils literal notranslate"><span class="pre">evolve()</span></code></a></li>
+<li><a class="reference internal" href="#attr.validate"><code class="docutils literal notranslate"><span class="pre">validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-attr.validators">Validators</a></li>
+<li><a class="reference internal" href="#module-attr.converters">Converters</a></li>
+<li><a class="reference internal" href="#module-attr.setters">Setters</a></li>
+<li><a class="reference internal" href="#deprecated-apis">Deprecated APIs</a><ul>
+<li><a class="reference internal" href="#attr.VersionInfo"><code class="docutils literal notranslate"><span class="pre">VersionInfo</span></code></a></li>
+<li><a class="reference internal" href="#attr.assoc"><code class="docutils literal notranslate"><span class="pre">assoc()</span></code></a></li>
+<li><a class="reference internal" href="#attr.set_run_validators"><code class="docutils literal notranslate"><span class="pre">set_run_validators()</span></code></a></li>
+<li><a class="reference internal" href="#attr.get_run_validators"><code class="docutils literal notranslate"><span class="pre">get_run_validators()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=3e342831"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="_static/translations.js?v=beaddf03"></script>
+    </body>
+</html>

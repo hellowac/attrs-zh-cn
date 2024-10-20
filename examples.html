@@ -1,0 +1,1036 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="索引" href="genindex.html" /><link rel="search" title="搜索" href="search.html" /><link rel="next" title="类型注解" href="types.html" /><link rel="prev" title="为什么不用……" href="why.html" />
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>attrs 示例 - attrs UNRELEASED 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=03575dff" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --font-stack: Inter,sans-serif;
+  --font-stack--monospace: BerkeleyMono, MonoLisa, ui-monospace, SFMono-Regular, Menlo, Consolas, Liberation Mono, monospace;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">attrs UNRELEASED 文档</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/attrs_logo.svg" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/attrs_logo_white.svg" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="搜索" name="q" aria-label="搜索">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">入门</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="why.html">为什么不用……</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#"><em>attrs</em> 示例</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">解释说明</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="types.html">类型注解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="init.html">初始化(Initialization)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comparison.html">比较(Comparison)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hashing.html">哈希(Hashing)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-attr.html"><code class="docutils literal notranslate"><span class="pre">attr</span></code> 命名空间API参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">术语(Glossary)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">高级用法</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">扩展(Extending)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-does-it-work.html">它是如何工作的？(How Does It Work?)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="names.html">核心API中的名称(On The Core API Names)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">许可和信用(License and Credits)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">变更历史(Changelog)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/attrs/">PyPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs/wiki/Extensions-to-attrs">第三方扩展</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/python-attrs/attrs/blob/main/.github/CONTRIBUTING.md">贡献</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://hynek.me/say-thanks/">基金</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="attrs">
+<h1><em>attrs</em> 示例<a class="headerlink" href="#attrs" title="Link to this heading">¶</a></h1>
+<section id="basics">
+<h2>基础(Basics)<a class="headerlink" href="#basics" title="Link to this heading">¶</a></h2>
+<p>最简单的用法是：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">attrs</span> <span class="kn">import</span> <span class="n">define</span><span class="p">,</span> <span class="n">field</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">Empty</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Empty</span><span class="p">()</span>
+<span class="go">Empty()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Empty</span><span class="p">()</span> <span class="o">==</span> <span class="n">Empty</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Empty</span><span class="p">()</span> <span class="ow">is</span> <span class="n">Empty</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>换句话说：即使没有实际的 <a class="reference internal" href="glossary.html#term-field"><span class="xref std std-term">fields</span></a>，<em>attrs</em> 也有用！</p>
+<p>不过，你通常会希望在类中添加一些数据，所以让我们加上一些：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">Coordinates</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">... </span>    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span>
+</pre></div>
+</div>
+<p>默认情况下，所有特性都会被添加，因此你立即拥有一个功能齐全的数据类，包含一个简洁的 <code class="docutils literal notranslate"><span class="pre">repr</span></code> 字符串和比较方法。</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c1</span> <span class="o">=</span> <span class="n">Coordinates</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c1</span>
+<span class="go">Coordinates(x=1, y=2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c2</span> <span class="o">=</span> <span class="n">Coordinates</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c2</span>
+<span class="go">Coordinates(x=2, y=1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c1</span> <span class="o">==</span> <span class="n">c2</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>如上所示，生成的 <code class="docutils literal notranslate"><span class="pre">__init__</span></code> 方法支持位置参数和关键字参数。</p>
+<hr class="docutils" />
+<p>与 Data Classes 不同，<em>attrs</em> 不强制要求使用类型注解。因此，前面的例子也可以写成：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">Coordinates</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">y</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Coordinates</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">Coordinates(x=1, y=2)</span>
+</pre></div>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">小心</p>
+<p>如果类主体中包含一个使用 <a class="reference internal" href="api.html#attrs.field" title="attrs.field"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.field()</span></code></a>（或 <a class="reference internal" href="api-attr.html#attr.ib" title="attr.ib"><code class="xref py py-func docutils literal notranslate"><span class="pre">attr.ib()</span></code></a>）定义的字段，但<strong>缺少类型注解</strong>，<em>attrs</em> 将切换到无类型模式，并忽略那些具有类型注解但未使用 <a class="reference internal" href="api.html#attrs.field" title="attrs.field"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.field()</span></code></a>（或 <a class="reference internal" href="api-attr.html#attr.ib" title="attr.ib"><code class="xref py py-func docutils literal notranslate"><span class="pre">attr.ib()</span></code></a>）定义的字段。</p>
+</div>
+<hr class="docutils" />
+<p>对于私有属性，<em>attrs</em> 会去掉关键字参数的前导下划线：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">_x</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">C(_x=1)</span>
+</pre></div>
+</div>
+<p>如果你想自行初始化私有属性，也可以这样做：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">_x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">()</span>
+<span class="go">C(_x=42)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">   </span><span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">__init__() takes exactly 1 argument (2 given)</span>
+</pre></div>
+</div>
+<p>如果你更愿意公开私有属性，你可以使用关键字参数别名：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">_x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">alias</span><span class="o">=</span><span class="s2">&quot;_x&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">(</span><span class="n">_x</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">C(_x=1)</span>
+</pre></div>
+</div>
+<p>还有另一种定义属性的方式，这在你想增强不是自己编写的类时非常有用（比如为 Django 模型增加一个简洁的 <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> 方法）：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">SomethingFromSomeoneElse</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">SomethingFromSomeoneElse</span> <span class="o">=</span> <span class="n">define</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">these</span><span class="o">=</span><span class="p">{</span>
+<span class="gp">... </span>        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">field</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="p">},</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)(</span><span class="n">SomethingFromSomeoneElse</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">SomethingFromSomeoneElse</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">SomethingFromSomeoneElse(x=1)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://www.youtube.com/watch?v=3MNVP9-hglc">继承对你不利</a>（除非进行<a class="reference external" href="https://hynek.me/articles/python-subclassing-redux/">严格的专业化</a>），但 <em>attrs</em> 仍然会按照你期望的方式工作：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">a</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">get_a</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">B</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">b</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">c</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span>
+<span class="go">C(a=1, b=2, c=3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">==</span> <span class="n">C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">.</span><span class="n">get_a</span><span class="p">()</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="glossary.html#term-slotted-classes"><span class="xref std std-term">Slotted classes</span></a> 是新 API 的默认设置，它们与多重继承不兼容，因此我们在示例中没有使用。</p>
+<p>属性的顺序由 <a class="reference external" href="https://www.python.org/download/releases/2.3/mro/">MRO</a> 定义。</p>
+<section id="keyword-only-attributes">
+<h3>仅关键字属性(Keyword-only Attributes)<a class="headerlink" href="#keyword-only-attributes" title="Link to this heading">¶</a></h3>
+<p>你还可以添加 <a class="reference external" href="https://docs.python.org/3/glossary.html#keyword-only-parameter">仅关键字</a> 属性：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">a</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span><span class="p">()</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">A() missing 1 required keyword-only argument: &#39;a&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">A(a=1)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">kw_only</span></code> 也可以在装饰器级别指定，并将应用于所有属性：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span><span class="p">(</span><span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">a</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">... </span>    <span class="n">b</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">__init__() takes 1 positional argument but 3 were given</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">A(a=1, b=2)</span>
+</pre></div>
+</div>
+<p>如果你创建的属性使用 <code class="docutils literal notranslate"><span class="pre">init=False</span></code>，则 <code class="docutils literal notranslate"><span class="pre">kw_only</span></code> 参数会被忽略。</p>
+<p>仅关键字属性允许子类添加没有默认值的属性，即使基类定义了带默认值的属性：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">a</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">b</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">B(a=0, b=1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span><span class="p">()</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">B() missing 1 required keyword-only argument: &#39;b&#39;</span>
+</pre></div>
+</div>
+<p>如果你没有设置 <code class="docutils literal notranslate"><span class="pre">kw_only=True</span></code>，则没有有效的属性顺序，这会导致错误：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">a</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">b</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">ValueError</span>: <span class="n">No mandatory attributes allowed after an attribute with a default value or factory.  Attribute in question: Attribute(name=&#39;b&#39;, default=NOTHING, validator=None, repr=True, cmp=True, hash=None, init=True, converter=None, metadata=mappingproxy({}), type=int, kw_only=False)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="converting-to-collections-types">
+<span id="asdict"></span><h2>转换为集合类型(Converting to Collections Types)<a class="headerlink" href="#converting-to-collections-types" title="Link to this heading">¶</a></h2>
+<p>当你有一个包含数据的类时，将该类转换为一个 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/stdtypes.html#dict" title="（在 Python v3.13）"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> 通常非常方便（例如，如果你想将其序列化为 JSON）：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">attrs</span> <span class="kn">import</span> <span class="n">asdict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">asdict</span><span class="p">(</span><span class="n">Coordinates</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="go">{&#39;x&#39;: 1, &#39;y&#39;: 2}</span>
+</pre></div>
+</div>
+<p>有些字段不能或不应该被转换。
+为此，<a class="reference internal" href="api.html#attrs.asdict" title="attrs.asdict"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.asdict()</span></code></a> 提供了一个回调函数，用于决定一个属性是否应该被包含：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">User</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">email</span><span class="p">:</span> <span class="nb">str</span>
+<span class="gp">... </span>    <span class="n">password</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">UserList</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">users</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">User</span><span class="p">]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">asdict</span><span class="p">(</span><span class="n">UserList</span><span class="p">([</span><span class="n">User</span><span class="p">(</span><span class="s2">&quot;jane@doe.invalid&quot;</span><span class="p">,</span> <span class="s2">&quot;s33kred&quot;</span><span class="p">),</span>
+<span class="gp">... </span>                 <span class="n">User</span><span class="p">(</span><span class="s2">&quot;joe@doe.invalid&quot;</span><span class="p">,</span> <span class="s2">&quot;p4ssw0rd&quot;</span><span class="p">)]),</span>
+<span class="gp">... </span>       <span class="nb">filter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">attr</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;password&quot;</span><span class="p">)</span>
+<span class="go">{&#39;users&#39;: [{&#39;email&#39;: &#39;jane@doe.invalid&#39;}, {&#39;email&#39;: &#39;joe@doe.invalid&#39;}]}</span>
+</pre></div>
+</div>
+<p>对于你想要 <a class="reference internal" href="api.html#attrs.filters.include" title="attrs.filters.include"><span class="xref myst py py-func"><code class="docutils literal notranslate"><span class="pre">包含</span></code></span></a> 或 <a class="reference internal" href="api.html#attrs.filters.exclude" title="attrs.filters.exclude"><span class="xref myst py py-func"><code class="docutils literal notranslate"><span class="pre">排除</span></code></span></a> 某些类型、字符串名称或属性的常见情况，<em>attrs</em> 提供了一些辅助函数：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">attrs</span> <span class="kn">import</span> <span class="n">asdict</span><span class="p">,</span> <span class="n">filters</span><span class="p">,</span> <span class="n">fields</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">User</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">login</span><span class="p">:</span> <span class="nb">str</span>
+<span class="gp">... </span>    <span class="n">password</span><span class="p">:</span> <span class="nb">str</span>
+<span class="gp">... </span>    <span class="n">email</span><span class="p">:</span> <span class="nb">str</span>
+<span class="gp">... </span>    <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">asdict</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">User</span><span class="p">(</span><span class="s2">&quot;jane&quot;</span><span class="p">,</span> <span class="s2">&quot;s33kred&quot;</span><span class="p">,</span> <span class="s2">&quot;jane@example.com&quot;</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="nb">filter</span><span class="o">=</span><span class="n">filters</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">fields</span><span class="p">(</span><span class="n">User</span><span class="p">)</span><span class="o">.</span><span class="n">password</span><span class="p">,</span> <span class="s2">&quot;email&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>
+<span class="go">{&#39;login&#39;: &#39;jane&#39;}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span><span class="p">:</span> <span class="nb">str</span>
+<span class="gp">... </span>    <span class="n">y</span><span class="p">:</span> <span class="nb">str</span>
+<span class="gp">... </span>    <span class="n">z</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">asdict</span><span class="p">(</span><span class="n">C</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>       <span class="nb">filter</span><span class="o">=</span><span class="n">filters</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">fields</span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="p">))</span>
+<span class="go">{&#39;x&#39;: &#39;foo&#39;, &#39;z&#39;: 3}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">asdict</span><span class="p">(</span><span class="n">C</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>       <span class="nb">filter</span><span class="o">=</span><span class="n">filters</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="n">fields</span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">))</span>
+<span class="go">{&#39;x&#39;: &#39;foo&#39;, &#39;z&#39;: 3}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>虽然直接使用字符串名称很方便，但拼写错误的属性名称将静默地导致错误，并且无论是 Python 还是你的类型检查器都无法帮助你。
+<a class="reference internal" href="api.html#attrs.fields" title="attrs.fields"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.fields()</span></code></a> 会在字段不存在时引发 <code class="docutils literal notranslate"><span class="pre">AttributeError</span></code>，而字面字符串名称则不会。
+在大多数情况下，使用 <a class="reference internal" href="api.html#attrs.fields" title="attrs.fields"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.fields()</span></code></a> 来获取属性是值得推荐的。</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">asdict</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">User</span><span class="p">(</span><span class="s2">&quot;jane&quot;</span><span class="p">,</span> <span class="s2">&quot;s33kred&quot;</span><span class="p">,</span> <span class="s2">&quot;jane@example.com&quot;</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="nb">filter</span><span class="o">=</span><span class="n">filters</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="s2">&quot;passwd&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">{&#39;login&#39;: &#39;jane&#39;, &#39;password&#39;: &#39;s33kred&#39;, &#39;email&#39;: &#39;jane@example.com&#39;, &#39;id&#39;: 42}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">asdict</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">User</span><span class="p">(</span><span class="s2">&quot;jane&quot;</span><span class="p">,</span> <span class="s2">&quot;s33kred&quot;</span><span class="p">,</span> <span class="s2">&quot;jane@example.com&quot;</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="nb">filter</span><span class="o">=</span><span class="n">fields</span><span class="p">(</span><span class="n">User</span><span class="p">)</span><span class="o">.</span><span class="n">passwd</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">AttributeError</span>: <span class="n">&#39;UserAttributes&#39; object has no attribute &#39;passwd&#39;. Did you mean: &#39;password&#39;?</span>
+</pre></div>
+</div>
+</div>
+<p>有时，你所需要的只是一个元组，而 <em>attrs</em> 不会让你失望：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">attrs</span> <span class="kn">import</span> <span class="n">astuple</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="n">a</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">... </span>   <span class="n">b</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;:memory:&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="gp">... </span>   <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;CREATE TABLE foo (x INTEGER PRIMARY KEY ASC, y)&quot;</span><span class="p">)</span> 
+<span class="gp">... </span>   <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO foo VALUES (?, ?)&quot;</span><span class="p">,</span> <span class="n">astuple</span><span class="p">(</span><span class="n">foo</span><span class="p">))</span> 
+<span class="gp">... </span>   <span class="n">foo2</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="o">*</span><span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT x, y FROM foo&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchone</span><span class="p">())</span>
+<span class="go">&lt;sqlite3.Cursor object at ...&gt;</span>
+<span class="go">&lt;sqlite3.Cursor object at ...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">==</span> <span class="n">foo2</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>对于更高级的转换和转化，我们建议你查看一个伴随库（例如 <a class="reference external" href="https://catt.rs/"><em>cattrs</em></a>）。</p>
+</section>
+<section id="defaults">
+<h2>默认值(Defaults)<a class="headerlink" href="#defaults" title="Link to this heading">¶</a></h2>
+<p>有时你希望为初始化函数提供默认值。
+而有时你甚至希望可变对象作为默认值（你是否曾经不小心使用过 <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">f(arg=[])</span></code>？）。
+<em>attrs</em> 在这两种情况下都能满足你的需求：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">collections</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">Connection</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">socket</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">... </span>    <span class="nd">@classmethod</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">db_string</span><span class="p">):</span>
+<span class="gp">... </span>       <span class="c1"># ... 以某种方式连接到 db_string ...</span>
+<span class="gp">... </span>       <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">socket</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">ConnectionPool</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">db_string</span><span class="p">:</span> <span class="nb">str</span>
+<span class="gp">... </span>    <span class="n">pool</span><span class="p">:</span> <span class="n">collections</span><span class="o">.</span><span class="n">deque</span> <span class="o">=</span> <span class="n">Factory</span><span class="p">(</span><span class="n">collections</span><span class="o">.</span><span class="n">deque</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">get_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="gp">... </span>        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+<span class="gp">... </span>                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;New connection!&quot;</span><span class="p">)</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="n">Connection</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db_string</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">free_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Connection returned!&quot;</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span> <span class="o">=</span> <span class="n">ConnectionPool</span><span class="p">(</span><span class="s2">&quot;postgres://localhost&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span>
+<span class="go">ConnectionPool(db_string=&#39;postgres://localhost&#39;, pool=deque([]), debug=False)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">conn</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">get_connection</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">conn</span>
+<span class="go">Connection(socket=42)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">free_connection</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span>
+<span class="go">ConnectionPool(db_string=&#39;postgres://localhost&#39;, pool=deque([Connection(socket=42)]), debug=False)</span>
+</pre></div>
+</div>
+<p>关于为什么用于构造对象的类方法很棒的更多信息，可以在这篇有见地的 <a class="reference external" href="https://web.archive.org/web/20210130220433/http://as.ynchrono.us/2014/12/asynchronous-object-initialization.html">博客文章</a> 中找到。</p>
+<p>默认工厂也可以通过 <code class="docutils literal notranslate"><span class="pre">factory</span></code> 参数设置为 <a class="reference internal" href="api.html#attrs.field" title="attrs.field"><code class="xref py py-func docutils literal notranslate"><span class="pre">field()</span></code></a>，并使用装饰器。
+该方法接收部分初始化的实例，使你能够基于其他属性来设置默认值：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="nd">@y</span><span class="o">.</span><span class="n">default</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">_any_name_except_a_name_of_an_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">z</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">()</span>
+<span class="go">C(x=1, y=2, z=[])</span>
+</pre></div>
+</div>
+<p>请注意，装饰器方法 <em>仅</em> 在相关属性被赋值为 <a class="reference internal" href="api.html#attrs.field" title="attrs.field"><code class="xref py py-func docutils literal notranslate"><span class="pre">field()</span></code></a> 时有效。
+因此，如果你使用 <code class="docutils literal notranslate"><span class="pre">&#64;default</span></code>，单纯用类型注解并不足够。</p>
+</section>
+<section id="validators">
+<span id="examples-validators"></span><h2>验证器(Validators)<a class="headerlink" href="#validators" title="Link to this heading">¶</a></h2>
+<p>尽管你的初始化函数应该尽量简洁（理想情况下：仅根据参数初始化实例！），但在参数上进行某种验证是很有用的。</p>
+<p><em>attrs</em> 提供了两种方法来为每个属性定义验证器，选择哪种方法更适合你的风格和项目就看你自己了。</p>
+<p>你可以使用装饰器：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="nd">@x</span><span class="o">.</span><span class="n">validator</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mi">42</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;x must be smaller or equal to 42&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="go">C(x=42)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">(</span><span class="mi">43</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">   </span><span class="c">...</span>
+<span class="gr">ValueError</span>: <span class="n">x must be smaller or equal to 42</span>
+</pre></div>
+</div>
+<p>...或者使用可调用对象...</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">attrs</span> <span class="kn">import</span> <span class="n">validators</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">x_smaller_than_y</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">instance</span><span class="o">.</span><span class="n">y</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;x&#39; has to be smaller than &#39;y&#39;!&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+<span class="gp">... </span>                              <span class="n">x_smaller_than_y</span><span class="p">])</span>
+<span class="gp">... </span>    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">C(x=3, y=4)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">   </span><span class="c">...</span>
+<span class="gr">ValueError</span>: <span class="n">&#39;x&#39; has to be smaller than &#39;y&#39;!</span>
+</pre></div>
+</div>
+<p>...或者同时使用这两种方法：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="nd">@x</span><span class="o">.</span><span class="n">validator</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">fits_byte</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">256</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;value out of bounds&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">(</span><span class="mi">128</span><span class="p">)</span>
+<span class="go">C(x=128)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">(</span><span class="s2">&quot;128&quot;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">   </span><span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">(&quot;&#39;x&#39; must be &lt;class &#39;int&#39;&gt; (got &#39;128&#39; that is a &lt;class &#39;str&#39;&gt;).&quot;, Attribute(name=&#39;x&#39;, default=NOTHING, validator=[&lt;instance_of validator for type &lt;class &#39;int&#39;&gt;&gt;, &lt;function fits_byte at 0x10fd7a0d0&gt;], repr=True, cmp=True, hash=True, init=True, metadata=mappingproxy({}), type=int, converter=None, kw_only=False), &lt;class &#39;int&#39;&gt;, &#39;128&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">   </span><span class="c">...</span>
+<span class="gr">ValueError</span>: <span class="n">value out of bounds</span>
+</pre></div>
+</div>
+<p>请注意，装饰器方法仅在相关属性被赋值为 <a class="reference internal" href="api.html#attrs.field" title="attrs.field"><code class="xref py py-func docutils literal notranslate"><span class="pre">field()</span></code></a> 时有效。
+因此，如果你使用 <code class="docutils literal notranslate"><span class="pre">&#64;validator</span></code>，仅用类型注解并不足够。</p>
+<p><em>attrs</em> 附带了一些验证器，确保在编写自己的验证器之前先 <a class="reference internal" href="api.html#api-validators"><span class="std std-ref">查看它们</span></a>：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="go">C(x=42)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">(</span><span class="s2">&quot;42&quot;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">   </span><span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">(&quot;&#39;x&#39; must be &lt;type &#39;int&#39;&gt; (got &#39;42&#39; that is a &lt;type &#39;str&#39;&gt;).&quot;, Attribute(name=&#39;x&#39;, default=NOTHING, factory=NOTHING, validator=&lt;instance_of validator for type &lt;type &#39;int&#39;&gt;&gt;, type=None, kw_only=False), &lt;type &#39;int&#39;&gt;, &#39;42&#39;)</span>
+</pre></div>
+</div>
+<p>如果使用旧式的 <a class="reference internal" href="api-attr.html#attr.s" title="attr.s"><code class="xref py py-func docutils literal notranslate"><span class="pre">attr.s()</span></code></a> 装饰器，验证器默认仅在初始化时运行。
+如果使用较新的 <a class="reference internal" href="api.html#attrs.define" title="attrs.define"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.define()</span></code></a> 和其他相关方法，验证器在初始化时 <em>以及</em> 属性设置时都会运行。
+这种行为可以通过 <em>on_setattr</em> 参数进行更改。</p>
+<p>有关更多详细信息，请查看 <a class="reference internal" href="init.html#validators"><span class="std std-ref">验证器(Validators)</span></a>。</p>
+</section>
+<section id="conversion">
+<h2>转换(Conversion)<a class="headerlink" href="#conversion" title="Link to this heading">¶</a></h2>
+<p>属性可以指定一个 <code class="docutils literal notranslate"><span class="pre">converter</span></code> 函数，该函数将被调用并传入属性的值，以获取要使用的新值。
+这在对值进行类型转换时非常有用，因为你不想强迫调用者自己进行转换。</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="o">=</span> <span class="n">C</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">x</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;2&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">x</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<p>如果使用旧式的 <a class="reference internal" href="api-attr.html#attr.s" title="attr.s"><code class="xref py py-func docutils literal notranslate"><span class="pre">attr.s()</span></code></a> 装饰器，转换器默认仅在初始化时运行。
+如果使用较新的 <a class="reference internal" href="api.html#attrs.define" title="attrs.define"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.define()</span></code></a> 和其他相关方法，转换器在初始化时 <em>以及</em> 属性设置时都会运行。
+这种行为可以通过 <em>on_setattr</em> 参数进行更改。</p>
+<p>有关更多详细信息，请查看 <a class="reference internal" href="init.html#converters"><span class="std std-ref">转换器(Converters)</span></a>。</p>
+</section>
+<section id="metadata">
+<span id="id1"></span><h2>元数据(Metadata)<a class="headerlink" href="#metadata" title="Link to this heading">¶</a></h2>
+<p>所有 <em>attrs</em> 属性都可以包含任意的元数据，形式为只读字典。</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">attrs</span> <span class="kn">import</span> <span class="n">fields</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="n">x</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;my_metadata&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fields</span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">metadata</span>
+<span class="go">mappingproxy({&#39;my_metadata&#39;: 1})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fields</span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;my_metadata&#39;</span><span class="p">]</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>元数据不被 <em>attrs</em> 使用，旨在为第三方库提供丰富的功能。
+元数据字典遵循普通字典规则：
+键需要是可哈希的，建议键和值都是不可变的。</p>
+<p>如果您是具有 <em>attrs</em> 集成的第三方库的作者，请参阅 <a class="reference internal" href="extending.html#extending-metadata"><span class="std std-ref"><em>扩展元数据</em></span></a>。</p>
+</section>
+<section id="types">
+<h2>类型(Types)<a class="headerlink" href="#types" title="Link to this heading">¶</a></h2>
+<p><em>attrs</em> 还允许您使用 <em>type</em> 参数或 <span class="target" id="index-0"></span><a class="pep reference external" href="https://peps.python.org/pep-0526/"><strong>PEP 526</strong></a> 注解或 <a class="reference internal" href="api.html#attrs.field" title="attrs.field"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.field()</span></code></a>/<a class="reference internal" href="api-attr.html#attr.ib" title="attr.ib"><code class="xref py py-func docutils literal notranslate"><span class="pre">attr.ib()</span></code></a> 来将类型与属性关联：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fields</span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&lt;class &#39;int&#39;&gt;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">attr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fields</span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&lt;class &#39;int&#39;&gt;</span>
+</pre></div>
+</div>
+<p>如果您不介意注解 <em>所有</em> 属性，您甚至可以省略 <code class="docutils literal notranslate"><span class="pre">attrs.field</span></code> 并分配默认值：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">typing</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">AutoC</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">cls_var</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">ClassVar</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># 此项被忽略</span>
+<span class="gp">... </span>    <span class="n">l</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Factory</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">foo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;每个属性在 auto_attribs=True 时都需要一个类型&quot;</span>
+<span class="gp">... </span>    <span class="n">bar</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fields</span><span class="p">(</span><span class="n">AutoC</span><span class="p">)</span><span class="o">.</span><span class="n">l</span><span class="o">.</span><span class="n">type</span>
+<span class="go">list[int]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fields</span><span class="p">(</span><span class="n">AutoC</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&lt;class &#39;int&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fields</span><span class="p">(</span><span class="n">AutoC</span><span class="p">)</span><span class="o">.</span><span class="n">foo</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&lt;class &#39;str&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fields</span><span class="p">(</span><span class="n">AutoC</span><span class="p">)</span><span class="o">.</span><span class="n">bar</span><span class="o">.</span><span class="n">type</span>
+<span class="go">typing.Any</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">AutoC</span><span class="p">()</span>
+<span class="go">AutoC(l=[], x=1, foo=&#39;每个属性在 auto_attribs=True 时都需要一个类型&#39;, bar=None)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">AutoC</span><span class="o">.</span><span class="n">cls_var</span>
+<span class="go">5</span>
+</pre></div>
+</div>
+<p>生成的 <code class="docutils literal notranslate"><span class="pre">__init__</span></code> 方法将具有一个名为 <code class="docutils literal notranslate"><span class="pre">__annotations__</span></code> 的属性，该属性包含此类型信息。</p>
+<p>如果您的注解包含字符串（例如，前向引用），
+您可以通过使用 <a class="reference internal" href="api.html#attrs.resolve_types" title="attrs.resolve_types"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.resolve_types()</span></code></a> 在所有引用定义后解析这些字符串。
+这将替换相应字段中的 <em>type</em> 属性。</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">attrs</span> <span class="kn">import</span> <span class="n">resolve_types</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">a</span><span class="p">:</span> <span class="s1">&#39;list[A]&#39;</span>
+<span class="gp">... </span>    <span class="n">b</span><span class="p">:</span> <span class="s1">&#39;B&#39;</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">B</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">a</span><span class="p">:</span> <span class="n">A</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fields</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&#39;list[A]&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fields</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&#39;B&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resolve_types</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="nb">globals</span><span class="p">(),</span> <span class="nb">locals</span><span class="p">())</span>
+<span class="go">&lt;class &#39;A&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fields</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">type</span>
+<span class="go">list[A]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fields</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&lt;class &#39;B&#39;&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>如果您发现自己使用字符串类型注解来处理前向引用，请将整个类型注解用引号包裹，而不仅仅是需要前向引用的类型（因此使用 <code class="docutils literal notranslate"><span class="pre">'list[A]'</span></code> 而不是 <code class="docutils literal notranslate"><span class="pre">list['A']</span></code>）。
+这是 Python 类型系统的一个限制。</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p><em>attrs</em> 本身没有任何功能可以在类型元数据之上工作。
+但是它对于编写自己的验证器或序列化框架很有用。</p>
+</div>
+</section>
+<section id="slots">
+<h2>槽(Slots)<a class="headerlink" href="#slots" title="Link to this heading">¶</a></h2>
+<p><a class="reference internal" href="glossary.html#term-slotted-classes"><span class="xref std std-term">槽类</span></a> 在 CPython 中有几个优势。
+手动定义 <code class="docutils literal notranslate"><span class="pre">__slots__</span></code> 是繁琐的，而在 <em>attrs</em> 中，只需使用 <a class="reference internal" href="api.html#attrs.define" title="attrs.define"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.define()</span></code></a> 或传递 <code class="docutils literal notranslate"><span class="pre">slots=True</span></code> 给 <a class="reference internal" href="api-attr.html#attr.s" title="attr.s"><code class="xref py py-func docutils literal notranslate"><span class="pre">attr.s()</span></code></a>：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">Coordinates</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">... </span>    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">attr</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">Coordinates</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">... </span>    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="api.html#attrs.define" title="attrs.define"><code class="xref py py-func docutils literal notranslate"><span class="pre">define()</span></code></a> 默认设置 <code class="docutils literal notranslate"><span class="pre">slots=True</span></code>。</p>
+</section>
+<section id="immutability">
+<h2>不可变性(Immutability)<a class="headerlink" href="#immutability" title="Link to this heading">¶</a></h2>
+<p>有时候您会有一些在实例化后不应更改的实例。
+不可变性在函数式编程中特别流行，通常是非常好的事情。
+如果您想强制实现这一点，<em>attrs</em> 将尽力提供帮助：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">attrs</span> <span class="kn">import</span> <span class="n">frozen</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@frozen</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">C</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">   </span><span class="c">...</span>
+<span class="gr">attrs.exceptions.FrozenInstanceError</span>: <span class="n">can&#39;t set attribute</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">.</span><span class="n">x</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>请注意，真正的不可变性在 Python 中是不可实现的，但它可以 <a class="reference internal" href="how-does-it-work.html#how-frozen"><span class="std std-ref">让你达到</span></a> 99% 的效果。
+不可变类本身对于应该永远不变的长生命周期对象非常有用；例如配置。</p>
+<p>为了在常规程序流程中使用它们，您需要一种轻松创建新实例以更改属性的方法。
+在 Clojure 中，该函数称为 <a class="reference external" href="https://clojuredocs.org/clojure.core/assoc"><em>assoc</em></a>，而 <em>attrs</em> 毫不掩饰地模仿它：<a class="reference internal" href="api.html#attrs.evolve" title="attrs.evolve"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.evolve()</span></code></a>：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">attrs</span> <span class="kn">import</span> <span class="n">evolve</span><span class="p">,</span> <span class="n">frozen</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@frozen</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">... </span>    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i1</span> <span class="o">=</span> <span class="n">C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i1</span>
+<span class="go">C(x=1, y=2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i2</span> <span class="o">=</span> <span class="n">evolve</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i2</span>
+<span class="go">C(x=1, y=3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i1</span> <span class="o">==</span> <span class="n">i2</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>其他好东西<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
+<p>在构建具有类似插件接口的系统时，您可能希望有一个所有实现某个接口的类的注册表：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">REGISTRY</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>  <span class="c1"># 不一定要是 attrs 类！</span>
+<span class="gp">... </span>    <span class="nd">@classmethod</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__attrs_init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">REGISTRY</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">Impl</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">REGISTRY</span>
+<span class="go">[&lt;class &#39;Impl&#39;&gt;]</span>
+</pre></div>
+</div>
+<p>有时您可能希望以编程方式创建一个类。
+<em>attrs</em> 为此提供了 <a class="reference internal" href="api.html#attrs.make_class" title="attrs.make_class"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrs.make_class()</span></code></a>：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">attrs</span> <span class="kn">import</span> <span class="n">make_class</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C1</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">y</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C2</span> <span class="o">=</span> <span class="n">make_class</span><span class="p">(</span><span class="s2">&quot;C2&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">field</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">),</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">field</span><span class="p">()})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fields</span><span class="p">(</span><span class="n">C1</span><span class="p">)</span> <span class="o">==</span> <span class="n">fields</span><span class="p">(</span><span class="n">C2</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fields</span><span class="p">(</span><span class="n">C2</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&lt;class &#39;int&#39;&gt;</span>
+</pre></div>
+</div>
+<p>如果您传递一个名称与 <a class="reference internal" href="api.html#attrs.field" title="attrs.field"><code class="xref py py-func docutils literal notranslate"><span class="pre">field()</span></code></a> 映射的字典，您仍然可以控制属性，并且可以传递与 <code class="docutils literal notranslate"><span class="pre">&#64;attrs.define</span></code> 相同的参数：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">make_class</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+<span class="gp">... </span>                     <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">Factory</span><span class="p">(</span><span class="nb">list</span><span class="p">))},</span>
+<span class="gp">... </span>               <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">C</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span>  <span class="c1"># 没有添加 repr！</span>
+<span class="go">&lt;__main__.C object at ...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">.</span><span class="n">x</span>
+<span class="go">42</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">.</span><span class="n">y</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+<p>如果您需要动态创建一个类并且需要它是除 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/functions.html#object" title="（在 Python v3.13）"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a> 之外的某个其他类的子类，请使用 <code class="docutils literal notranslate"><span class="pre">bases</span></code> 参数：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">D</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="gp">... </span>       <span class="k">return</span> <span class="kc">True</span>  <span class="c1"># 随意示例</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">make_class</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">bases</span><span class="o">=</span><span class="p">(</span><span class="n">D</span><span class="p">,),</span> <span class="n">cmp</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">C</span><span class="p">(),</span> <span class="n">D</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>有时，您希望类的 <code class="docutils literal notranslate"><span class="pre">__init__</span></code> 方法不仅仅执行初始化、验证等自动完成的任务。
+为此，只需在类中定义一个 <code class="docutils literal notranslate"><span class="pre">__attrs_post_init__</span></code> 方法。
+它将在生成的 <code class="docutils literal notranslate"><span class="pre">__init__</span></code> 方法结束时被调用。</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">... </span>    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span>
+<span class="gp">... </span>    <span class="n">z</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">obj</span> <span class="o">=</span> <span class="n">C</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">obj</span>
+<span class="go">C(x=1, y=2, z=3)</span>
+</pre></div>
+</div>
+<p>您可以从某些方法中排除单个属性：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">user</span><span class="p">:</span> <span class="nb">str</span>
+<span class="gp">... </span>    <span class="n">password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">(</span><span class="s2">&quot;me&quot;</span><span class="p">,</span> <span class="s2">&quot;s3kr3t&quot;</span><span class="p">)</span>
+<span class="go">C(user=&#39;me&#39;)</span>
+</pre></div>
+</div>
+<p>或者，若要影响生成的 <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> 方法如何格式化特定属性，请指定一个自定义可调用对象以替代 <code class="docutils literal notranslate"><span class="pre">repr()</span></code> 内置函数：</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@define</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">user</span><span class="p">:</span> <span class="nb">str</span>
+<span class="gp">... </span>    <span class="n">password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="k">lambda</span> <span class="n">value</span><span class="p">:</span> <span class="s1">&#39;***&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="p">(</span><span class="s2">&quot;me&quot;</span><span class="p">,</span> <span class="s2">&quot;s3kr3t&quot;</span><span class="p">)</span>
+<span class="go">C(user=&#39;me&#39;, password=***)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="types.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">类型注解</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="why.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">为什么不用……</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2015, Hynek Schlawack
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#"><em>attrs</em> 示例</a><ul>
+<li><a class="reference internal" href="#basics">基础(Basics)</a><ul>
+<li><a class="reference internal" href="#keyword-only-attributes">仅关键字属性(Keyword-only Attributes)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#converting-to-collections-types">转换为集合类型(Converting to Collections Types)</a></li>
+<li><a class="reference internal" href="#defaults">默认值(Defaults)</a></li>
+<li><a class="reference internal" href="#validators">验证器(Validators)</a></li>
+<li><a class="reference internal" href="#conversion">转换(Conversion)</a></li>
+<li><a class="reference internal" href="#metadata">元数据(Metadata)</a></li>
+<li><a class="reference internal" href="#types">类型(Types)</a></li>
+<li><a class="reference internal" href="#slots">槽(Slots)</a></li>
+<li><a class="reference internal" href="#immutability">不可变性(Immutability)</a></li>
+<li><a class="reference internal" href="#id2">其他好东西</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=3e342831"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="_static/translations.js?v=beaddf03"></script>
+    </body>
+</html>
