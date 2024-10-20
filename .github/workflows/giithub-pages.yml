@@ -24,14 +24,16 @@ jobs:
         run: |
           pip install sphinx sphinx_rtd_theme furo cogapp myst-parser  sphinx-notfound-page sphinxcontrib-towncrier "towncrier<24.7"
       - name: Sphinx 构建
-        working-directory: ./
+        working-directory: ./docs
+        # run: |
+          # sphinx-build docs build/html
         run: |
-          sphinx-build docs build/html
+          make html
       - name: 部署到 GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/html
+          publish_dir: ./docs/_build/html
           force_orphan: true
