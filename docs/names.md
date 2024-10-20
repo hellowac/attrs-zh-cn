@@ -29,7 +29,7 @@
 它的第一次发布是在 2015 年 4 月 -- 当时大多数 Python 代码还在 Python 2.7 上，Python 3.4 是第一个展现潜力的 Python 3 版本。
 *attrs* 一直以来都是以 Python 3 为主，但 [类型注解](https://peps.python.org/pep-0484/) 直到 2015 年 9 月的 Python 3.5 才发布，并在几年内基本上被忽视。
 
-那时，如果你不想实现所有的 {term}`dunder 方法`，创建一个带有属性的类最常见的方法就是继承 {obj}`collections.namedtuple`，或者使用许多黑客手段，通过属性查找来访问字典键。
+那时，如果你不想实现所有的 {term}`双下划线方法 <dunder methods>`，创建一个带有属性的类最常见的方法就是继承 {obj}`collections.namedtuple`，或者使用许多黑客手段，通过属性查找来访问字典键。
 
 但 *attrs* 的历史可以追溯得更远，最早可以追溯到现在被遗忘的 [*characteristic*](https://github.com/hynek/characteristic)，它于 2014 年 5 月发布，已经使用了类装饰器，但整体上使用起来过于繁琐。
 

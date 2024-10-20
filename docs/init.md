@@ -554,7 +554,7 @@ Base has been subclassed by <class 'Derived'>.
 ```
 
 不幸的是，像 *attrs*（或 `dataclasses`）这样的类装饰器方法与 `__init_subclass__` 的兼容性较差。
-对于 {term}`字典类`，该方法在类被 *attrs* 处理之前运行；而对于 {term}`槽类`，由于 *attrs* 需要 *替换* 原始类，`__init_subclass__` 会被调用 *两次*：一次用于原始类，一次用于 *attrs* 类。
+对于 {term}`字典类 <dict classes>`，该方法在类被 *attrs* 处理之前运行；而对于 {term}`插槽类 <slotted classes>`，由于 *attrs* 需要 *替换* 原始类，`__init_subclass__` 会被调用 *两次*：一次用于原始类，一次用于 *attrs* 类。
 
 为了解决这个问题，*attrs* 提供了 `__attrs_init_subclass__`，它会在类组装完成后被调用。
 基类甚至不必是 *attrs* 类：

@@ -4,7 +4,7 @@
 
 ```{include} ../README.md
 :start-after: 'code-begin -->'
-:end-before: '### Hate Type Annotations!?'
+:end-before: '### 讨厌类型注解！？'
 ```
 
 

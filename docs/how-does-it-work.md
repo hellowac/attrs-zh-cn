@@ -13,7 +13,7 @@
 
 为了确保子类化按预期工作，*attrs* 还会遍历类层次结构，收集所有基类的属性。
 请注意，*attrs* **不会** 调用 `super()`。
-它会编写 {term}`dunder 方法` 来处理 **所有** 这些属性，这也带来了由于减少函数调用而提高的性能。
+它会编写 {term}`双下划线方法 <dunder methods>` 来处理 **所有** 这些属性，这也带来了由于减少函数调用而提高的性能。
 
 一旦 *attrs* 知道它需要处理哪些属性，它就会写入请求的 {term}`双下划线方法 <dunder methods>`，并根据你希望创建的是 {term}`dict <dict classes>` 还是 {term}`slotted <slotted classes>` 类，创建一个新类（`slots=True`）或将它们附加到原始类（`slots=False`）。
 虽然创建新类更优雅，但我们遇到了一些围绕元类的边缘情况，使得无法无条件地走这条路。
